@@ -14,6 +14,7 @@ function mapBlogPost(item: any): BlogPost {
     content: item.content || '',
     coverImageUrl: item.cover_image_url || undefined,
     status: (item.status as BlogPostStatus) || 'draft',
+    lang: item.lang || 'fr',
     authorId: item.author_id || '',
     authorName: authorName,
     seoTitle: item.seo_title || undefined,
@@ -124,6 +125,7 @@ export async function createPost(post: Omit<BlogPost, 'id' | 'createdAt' | 'upda
       content: post.content,
       cover_image_url: post.coverImageUrl || null,
       status: post.status,
+      lang: post.lang || 'fr',
       author_id: post.authorId,
       seo_title: post.seoTitle || null,
       seo_description: post.seoDescription || null,
@@ -181,6 +183,7 @@ export async function updatePost(id: string, post: Partial<Omit<BlogPost, 'id' |
         updateData.published_at = new Date().toISOString();
       }
     }
+    if (post.lang !== undefined) updateData.lang = post.lang || 'fr';
     if (post.authorId !== undefined) updateData.author_id = post.authorId;
     if (post.seoTitle !== undefined) updateData.seo_title = post.seoTitle || null;
     if (post.seoDescription !== undefined) updateData.seo_description = post.seoDescription || null;

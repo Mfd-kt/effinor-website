@@ -10,6 +10,7 @@ export const ar: Dictionary = {
     solutions_study: 'دراسة تقنية',
     about: 'من نحن',
     blog: 'المدونة',
+    faq: 'الأسئلة الشائعة',
     contact: 'اتصل بنا',
   },
   hero: {
@@ -170,6 +171,7 @@ export const ar: Dictionary = {
   footer: {
     legal: 'الإشعارات القانونية',
     privacy: 'سياسة الخصوصية',
+    cgv: 'شروط البيع',
     contact: 'اتصل بنا',
   },
   product: {

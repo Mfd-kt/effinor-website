@@ -41,6 +41,8 @@ ALTER TABLE public.seo_scripts ENABLE ROW LEVEL SECURITY;
 
 -- 5. Supprimer les politiques existantes si elles existent
 DROP POLICY IF EXISTS "Public read access for seo_scripts" ON public.seo_scripts;
+DROP POLICY IF EXISTS "Public read access for active seo_scripts" ON public.seo_scripts;
+DROP POLICY IF EXISTS "Authenticated users can read all seo_scripts" ON public.seo_scripts;
 DROP POLICY IF EXISTS "Authenticated users can insert seo_scripts" ON public.seo_scripts;
 DROP POLICY IF EXISTS "Authenticated users can update seo_scripts" ON public.seo_scripts;
 DROP POLICY IF EXISTS "Authenticated users can delete seo_scripts" ON public.seo_scripts;

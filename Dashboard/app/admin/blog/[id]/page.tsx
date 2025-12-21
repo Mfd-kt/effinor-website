@@ -49,6 +49,7 @@ export default function BlogDetailPage() {
     excerpt: "",
     content: "",
     status: "draft" as BlogPostStatus,
+    lang: "fr" as "fr" | "en" | "ar",
     tags: [] as string[],
     categoryId: "",
     seoTitle: "",
@@ -114,6 +115,7 @@ export default function BlogDetailPage() {
           excerpt: postData.excerpt || "",
           content: postData.content || "",
           status: postData.status || "draft",
+          lang: postData.lang || "fr",
           tags: postData.tags || [],
           categoryId: postData.categoryId || "",
           seoTitle: postData.seoTitle || "",
@@ -212,6 +214,7 @@ export default function BlogDetailPage() {
         excerpt: formData.excerpt.trim() || undefined,
         content: formData.content.trim(),
         status: formData.status,
+        lang: formData.lang,
         authorId: currentUserId,
         tags: formData.tags.length > 0 ? formData.tags : undefined,
         categoryId: formData.categoryId || undefined,
@@ -411,6 +414,22 @@ export default function BlogDetailPage() {
                   <option value="draft">Brouillon</option>
                   <option value="published">Publié</option>
                   <option value="archived">Archivé</option>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="lang" className="text-sm font-semibold">
+                  Langue
+                </Label>
+                <Select
+                  id="lang"
+                  value={formData.lang}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, lang: e.target.value as "fr" | "en" | "ar" }))}
+                  className="h-11"
+                >
+                  <option value="fr">🇫🇷 Français</option>
+                  <option value="en">🇬🇧 English</option>
+                  <option value="ar">🇸🇦 العربية</option>
                 </Select>
               </div>
 

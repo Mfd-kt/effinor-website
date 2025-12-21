@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
         hostname: 'picsum.photos',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        pathname: '/**',
+      },
       // Pour les images Supabase Storage (à ajouter si vous utilisez Supabase Storage)
       {
         protocol: 'https',

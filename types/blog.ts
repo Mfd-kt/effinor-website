@@ -1,5 +1,6 @@
-export type BlogPostStatus = "draft" | "published" | "archived";
-export type BlogPostLang = "fr" | "en" | "ar";
+import { Lang } from './index';
+
+export type BlogPostStatus = 'draft' | 'published' | 'archived';
 
 export interface BlogPost {
   id: string;
@@ -7,17 +8,17 @@ export interface BlogPost {
   slug: string;
   excerpt?: string;
   content: string;
-  categoryId?: string;
-  category?: string;
+  coverImageUrl?: string;
   status: BlogPostStatus;
-  lang?: BlogPostLang;
+  lang?: Lang;
   authorId: string;
-  authorName: string;
+  authorName?: string;
   seoTitle?: string;
   seoDescription?: string;
   seoOgImageUrl?: string;
-  coverImageUrl?: string;
   tags?: string[];
+  categoryId?: string;
+  category?: string;
   publishedAt?: Date;
   createdAt: Date;
   updatedAt: Date;

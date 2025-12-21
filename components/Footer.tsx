@@ -57,19 +57,24 @@ export default function Footer({ lang, dict }: FooterProps) {
             <h4 className="text-white font-semibold mb-4">Informations</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href={`/${lang}/legal`} className="hover:text-white transition-colors text-gray-400">
+                <Link href={`/${lang}/seo/mentions-legales`} className="hover:text-white transition-colors text-gray-400">
                   {dict.footer.legal}
                 </Link>
               </li>
               <li>
-                <Link href={`/${lang}/privacy`} className="hover:text-white transition-colors text-gray-400">
+                <Link href={`/${lang}/seo/politique-confidentialite`} className="hover:text-white transition-colors text-gray-400">
                   {dict.footer.privacy}
                 </Link>
               </li>
               <li>
-                <a href="mailto:contact@effinor.com" className="hover:text-white transition-colors text-gray-400">
+                <Link href={`/${lang}/seo/cgv`} className="hover:text-white transition-colors text-gray-400">
+                  {dict.footer.cgv}
+                </Link>
+              </li>
+              <li>
+                <Link href={`/${lang}/contact`} className="hover:text-white transition-colors text-gray-400">
                   {dict.footer.contact}
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

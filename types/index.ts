@@ -14,6 +14,7 @@ export interface Dictionary {
     solutions_study: string;
     about: string;
     blog: string;
+    faq: string;
     contact: string;
   };
   hero: {
@@ -142,6 +143,7 @@ export interface Dictionary {
   footer: {
     legal: string;
     privacy: string;
+    cgv: string;
     contact: string;
   };
   product: {

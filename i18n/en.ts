@@ -10,6 +10,7 @@ export const en: Dictionary = {
     solutions_study: 'Technical Study',
     about: 'About',
     blog: 'Blog',
+    faq: 'FAQ',
     contact: 'Contact',
   },
   hero: {
@@ -170,6 +171,7 @@ export const en: Dictionary = {
   footer: {
     legal: 'Legal notice',
     privacy: 'Privacy policy',
+    cgv: 'Terms of Sale',
     contact: 'Contact',
   },
   product: {

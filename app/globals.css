@@ -80,3 +80,93 @@ body {
 [dir="rtl"] .text-right {
   text-align: left;
 }
+
+/* Styles pour le contenu SEO */
+.seo-content {
+  @apply text-[#4B5563] leading-relaxed;
+}
+
+.seo-content h1,
+.seo-content h2,
+.seo-content h3,
+.seo-content h4,
+.seo-content h5,
+.seo-content h6 {
+  @apply text-[#1F2937] font-bold mt-8 mb-4;
+}
+
+.seo-content h1 {
+  @apply text-3xl;
+}
+
+.seo-content h2 {
+  @apply text-2xl;
+}
+
+.seo-content h3 {
+  @apply text-xl;
+}
+
+.seo-content p {
+  @apply mb-4 text-[#4B5563] leading-relaxed;
+}
+
+.seo-content a {
+  @apply text-[#10B981] no-underline hover:underline;
+}
+
+.seo-content ul,
+.seo-content ol {
+  @apply mb-4 ml-6;
+}
+
+.seo-content li {
+  @apply mb-2;
+}
+
+.seo-content strong {
+  @apply font-bold text-[#1F2937];
+}
+
+.seo-content em {
+  @apply italic;
+}
+
+.seo-content blockquote {
+  @apply border-l-4 border-[#10B981] pl-4 italic my-4;
+}
+
+.seo-content code {
+  @apply bg-gray-100 px-1 py-0.5 rounded text-sm font-mono;
+}
+
+.seo-content pre {
+  @apply bg-gray-100 p-4 rounded overflow-x-auto my-4;
+}
+
+.seo-content pre code {
+  @apply bg-transparent p-0;
+}
+
+.seo-content table {
+  @apply w-full border-collapse my-4;
+}
+
+.seo-content th,
+.seo-content td {
+  @apply border border-gray-300 px-4 py-2;
+}
+
+.seo-content th {
+  @apply bg-gray-100 font-bold text-[#1F2937];
+}
+
+/* Support RTL pour l'arabe */
+.rtl .seo-content ul,
+.rtl .seo-content ol {
+  @apply mr-6 ml-0;
+}
+
+.rtl .seo-content blockquote {
+  @apply border-r-4 border-l-0 pr-4 pl-0;
+}

@@ -126,6 +126,16 @@ export default function Header({ lang, dict }: HeaderProps) {
               {dict.nav.blog}
             </Link>
             <Link
+              href={`/${lang}/faq`}
+              className={`text-sm font-medium transition-colors ${
+                pathname === `/${lang}/faq`
+                  ? 'text-[#10B981]'
+                  : 'text-[#111827] hover:text-[#10B981]'
+              }`}
+            >
+              {dict.nav.faq}
+            </Link>
+            <Link
               href={`/${lang}/contact`}
               className={`text-sm font-medium transition-colors ${
                 pathname === `/${lang}/contact`
