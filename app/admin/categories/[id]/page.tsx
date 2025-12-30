@@ -293,7 +293,7 @@ export default function CategoryDetailPage() {
         <Card>
           <CardHeader className="pb-4">
             <div className="flex items-center gap-2">
-              <Globe className="h-5 w-5 text-effinor-emerald" />
+              <Globe className="h-5 w-5 text-[#10B981]" />
               <CardTitle>Traductions</CardTitle>
             </div>
             <CardDescription>
@@ -341,7 +341,7 @@ export default function CategoryDetailPage() {
                       id={`description-${lang}`}
                       value={translations[lang].description || ""}
                       onChange={(e) => handleDescriptionChange(lang, e.target.value)}
-                      className="w-full min-h-[120px] rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm text-effinor-gray-dark placeholder:text-effinor-gray-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-effinor-emerald focus-visible:ring-offset-2 focus-visible:border-effinor-emerald resize-y"
+                      className="w-full min-h-[120px] rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm text-[#111827] placeholder:text-[#4B5563] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#10B981] focus-visible:ring-offset-2 focus-visible:border-[#10B981] resize-y"
                       placeholder={`Description de la catégorie en ${lang === "fr" ? "français" : lang === "en" ? "anglais" : "arabe"}`}
                     />
                   </div>
@@ -371,7 +371,7 @@ export default function CategoryDetailPage() {
                 placeholder="slug-categorie"
                 className="h-11"
               />
-              <p className="text-xs text-effinor-gray-text mt-1.5">
+              <p className="text-xs text-[#4B5563] mt-1.5">
                 Généré automatiquement depuis le nom (FR) si vide
               </p>
             </div>
@@ -399,7 +399,7 @@ export default function CategoryDetailPage() {
                 placeholder="0"
                 className="h-11"
               />
-              <p className="text-xs text-effinor-gray-text mt-1.5">
+              <p className="text-xs text-[#4B5563] mt-1.5">
                 Détermine l'ordre d'affichage dans la liste (plus petit = affiché en premier)
               </p>
             </div>
@@ -410,7 +410,7 @@ export default function CategoryDetailPage() {
                 id="visible"
                 checked={formData.visible}
                 onChange={(e) => setFormData((prev) => ({ ...prev, visible: e.target.checked }))}
-                className="h-4 w-4 rounded border-gray-300 text-effinor-emerald focus:ring-effinor-emerald"
+                className="h-4 w-4 rounded border-gray-300 text-[#10B981] focus:ring-[#10B981]"
               />
               <Label htmlFor="visible" className="cursor-pointer text-sm font-medium">
                 Visible

@@ -151,10 +151,10 @@ export function LeadReminders({ leadId }: LeadRemindersProps) {
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Bell className="w-5 h-5 text-effinor-emerald" />
+          <Bell className="w-5 h-5 text-[#10B981]" />
           <h3 className="font-semibold">Rappels</h3>
           {activeReminders.length > 0 && (
-            <span className="text-xs bg-effinor-emerald text-white px-2 py-0.5 rounded-full">
+            <span className="text-xs bg-[#10B981] text-white px-2 py-0.5 rounded-full">
               {activeReminders.length}
             </span>
           )}
@@ -162,7 +162,7 @@ export function LeadReminders({ leadId }: LeadRemindersProps) {
         <Button
           size="sm"
           onClick={() => setShowForm(!showForm)}
-          className="bg-effinor-emerald hover:bg-effinor-emerald/90"
+          className="bg-[#10B981] hover:bg-[#10B981]/90"
         >
           <Plus className="w-4 h-4 mr-1" />
           Ajouter
@@ -196,7 +196,7 @@ export function LeadReminders({ leadId }: LeadRemindersProps) {
           <div className="flex gap-2">
             <Button
               onClick={handleAddReminder}
-              className="flex-1 bg-effinor-emerald hover:bg-effinor-emerald/90"
+              className="flex-1 bg-[#10B981] hover:bg-[#10B981]/90"
             >
               Créer
             </Button>

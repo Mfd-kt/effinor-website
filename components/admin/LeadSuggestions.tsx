@@ -168,9 +168,9 @@ export function LeadSuggestions({ lead, onSuggestionClick }: LeadSuggestionsProp
                       setTimeout(() => {
                         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
                         // Highlight temporairement
-                        element.classList.add('ring-2', 'ring-effinor-emerald', 'ring-offset-2');
+                        element.classList.add('ring-2', 'ring-[#10B981]', 'ring-offset-2');
                         setTimeout(() => {
-                          element.classList.remove('ring-2', 'ring-effinor-emerald', 'ring-offset-2');
+                          element.classList.remove('ring-2', 'ring-[#10B981]', 'ring-offset-2');
                         }, 2000);
                       }, 100);
                     } else {

@@ -125,7 +125,7 @@ export function LeadTags({ leadId, onTagsChange }: LeadTagsProps) {
           onClick={handleAddTag} 
           size="sm"
           disabled={loading || !newTag.trim()}
-          className="bg-effinor-emerald hover:bg-effinor-emerald/90"
+          className="bg-[#10B981] hover:bg-[#10B981]/90"
         >
           <Plus className="w-4 h-4" />
         </Button>
@@ -138,7 +138,7 @@ export function LeadTags({ leadId, onTagsChange }: LeadTagsProps) {
             <button
               key={tag}
               onClick={() => handleUseSuggestedTag(tag)}
-              className="underline hover:text-effinor-emerald mr-1"
+              className="underline hover:text-[#10B981] mr-1"
             >
               {tag}{index < suggestedTags.length - 1 ? ',' : ''}
             </button>

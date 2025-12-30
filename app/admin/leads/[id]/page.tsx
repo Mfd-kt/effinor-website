@@ -666,10 +666,10 @@ export default function LeadDetailPage() {
               <ArrowLeft className="h-4 w-4" />
             </Button>
             <div>
-              <h1 className="text-2xl font-bold text-effinor-gray-dark">
+              <h1 className="text-2xl font-bold text-[#111827]">
                 {lead.fullName || "Lead"}
               </h1>
-              <div className="flex items-center gap-4 mt-1 text-sm text-effinor-gray-text">
+              <div className="flex items-center gap-4 mt-1 text-sm text-[#4B5563]">
                 {lead.email && (
                   <div className="flex items-center gap-1">
                     <Mail className="h-3 w-3" />
@@ -702,8 +702,8 @@ export default function LeadDetailPage() {
 
       {/* Indicateur de sauvegarde automatique */}
       {lastSaved && (
-        <div className="flex items-center gap-2 text-sm text-effinor-gray-text bg-effinor-gray-light px-4 py-2 rounded-md border border-effinor-emerald/20">
-          <CheckCircle2 className="h-4 w-4 text-effinor-emerald" />
+        <div className="flex items-center gap-2 text-sm text-[#4B5563] bg-[#F9FAFB] px-4 py-2 rounded-md border border-[#10B981]/20">
+          <CheckCircle2 className="h-4 w-4 text-[#10B981]" />
           <span>Dernière sauvegarde automatique : {format(lastSaved, "dd MMM yyyy à HH:mm:ss")}</span>
         </div>
       )}
@@ -1056,11 +1056,11 @@ export default function LeadDetailPage() {
                         value={formData.workRegion || (formData.workPostcode ? calculateRegion(formData.workPostcode) || "" : "")}
                         readOnly
                         placeholder="Hauts-de-France"
-                        className="h-11 bg-effinor-gray-light cursor-not-allowed"
+                        className="h-11 bg-[#F9FAFB] cursor-not-allowed"
                         title="Région calculée automatiquement depuis le code postal"
                       />
                       {formData.workPostcode && (
-                        <p className="text-xs text-effinor-gray-text">
+                        <p className="text-xs text-[#4B5563]">
                           Calculée automatiquement depuis le code postal
                         </p>
                       )}
@@ -1074,11 +1074,11 @@ export default function LeadDetailPage() {
                         value={formData.workClimateZone || (formData.workPostcode ? calculateClimateZone(formData.workPostcode) || "" : "")}
                         readOnly
                         placeholder="H1"
-                        className="h-11 bg-effinor-gray-light cursor-not-allowed"
+                        className="h-11 bg-[#F9FAFB] cursor-not-allowed"
                         title="Zone calculée automatiquement depuis le code postal"
                       />
                       {formData.workPostcode && (
-                        <p className="text-xs text-effinor-gray-text">
+                        <p className="text-xs text-[#4B5563]">
                           Calculée automatiquement depuis le code postal
                         </p>
                       )}
@@ -1404,10 +1404,10 @@ export default function LeadDetailPage() {
                 <CardContent className="space-y-5">
                   {leadRaw.message && (
                     <div>
-                      <Label className="text-sm font-semibold text-effinor-gray-text">
+                      <Label className="text-sm font-semibold text-[#4B5563]">
                         Message du lead
                       </Label>
-                      <div className="mt-2 p-3 bg-effinor-gray-light rounded-md text-sm text-effinor-gray-dark">
+                      <div className="mt-2 p-3 bg-[#F9FAFB] rounded-md text-sm text-[#111827]">
                         {leadRaw.message}
                       </div>
                     </div>
@@ -1421,7 +1421,7 @@ export default function LeadDetailPage() {
                       id="internalNotes"
                       value={formData.internalNotes}
                       {...createFieldProps('internalNotes')}
-                      className="w-full min-h-[120px] rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm text-effinor-gray-dark placeholder:text-effinor-gray-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-effinor-emerald focus-visible:ring-offset-2 focus-visible:border-effinor-emerald resize-y"
+                      className="w-full min-h-[120px] rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm text-[#111827] placeholder:text-[#4B5563] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#10B981] focus-visible:ring-offset-2 focus-visible:border-[#10B981] resize-y"
                       placeholder="Ajoutez des notes internes sur ce lead..."
                     />
                   </div>
@@ -1468,14 +1468,14 @@ export default function LeadDetailPage() {
                 <CardContent className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <Label className="text-sm font-semibold text-effinor-gray-text">Source</Label>
-                      <p className="text-sm text-effinor-gray-dark mt-1">
+                      <Label className="text-sm font-semibold text-[#4B5563]">Source</Label>
+                      <p className="text-sm text-[#111827] mt-1">
                         {lead.source.charAt(0).toUpperCase() + lead.source.slice(1)}
                       </p>
                     </div>
                     <div>
-                      <Label className="text-sm font-semibold text-effinor-gray-text">Langue</Label>
-                      <p className="text-sm text-effinor-gray-dark mt-1">
+                      <Label className="text-sm font-semibold text-[#4B5563]">Langue</Label>
+                      <p className="text-sm text-[#111827] mt-1">
                         {leadRaw.lang?.toUpperCase() || "N/A"}
                       </p>
                     </div>
@@ -1483,28 +1483,28 @@ export default function LeadDetailPage() {
 
                   {leadRaw.page && (
                     <div>
-                      <Label className="text-sm font-semibold text-effinor-gray-text">Page</Label>
-                      <p className="text-sm text-effinor-gray-dark mt-1">{leadRaw.page}</p>
+                      <Label className="text-sm font-semibold text-[#4B5563]">Page</Label>
+                      <p className="text-sm text-[#111827] mt-1">{leadRaw.page}</p>
                     </div>
                   )}
 
                   {leadRaw.origin && (
                     <div>
-                      <Label className="text-sm font-semibold text-effinor-gray-text">Origine</Label>
-                      <p className="text-sm text-effinor-gray-dark mt-1">{leadRaw.origin}</p>
+                      <Label className="text-sm font-semibold text-[#4B5563]">Origine</Label>
+                      <p className="text-sm text-[#111827] mt-1">{leadRaw.origin}</p>
                     </div>
                   )}
 
                   {leadRaw.solution && (
                     <div>
-                      <Label className="text-sm font-semibold text-effinor-gray-text">Solution</Label>
-                      <p className="text-sm text-effinor-gray-dark mt-1">{leadRaw.solution}</p>
+                      <Label className="text-sm font-semibold text-[#4B5563]">Solution</Label>
+                      <p className="text-sm text-[#111827] mt-1">{leadRaw.solution}</p>
                     </div>
                   )}
 
                   <div>
-                    <Label className="text-sm font-semibold text-effinor-gray-text">Date de création</Label>
-                    <p className="text-sm text-effinor-gray-dark mt-1">
+                    <Label className="text-sm font-semibold text-[#4B5563]">Date de création</Label>
+                    <p className="text-sm text-[#111827] mt-1">
                       {format(lead.createdAt, "dd MMM yyyy à HH:mm")}
                     </p>
                   </div>
@@ -1523,44 +1523,44 @@ export default function LeadDetailPage() {
                   <CardContent className="space-y-3">
                     {leadRaw.utm_source && (
                       <div>
-                        <Label className="text-sm font-semibold text-effinor-gray-text">UTM Source</Label>
-                        <p className="text-sm text-effinor-gray-dark mt-1">{leadRaw.utm_source}</p>
+                        <Label className="text-sm font-semibold text-[#4B5563]">UTM Source</Label>
+                        <p className="text-sm text-[#111827] mt-1">{leadRaw.utm_source}</p>
                       </div>
                     )}
                     {leadRaw.utm_medium && (
                       <div>
-                        <Label className="text-sm font-semibold text-effinor-gray-text">UTM Medium</Label>
-                        <p className="text-sm text-effinor-gray-dark mt-1">{leadRaw.utm_medium}</p>
+                        <Label className="text-sm font-semibold text-[#4B5563]">UTM Medium</Label>
+                        <p className="text-sm text-[#111827] mt-1">{leadRaw.utm_medium}</p>
                       </div>
                     )}
                     {leadRaw.utm_campaign && (
                       <div>
-                        <Label className="text-sm font-semibold text-effinor-gray-text">UTM Campaign</Label>
-                        <p className="text-sm text-effinor-gray-dark mt-1">{leadRaw.utm_campaign}</p>
+                        <Label className="text-sm font-semibold text-[#4B5563]">UTM Campaign</Label>
+                        <p className="text-sm text-[#111827] mt-1">{leadRaw.utm_campaign}</p>
                       </div>
                     )}
                     {leadRaw.utm_term && (
                       <div>
-                        <Label className="text-sm font-semibold text-effinor-gray-text">UTM Term</Label>
-                        <p className="text-sm text-effinor-gray-dark mt-1">{leadRaw.utm_term}</p>
+                        <Label className="text-sm font-semibold text-[#4B5563]">UTM Term</Label>
+                        <p className="text-sm text-[#111827] mt-1">{leadRaw.utm_term}</p>
                       </div>
                     )}
                     {leadRaw.utm_content && (
                       <div>
-                        <Label className="text-sm font-semibold text-effinor-gray-text">UTM Content</Label>
-                        <p className="text-sm text-effinor-gray-dark mt-1">{leadRaw.utm_content}</p>
+                        <Label className="text-sm font-semibold text-[#4B5563]">UTM Content</Label>
+                        <p className="text-sm text-[#111827] mt-1">{leadRaw.utm_content}</p>
                       </div>
                     )}
                     {leadRaw.gclid && (
                       <div>
-                        <Label className="text-sm font-semibold text-effinor-gray-text">Google Click ID</Label>
-                        <p className="text-sm text-effinor-gray-dark mt-1 font-mono text-xs">{leadRaw.gclid}</p>
+                        <Label className="text-sm font-semibold text-[#4B5563]">Google Click ID</Label>
+                        <p className="text-sm text-[#111827] mt-1 font-mono text-xs">{leadRaw.gclid}</p>
                       </div>
                     )}
                     {leadRaw.fbclid && (
                       <div>
-                        <Label className="text-sm font-semibold text-effinor-gray-text">Facebook Click ID</Label>
-                        <p className="text-sm text-effinor-gray-dark mt-1 font-mono text-xs">{leadRaw.fbclid}</p>
+                        <Label className="text-sm font-semibold text-[#4B5563]">Facebook Click ID</Label>
+                        <p className="text-sm text-[#111827] mt-1 font-mono text-xs">{leadRaw.fbclid}</p>
                       </div>
                     )}
                   </CardContent>

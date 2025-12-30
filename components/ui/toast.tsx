@@ -59,8 +59,8 @@ function Toast({ toast }: { toast: Toast }) {
         toast.variant === "destructive"
           ? "border-red-600 bg-red-600 text-white"
           : toast.variant === "success"
-          ? "border-effinor-emerald bg-effinor-emerald text-white"
-          : "border-gray-200 bg-white text-effinor-gray-dark"
+          ? "border-[#10B981] bg-[#10B981] text-white"
+          : "border-gray-200 bg-white text-[#111827]"
       )}
     >
       <div className="grid gap-1">

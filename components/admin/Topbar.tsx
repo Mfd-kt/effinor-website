@@ -92,7 +92,7 @@ export function Topbar() {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-80 max-h-[500px] overflow-hidden flex flex-col p-0">
               <div className="flex items-center justify-between p-3 border-b border-gray-200">
-                <h3 className="font-semibold text-effinor-gray-dark">Notifications</h3>
+                <h3 className="font-semibold text-[#111827]">Notifications</h3>
                 {notifications.length > 0 && (
                   <Button
                     variant="ghost"
@@ -110,16 +110,16 @@ export function Topbar() {
               <div className="overflow-y-auto max-h-80">
                 {notifications.length === 0 ? (
                   <div className="p-6 text-center">
-                    <Bell className="h-8 w-8 mx-auto text-effinor-gray-text mb-2 opacity-50" />
-                    <p className="text-sm text-effinor-gray-text">Aucune notification</p>
+                    <Bell className="h-8 w-8 mx-auto text-[#4B5563] mb-2 opacity-50" />
+                    <p className="text-sm text-[#4B5563]">Aucune notification</p>
                   </div>
                 ) : (
                   <div className="divide-y divide-gray-100">
                     {notifications.slice(0, 10).map((notification) => (
                       <div
                         key={notification.id}
-                        className={`p-3 hover:bg-effinor-gray-light transition-colors cursor-pointer ${
-                          !notification.read ? 'bg-effinor-emerald/5' : ''
+                        className={`p-3 hover:bg-[#F9FAFB] transition-colors cursor-pointer ${
+                          !notification.read ? 'bg-[#10B981]/5' : ''
                         }`}
                         onClick={(e) => {
                           e.stopPropagation();
@@ -128,7 +128,7 @@ export function Topbar() {
                       >
                         <div className="flex items-start gap-3">
                           <div className={`mt-1 flex-shrink-0 ${
-                            notification.type === 'order' ? 'text-effinor-emerald' : 'text-blue-500'
+                            notification.type === 'order' ? 'text-[#10B981]' : 'text-blue-500'
                           }`}>
                             {notification.type === 'order' ? (
                               <ShoppingCart className="h-5 w-5" />
@@ -139,18 +139,18 @@ export function Topbar() {
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2">
                               <p className={`text-sm font-medium ${
-                                notification.read ? 'text-effinor-gray-dark' : 'text-effinor-gray-dark font-semibold'
+                                notification.read ? 'text-[#111827]' : 'text-[#111827] font-semibold'
                               }`}>
                                 {notification.title}
                               </p>
                               {!notification.read && (
-                                <span className="h-2 w-2 rounded-full bg-effinor-emerald flex-shrink-0"></span>
+                                <span className="h-2 w-2 rounded-full bg-[#10B981] flex-shrink-0"></span>
                               )}
                             </div>
-                            <p className="text-xs text-effinor-gray-text mt-1 line-clamp-2">
+                            <p className="text-xs text-[#4B5563] mt-1 line-clamp-2">
                               {notification.description}
                             </p>
-                            <p className="text-xs text-effinor-gray-text mt-1">
+                            <p className="text-xs text-[#4B5563] mt-1">
                               {format(notification.createdAt, "dd MMM yyyy HH:mm", { locale: fr })}
                             </p>
                           </div>
@@ -193,16 +193,16 @@ export function Topbar() {
               {user && (
                 <>
                   <div className="px-2 py-1.5">
-                    <p className="text-sm font-medium text-effinor-gray-dark">{user.fullName}</p>
-                    <p className="text-xs text-effinor-gray-text">{user.email}</p>
+                    <p className="text-sm font-medium text-[#111827]">{user.fullName}</p>
+                    <p className="text-xs text-[#4B5563]">{user.email}</p>
                   </div>
                   <div className="border-t border-gray-200 my-1" />
                 </>
               )}
-              <DropdownMenuItem className="text-effinor-gray-dark">Profil</DropdownMenuItem>
-              <DropdownMenuItem className="text-effinor-gray-dark">Paramètres</DropdownMenuItem>
+              <DropdownMenuItem className="text-[#111827]">Profil</DropdownMenuItem>
+              <DropdownMenuItem className="text-[#111827]">Paramètres</DropdownMenuItem>
               <div className="border-t border-gray-200 my-1" />
-              <DropdownMenuItem className="text-effinor-gray-dark">Se déconnecter</DropdownMenuItem>
+              <DropdownMenuItem className="text-[#111827]">Se déconnecter</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

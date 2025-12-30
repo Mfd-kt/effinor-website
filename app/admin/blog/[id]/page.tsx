@@ -359,7 +359,7 @@ export default function BlogDetailPage() {
                   placeholder="slug-de-l-article"
                   className="h-11"
                 />
-                <p className="text-xs text-effinor-gray-text mt-1.5">
+                <p className="text-xs text-[#4B5563] mt-1.5">
                   Généré automatiquement depuis le titre si vide
                 </p>
               </div>
@@ -372,7 +372,7 @@ export default function BlogDetailPage() {
                   id="excerpt"
                   value={formData.excerpt}
                   onChange={(e) => setFormData((prev) => ({ ...prev, excerpt: e.target.value }))}
-                  className="w-full min-h-[80px] rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm text-effinor-gray-dark placeholder:text-effinor-gray-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-effinor-emerald focus-visible:ring-offset-2 focus-visible:border-effinor-emerald resize-y"
+                  className="w-full min-h-[80px] rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm text-[#111827] placeholder:text-[#4B5563] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#10B981] focus-visible:ring-offset-2 focus-visible:border-[#10B981] resize-y"
                   placeholder="Court résumé de l'article (affiché dans les listes)"
                 />
               </div>
@@ -386,7 +386,7 @@ export default function BlogDetailPage() {
                   value={formData.content}
                   onChange={(e) => setFormData((prev) => ({ ...prev, content: e.target.value }))}
                   required
-                  className="w-full min-h-[300px] rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm text-effinor-gray-dark placeholder:text-effinor-gray-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-effinor-emerald focus-visible:ring-offset-2 focus-visible:border-effinor-emerald resize-y font-mono"
+                  className="w-full min-h-[300px] rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm text-[#111827] placeholder:text-[#4B5563] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#10B981] focus-visible:ring-offset-2 focus-visible:border-[#10B981] resize-y font-mono"
                   placeholder="Contenu de l'article (Markdown supporté)"
                 />
               </div>
@@ -464,7 +464,7 @@ export default function BlogDetailPage() {
                   placeholder="tag1, tag2, tag3"
                   className="h-11"
                 />
-                <p className="text-xs text-effinor-gray-text mt-1.5">
+                <p className="text-xs text-[#4B5563] mt-1.5">
                   Séparez les tags par des virgules
                 </p>
                 {formData.tags.length > 0 && (
@@ -472,7 +472,7 @@ export default function BlogDetailPage() {
                     {formData.tags.map((tag, idx) => (
                       <span
                         key={idx}
-                        className="text-xs px-2 py-1 bg-effinor-gray-medium text-effinor-gray-dark rounded-full"
+                        className="text-xs px-2 py-1 bg-[#F3F4F6] text-[#111827] rounded-full"
                       >
                         {tag}
                       </span>
@@ -484,7 +484,7 @@ export default function BlogDetailPage() {
               {!isNew && post && (
                 <div className="space-y-2 pt-2 border-t border-gray-200">
                   <p className="text-sm font-semibold">Informations</p>
-                  <div className="text-sm text-effinor-gray-text space-y-1">
+                  <div className="text-sm text-[#4B5563] space-y-1">
                     <p>Auteur: {post.authorName}</p>
                     <p>Créé le: {format(post.createdAt, "dd MMMM yyyy à HH:mm", { locale: fr })}</p>
                     {post.updatedAt && (
@@ -537,7 +537,7 @@ export default function BlogDetailPage() {
                 placeholder="Titre optimisé pour les moteurs de recherche"
                 className="h-11"
               />
-              <p className="text-xs text-effinor-gray-text mt-1.5">
+              <p className="text-xs text-[#4B5563] mt-1.5">
                 Si vide, le titre de l'article sera utilisé
               </p>
             </div>
@@ -550,7 +550,7 @@ export default function BlogDetailPage() {
                 id="seoDescription"
                 value={formData.seoDescription}
                 onChange={(e) => setFormData((prev) => ({ ...prev, seoDescription: e.target.value }))}
-                className="w-full min-h-[80px] rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm text-effinor-gray-dark placeholder:text-effinor-gray-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-effinor-emerald focus-visible:ring-offset-2 focus-visible:border-effinor-emerald resize-y"
+                className="w-full min-h-[80px] rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm text-[#111827] placeholder:text-[#4B5563] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#10B981] focus-visible:ring-offset-2 focus-visible:border-[#10B981] resize-y"
                 placeholder="Description optimisée pour les moteurs de recherche (150-160 caractères recommandés)"
               />
             </div>
@@ -566,7 +566,7 @@ export default function BlogDetailPage() {
                 placeholder="https://example.com/og-image.jpg"
                 className="h-11"
               />
-              <p className="text-xs text-effinor-gray-text mt-1.5">
+              <p className="text-xs text-[#4B5563] mt-1.5">
                 Image affichée lors du partage sur les réseaux sociaux (1200x630px recommandé)
               </p>
             </div>

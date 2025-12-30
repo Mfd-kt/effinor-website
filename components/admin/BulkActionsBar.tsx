@@ -39,10 +39,10 @@ export function BulkActionsBar({
   };
 
   return (
-    <div className="p-4 bg-effinor-emerald/10 border border-effinor-emerald rounded-lg mb-4">
+    <div className="p-4 bg-[#10B981]/10 border border-[#10B981] rounded-lg mb-4">
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div className="flex items-center gap-3">
-          <CheckSquare className="w-5 h-5 text-effinor-emerald" />
+          <CheckSquare className="w-5 h-5 text-[#10B981]" />
           <span className="font-semibold">
             {selectedLeads.length} lead{selectedLeads.length > 1 ? 's' : ''} sélectionné{selectedLeads.length > 1 ? 's' : ''}
           </span>
@@ -96,7 +96,7 @@ export function BulkActionsBar({
             <Button
               onClick={handleExecute}
               disabled={loading || !value}
-              className="bg-effinor-emerald hover:bg-effinor-emerald/90"
+              className="bg-[#10B981] hover:bg-[#10B981]/90"
             >
               {loading ? "Traitement..." : "Appliquer"}
             </Button>

@@ -71,7 +71,7 @@ export function StarRating({
         );
       })}
       {!readOnly && (
-        <span className="ml-2 text-sm text-effinor-gray-text">
+        <span className="ml-2 text-sm text-[#4B5563]">
           {displayValue > 0 ? `${displayValue}/${maxStars}` : "Non noté"}
         </span>
       )}

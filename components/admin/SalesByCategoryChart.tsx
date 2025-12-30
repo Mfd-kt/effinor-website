@@ -68,7 +68,7 @@ export function SalesByCategoryChart({ data, loading }: SalesByCategoryChartProp
           <CardDescription>Aucune donnée disponible</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="h-64 flex items-center justify-center text-effinor-gray-text">
+          <div className="h-64 flex items-center justify-center text-[#4B5563]">
             Aucune donnée
           </div>
         </CardContent>
@@ -81,14 +81,14 @@ export function SalesByCategoryChart({ data, loading }: SalesByCategoryChartProp
       <CardHeader>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Tag className="h-5 w-5 text-effinor-emerald" />
+            <Tag className="h-5 w-5 text-[#10B981]" />
             <CardTitle>Ventes par catégorie</CardTitle>
           </div>
           <div className="text-right">
-            <p className="text-2xl font-bold text-effinor-gray-dark">
+            <p className="text-2xl font-bold text-[#111827]">
               {totalRevenue.toLocaleString('fr-FR')} €
             </p>
-            <p className="text-xs text-effinor-gray-text">CA total</p>
+            <p className="text-xs text-[#4B5563]">CA total</p>
           </div>
         </div>
         <CardDescription>
@@ -147,17 +147,17 @@ export function SalesByCategoryChart({ data, loading }: SalesByCategoryChartProp
           {chartData.map((item, index) => (
             <div
               key={`category-${item.categoryId || index}`}
-              className="flex items-center gap-2 p-2 rounded-lg bg-effinor-gray-light"
+              className="flex items-center gap-2 p-2 rounded-lg bg-[#F9FAFB]"
             >
               <div
                 className="w-4 h-4 rounded"
                 style={{ backgroundColor: COLORS[index % COLORS.length] }}
               />
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-effinor-gray-dark truncate">
+                <p className="text-sm font-medium text-[#111827] truncate">
                   {item.name}
                 </p>
-                <p className="text-xs text-effinor-gray-text">
+                <p className="text-xs text-[#4B5563]">
                   {item.value.toLocaleString('fr-FR')} € • {item.orderCount} commande(s)
                 </p>
               </div>

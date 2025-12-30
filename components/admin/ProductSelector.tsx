@@ -140,7 +140,7 @@ export function ProductSelector({
           <CardContent className="p-4">
             <div className="space-y-4">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-effinor-gray-text" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-[#4B5563]" />
                 <Input
                   type="text"
                   placeholder="Rechercher un produit..."
@@ -157,7 +157,7 @@ export function ProductSelector({
                   ))}
                 </div>
               ) : filteredProducts.length === 0 ? (
-                <p className="text-sm text-effinor-gray-text text-center py-4">
+                <p className="text-sm text-[#4B5563] text-center py-4">
                   Aucun produit trouvé
                 </p>
               ) : (
@@ -165,12 +165,12 @@ export function ProductSelector({
                   {filteredProducts.map((product) => (
                     <div
                       key={product.id}
-                      className="flex items-center justify-between p-3 border rounded-lg hover:bg-effinor-gray-light cursor-pointer"
+                      className="flex items-center justify-between p-3 border rounded-lg hover:bg-[#F9FAFB] cursor-pointer"
                       onClick={() => handleAddProduct(product)}
                     >
                       <div className="flex-1">
                         <p className="font-medium text-sm">{product.name}</p>
-                        <p className="text-xs text-effinor-gray-text">
+                        <p className="text-xs text-[#4B5563]">
                           {product.priceOnQuote
                             ? "Sur devis"
                             : `${(product.price || 0).toLocaleString("fr-FR")} € HT`}
@@ -221,7 +221,7 @@ export function ProductSelector({
 
                       <div className="grid grid-cols-3 gap-2">
                         <div>
-                          <label className="text-xs text-effinor-gray-text">
+                          <label className="text-xs text-[#4B5563]">
                             Quantité
                           </label>
                           <Input
@@ -238,7 +238,7 @@ export function ProductSelector({
                           />
                         </div>
                         <div>
-                          <label className="text-xs text-effinor-gray-text">
+                          <label className="text-xs text-[#4B5563]">
                             Prix unitaire HT
                           </label>
                           <Input
@@ -256,7 +256,7 @@ export function ProductSelector({
                           />
                         </div>
                         <div>
-                          <label className="text-xs text-effinor-gray-text">
+                          <label className="text-xs text-[#4B5563]">
                             Total HT
                           </label>
                           <div className="h-8 flex items-center text-sm font-medium">
@@ -283,7 +283,7 @@ export function ProductSelector({
                           />
                           <label
                             htmlFor={`quote-${selected.productId}`}
-                            className="text-xs text-effinor-gray-text"
+                            className="text-xs text-[#4B5563]"
                           >
                             Sur devis uniquement
                           </label>
@@ -300,7 +300,7 @@ export function ProductSelector({
 
       {selectedProducts.length === 0 && (
         <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
-          <p className="text-sm text-effinor-gray-text">
+          <p className="text-sm text-[#4B5563]">
             Aucun produit sélectionné. Cliquez sur "Ajouter un produit" pour
             commencer.
           </p>

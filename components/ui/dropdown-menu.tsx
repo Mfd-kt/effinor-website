@@ -110,7 +110,7 @@ const DropdownMenuItem = React.forwardRef<
     <div
       ref={ref}
       className={cn(
-        "relative flex cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-effinor-gray-medium hover:text-effinor-gray-dark focus:bg-effinor-gray-medium focus:text-effinor-gray-dark",
+        "relative flex cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-[#F3F4F6] hover:text-[#111827] focus:bg-[#F3F4F6] focus:text-[#111827]",
         className
       )}
       onClick={() => context.onOpenChange(false)}

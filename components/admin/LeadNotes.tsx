@@ -163,7 +163,7 @@ export function LeadNotes({ leadId }: LeadNotesProps) {
           <Button
             onClick={handleAddNote}
             disabled={!newNote.trim() || saving}
-            className="bg-effinor-emerald hover:bg-effinor-emerald/90"
+            className="bg-[#10B981] hover:bg-[#10B981]/90"
           >
             <Send className="w-4 h-4" />
           </Button>

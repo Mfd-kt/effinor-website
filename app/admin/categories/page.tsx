@@ -237,7 +237,7 @@ export default function CategoriesPage() {
                 onChange={(e) => setFormData((prev) => ({ ...prev, slug: e.target.value }))}
                 className="h-11"
               />
-              <p className="text-xs text-effinor-gray-text mt-1.5">
+              <p className="text-xs text-[#4B5563] mt-1.5">
                 Généré automatiquement depuis le nom si vide
               </p>
             </div>
@@ -247,7 +247,7 @@ export default function CategoriesPage() {
               </Label>
               <textarea
                 id="description"
-                className="w-full min-h-[100px] rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm text-effinor-gray-dark placeholder:text-effinor-gray-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-effinor-emerald focus-visible:ring-offset-2 focus-visible:border-effinor-emerald resize-y"
+                className="w-full min-h-[100px] rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm text-[#111827] placeholder:text-[#4B5563] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#10B981] focus-visible:ring-offset-2 focus-visible:border-[#10B981] resize-y"
                 placeholder="Description de la catégorie"
                 value={formData.description}
                 onChange={(e) => setFormData((prev) => ({ ...prev, description: e.target.value }))}
@@ -272,7 +272,7 @@ export default function CategoriesPage() {
                 id="visible"
                 checked={formData.visible}
                 onChange={(e) => setFormData((prev) => ({ ...prev, visible: e.target.checked }))}
-                className="h-4 w-4 rounded border-gray-300 text-effinor-emerald focus:ring-effinor-emerald"
+                className="h-4 w-4 rounded border-gray-300 text-[#10B981] focus:ring-[#10B981]"
               />
               <Label htmlFor="visible" className="cursor-pointer text-sm font-medium">
                 Visible

@@ -22,7 +22,7 @@ const columns: Column<BlogPost>[] = [
     accessor: (row) => {
       if (!row.coverImageUrl) {
         return (
-          <div className="w-16 h-16 bg-effinor-gray-medium rounded-md flex items-center justify-center text-effinor-gray-text text-xs">
+          <div className="w-16 h-16 bg-[#F3F4F6] rounded-md flex items-center justify-center text-[#4B5563] text-xs">
             Aucune
           </div>
         );
@@ -40,7 +40,7 @@ const columns: Column<BlogPost>[] = [
               const target = e.target as HTMLImageElement;
               target.style.display = 'none';
               if (target.parentElement) {
-                target.parentElement.innerHTML = '<div class="w-full h-full bg-effinor-gray-medium flex items-center justify-center text-effinor-gray-text text-xs">Erreur</div>';
+                target.parentElement.innerHTML = '<div class="w-full h-full bg-[#F3F4F6] flex items-center justify-center text-[#4B5563] text-xs">Erreur</div>';
               }
             }}
           />
@@ -57,20 +57,20 @@ const columns: Column<BlogPost>[] = [
     header: "Tags",
     accessor: (row) => {
       if (!row.tags || row.tags.length === 0) {
-        return <span className="text-effinor-gray-text text-sm">Aucun tag</span>;
+        return <span className="text-[#4B5563] text-sm">Aucun tag</span>;
       }
       return (
         <div className="flex flex-wrap gap-1">
           {row.tags.slice(0, 3).map((tag, index) => (
             <span
               key={index}
-              className="px-2 py-1 bg-effinor-gray-light text-effinor-gray-dark text-xs rounded-md"
+              className="px-2 py-1 bg-[#F9FAFB] text-[#111827] text-xs rounded-md"
             >
               {tag}
             </span>
           ))}
           {row.tags.length > 3 && (
-            <span className="text-effinor-gray-text text-xs">+{row.tags.length - 3}</span>
+            <span className="text-[#4B5563] text-xs">+{row.tags.length - 3}</span>
           )}
         </div>
       );

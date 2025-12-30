@@ -74,9 +74,9 @@ function VerifyEmailContent() {
         {status === 'loading' && (
           <div className="space-y-4">
             <div className="flex justify-center">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-effinor-emerald"></div>
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#10B981]"></div>
             </div>
-            <p className="text-center text-sm text-effinor-gray-text">
+            <p className="text-center text-sm text-[#4B5563]">
               Vérification de votre adresse email...
             </p>
           </div>
@@ -130,7 +130,7 @@ export default function VerifyEmailPage() {
       <div className="w-full max-w-md space-y-8">
         <div className="flex flex-col items-center">
           <Logo size={48} />
-          <h1 className="mt-4 text-3xl font-bold text-effinor-gray-dark">
+          <h1 className="mt-4 text-3xl font-bold text-[#111827]">
             Vérification
           </h1>
         </div>
@@ -138,7 +138,7 @@ export default function VerifyEmailPage() {
           <Card className="w-full max-w-md">
             <CardContent className="p-6">
               <div className="flex justify-center">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-effinor-emerald"></div>
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#10B981]"></div>
               </div>
             </CardContent>
           </Card>

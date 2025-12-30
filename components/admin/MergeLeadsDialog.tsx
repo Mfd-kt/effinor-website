@@ -93,7 +93,7 @@ export function MergeLeadsDialog({
                   onClick={() => setSelectedMainId(lead.id)}
                   className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
                     isSelected
-                      ? 'border-effinor-emerald bg-effinor-emerald/5'
+                      ? 'border-[#10B981] bg-[#10B981]/5'
                       : 'border-gray-200 hover:border-gray-300'
                   }`}
                 >
@@ -101,7 +101,7 @@ export function MergeLeadsDialog({
                     <div className="flex items-start gap-3 flex-1">
                       <div className={`mt-1 w-5 h-5 rounded-full border-2 flex items-center justify-center ${
                         isSelected
-                          ? 'border-effinor-emerald bg-effinor-emerald'
+                          ? 'border-[#10B981] bg-[#10B981]'
                           : 'border-gray-300'
                       }`}>
                         {isSelected && (
@@ -119,7 +119,7 @@ export function MergeLeadsDialog({
                             </span>
                           )}
                           {isSelected && (
-                            <span className="text-xs bg-effinor-emerald/10 text-effinor-emerald px-2 py-0.5 rounded">
+                            <span className="text-xs bg-[#10B981]/10 text-[#10B981] px-2 py-0.5 rounded">
                               Principal
                             </span>
                           )}
@@ -157,7 +157,7 @@ export function MergeLeadsDialog({
           <Button
             onClick={handleMerge}
             disabled={merging || !selectedMainId}
-            className="bg-effinor-emerald hover:bg-effinor-emerald/90"
+            className="bg-[#10B981] hover:bg-[#10B981]/90"
           >
             {merging ? 'Fusion en cours...' : `Fusionner ${leads.length - 1} doublon${leads.length > 2 ? 's' : ''}`}
           </Button>

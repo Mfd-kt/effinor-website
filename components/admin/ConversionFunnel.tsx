@@ -95,7 +95,7 @@ export function ConversionFunnel({ data, loading }: ConversionFunnelProps) {
           <CardDescription>Aucune donnée disponible</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="h-64 flex items-center justify-center text-effinor-gray-text">
+          <div className="h-64 flex items-center justify-center text-[#4B5563]">
             Aucune donnée
           </div>
         </CardContent>
@@ -108,14 +108,14 @@ export function ConversionFunnel({ data, loading }: ConversionFunnelProps) {
       <CardHeader>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Target className="h-5 w-5 text-effinor-emerald" />
+            <Target className="h-5 w-5 text-[#10B981]" />
             <CardTitle>Funnel de conversion</CardTitle>
           </div>
           <div className="text-right">
-            <p className="text-2xl font-bold text-effinor-gray-dark">
+            <p className="text-2xl font-bold text-[#111827]">
               {conversionRate}%
             </p>
-            <p className="text-xs text-effinor-gray-text">Taux de conversion</p>
+            <p className="text-xs text-[#4B5563]">Taux de conversion</p>
           </div>
         </div>
         <CardDescription>
@@ -164,8 +164,8 @@ export function ConversionFunnel({ data, loading }: ConversionFunnelProps) {
                 className="h-2 rounded-full mx-auto"
                 style={{ backgroundColor: item.color, width: '60%' }}
               />
-              <p className="text-xs font-semibold text-effinor-gray-dark">{item.value}</p>
-              <p className="text-xs text-effinor-gray-text">{item.name}</p>
+              <p className="text-xs font-semibold text-[#111827]">{item.value}</p>
+              <p className="text-xs text-[#4B5563]">{item.name}</p>
             </div>
           ))}
         </div>

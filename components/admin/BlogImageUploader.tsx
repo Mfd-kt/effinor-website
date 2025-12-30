@@ -179,7 +179,7 @@ export function BlogImageUploader({
                 const target = e.target as HTMLImageElement;
                 target.style.display = 'none';
                 if (target.parentElement) {
-                  target.parentElement.innerHTML = '<div class="w-full h-full bg-effinor-gray-medium flex items-center justify-center text-effinor-gray-text">Erreur de chargement</div>';
+                  target.parentElement.innerHTML = '<div class="w-full h-full bg-[#F3F4F6] flex items-center justify-center text-[#4B5563]">Erreur de chargement</div>';
                 }
               }}
             />
@@ -225,10 +225,10 @@ export function BlogImageUploader({
             type="text"
             value={coverImageUrl}
             onChange={(e) => onCoverImageChange(e.target.value || undefined)}
-            className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-effinor-gray-dark"
+            className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-[#111827]"
             placeholder="URL de l'image de couverture"
           />
-          <p className="text-xs text-effinor-gray-text">
+          <p className="text-xs text-[#4B5563]">
             Vous pouvez également coller une URL d'image externe directement
           </p>
         </div>

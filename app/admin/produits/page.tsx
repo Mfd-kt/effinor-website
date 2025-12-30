@@ -32,7 +32,7 @@ const columns: Column<Product>[] = [
       const mainImage = row.images?.[0];
       if (!mainImage) {
         return (
-          <div className="w-16 h-16 bg-effinor-gray-medium rounded-md flex items-center justify-center text-effinor-gray-text text-xs">
+          <div className="w-16 h-16 bg-[#F3F4F6] rounded-md flex items-center justify-center text-[#4B5563] text-xs">
             Aucune
           </div>
         );
@@ -51,7 +51,7 @@ const columns: Column<Product>[] = [
               const target = e.target as HTMLImageElement;
               target.style.display = 'none';
               if (target.parentElement) {
-                target.parentElement.innerHTML = '<div class="w-full h-full bg-effinor-gray-medium flex items-center justify-center text-effinor-gray-text text-xs">Erreur</div>';
+                target.parentElement.innerHTML = '<div class="w-full h-full bg-[#F3F4F6] flex items-center justify-center text-[#4B5563] text-xs">Erreur</div>';
               }
             }}
           />
@@ -376,7 +376,7 @@ export default function ProduitsPage() {
                   <div>
                     <Label>Description</Label>
                     <textarea
-                      className="w-full min-h-[100px] rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-effinor-gray-dark"
+                      className="w-full min-h-[100px] rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-[#111827]"
                       placeholder="Description du produit"
                       value={formData.description}
                       onChange={(e) => setFormData({ ...formData, description: e.target.value })}

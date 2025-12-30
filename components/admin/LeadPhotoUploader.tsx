@@ -167,7 +167,7 @@ export function LeadPhotoUploader({
 
   return (
     <div className="space-y-3">
-      <Label className="text-sm font-semibold text-effinor-gray-dark">
+      <Label className="text-sm font-semibold text-[#111827]">
         {label}
       </Label>
       
@@ -175,7 +175,7 @@ export function LeadPhotoUploader({
         <Card>
           <CardContent className="p-4">
             <div className="relative group">
-              <div className="relative w-full h-64 rounded-lg overflow-hidden border border-gray-200 bg-effinor-gray-light">
+              <div className="relative w-full h-64 rounded-lg overflow-hidden border border-gray-200 bg-[#F9FAFB]">
                 <Image
                   src={photoUrl}
                   alt={label}
@@ -237,12 +237,12 @@ export function LeadPhotoUploader({
         <Card>
           <CardContent className="p-6">
             <div className="flex flex-col items-center justify-center space-y-4">
-              <div className="h-24 w-24 rounded-lg border-2 border-dashed border-gray-300 flex items-center justify-center bg-effinor-gray-light">
-                <ImageIcon className="h-8 w-8 text-effinor-gray-text" />
+              <div className="h-24 w-24 rounded-lg border-2 border-dashed border-gray-300 flex items-center justify-center bg-[#F9FAFB]">
+                <ImageIcon className="h-8 w-8 text-[#4B5563]" />
               </div>
               
               <div className="text-center space-y-2">
-                <p className="text-sm text-effinor-gray-text">
+                <p className="text-sm text-[#4B5563]">
                   Aucune photo uploadée
                 </p>
                 <div className="flex gap-2">

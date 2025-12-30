@@ -32,7 +32,7 @@ export default function SeoPage() {
         description="Gérez le contenu SEO de votre site : articles de blog et pages statiques"
         actions={
           <div className="flex items-center gap-2">
-            <Search className="h-5 w-5 text-effinor-gray-text" />
+            <Search className="h-5 w-5 text-[#4B5563]" />
           </div>
         }
       />

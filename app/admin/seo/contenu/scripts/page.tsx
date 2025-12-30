@@ -165,9 +165,9 @@ export default function SeoScriptsPage() {
                 <div className="flex-1">
                   <CardTitle className="text-base flex items-center gap-2">
                     {script.scriptPosition === 'head' ? (
-                      <Tag className="h-4 w-4 text-effinor-gray-text" />
+                      <Tag className="h-4 w-4 text-[#4B5563]" />
                     ) : (
-                      <FileText className="h-4 w-4 text-effinor-gray-text" />
+                      <FileText className="h-4 w-4 text-[#4B5563]" />
                     )}
                     {script.label}
                   </CardTitle>
@@ -184,7 +184,7 @@ export default function SeoScriptsPage() {
               </div>
             </CardHeader>
             <CardContent className="space-y-3">
-              <div className="flex items-center gap-2 flex-wrap text-xs text-effinor-gray-text">
+              <div className="flex items-center gap-2 flex-wrap text-xs text-[#4B5563]">
                 <span>/{script.name}</span>
                 <span>•</span>
                 <span className="capitalize">{script.scriptPosition}</span>
@@ -235,8 +235,8 @@ export default function SeoScriptsPage() {
       {filteredScripts.length === 0 && (
         <Card>
           <CardContent className="py-12 text-center">
-            <Code className="h-12 w-12 text-effinor-gray-text mx-auto mb-4" />
-            <p className="text-effinor-gray-text">
+            <Code className="h-12 w-12 text-[#4B5563] mx-auto mb-4" />
+            <p className="text-[#4B5563]">
               {scripts.length === 0
                 ? "Aucun script configuré. Ajoutez votre premier script de tracking."
                 : "Aucun script ne correspond aux filtres sélectionnés."}

@@ -603,7 +603,7 @@ export default function BuildingEditor({ buildings: initialBuildings, onSave }: 
             <div key={index} className="border border-gray-200 rounded-lg p-5 space-y-4">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
-                  <Building className="w-5 h-5 text-effinor-emerald" />
+                  <Building className="w-5 h-5 text-[#10B981]" />
                   <h3 className="font-semibold">
                     Bâtiment {index + 1} sur {buildings.length}
                   </h3>

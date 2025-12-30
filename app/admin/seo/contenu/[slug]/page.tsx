@@ -234,10 +234,10 @@ export default function SeoContentEditPage() {
                   id="content"
                   value={formData.content}
                   onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-                  className="w-full min-h-[400px] rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm text-effinor-gray-dark placeholder:text-effinor-gray-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-effinor-emerald focus-visible:ring-offset-2 focus-visible:border-effinor-emerald resize-y font-mono"
+                  className="w-full min-h-[400px] rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm text-[#111827] placeholder:text-[#4B5563] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#10B981] focus-visible:ring-offset-2 focus-visible:border-[#10B981] resize-y font-mono"
                   placeholder="Entrez le contenu HTML ou Markdown ici..."
                 />
-                <p className="text-xs text-effinor-gray-text">
+                <p className="text-xs text-[#4B5563]">
                   Vous pouvez utiliser du HTML ou du Markdown. Le contenu sera rendu sur la page publique.
                 </p>
               </div>
@@ -265,7 +265,7 @@ export default function SeoContentEditPage() {
                   className="h-11"
                   maxLength={60}
                 />
-                <p className="text-xs text-effinor-gray-text">
+                <p className="text-xs text-[#4B5563]">
                   {formData.metaTitle.length}/60 caractères
                 </p>
               </div>
@@ -278,11 +278,11 @@ export default function SeoContentEditPage() {
                   id="metaDescription"
                   value={formData.metaDescription}
                   onChange={(e) => setFormData({ ...formData, metaDescription: e.target.value })}
-                  className="w-full min-h-[100px] rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm text-effinor-gray-dark placeholder:text-effinor-gray-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-effinor-emerald focus-visible:ring-offset-2 focus-visible:border-effinor-emerald resize-y"
+                  className="w-full min-h-[100px] rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm text-[#111827] placeholder:text-[#4B5563] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#10B981] focus-visible:ring-offset-2 focus-visible:border-[#10B981] resize-y"
                   placeholder="Description SEO (150-160 caractères recommandés)"
                   maxLength={160}
                 />
-                <p className="text-xs text-effinor-gray-text">
+                <p className="text-xs text-[#4B5563]">
                   {formData.metaDescription.length}/160 caractères
                 </p>
               </div>
@@ -298,7 +298,7 @@ export default function SeoContentEditPage() {
                   placeholder="Mots-clés séparés par des virgules"
                   className="h-11"
                 />
-                <p className="text-xs text-effinor-gray-text">
+                <p className="text-xs text-[#4B5563]">
                   Séparez les mots-clés par des virgules (ex: seo, marketing, web)
                 </p>
               </div>
@@ -314,31 +314,31 @@ export default function SeoContentEditPage() {
             </CardHeader>
             <CardContent className="space-y-3">
               <div>
-                <Label className="text-xs text-effinor-gray-text">Slug</Label>
-                <p className="text-sm font-medium text-effinor-gray-dark mt-1">
+                <Label className="text-xs text-[#4B5563]">Slug</Label>
+                <p className="text-sm font-medium text-[#111827] mt-1">
                   /{slug}
                 </p>
               </div>
               <div>
-                <Label className="text-xs text-effinor-gray-text flex items-center gap-1">
+                <Label className="text-xs text-[#4B5563] flex items-center gap-1">
                   <Globe className="h-3 w-3" />
                   Langue
                 </Label>
-                <p className="text-sm font-medium text-effinor-gray-dark mt-1">
+                <p className="text-sm font-medium text-[#111827] mt-1">
                   {LANG_LABELS[currentLang]}
                 </p>
               </div>
               {content && (
                 <>
                   <div>
-                    <Label className="text-xs text-effinor-gray-text">Créé le</Label>
-                    <p className="text-sm text-effinor-gray-dark mt-1">
+                    <Label className="text-xs text-[#4B5563]">Créé le</Label>
+                    <p className="text-sm text-[#111827] mt-1">
                       {format(content.createdAt, "dd MMM yyyy à HH:mm")}
                     </p>
                   </div>
                   <div>
-                    <Label className="text-xs text-effinor-gray-text">Modifié le</Label>
-                    <p className="text-sm text-effinor-gray-dark mt-1">
+                    <Label className="text-xs text-[#4B5563]">Modifié le</Label>
+                    <p className="text-sm text-[#111827] mt-1">
                       {format(content.updatedAt, "dd MMM yyyy à HH:mm")}
                     </p>
                   </div>

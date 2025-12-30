@@ -68,7 +68,7 @@ export function LeadsTrendChart({ data, loading }: LeadsTrendChartProps) {
           <CardDescription>Aucune donnée disponible</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="h-64 flex items-center justify-center text-effinor-gray-text">
+          <div className="h-64 flex items-center justify-center text-[#4B5563]">
             Aucune donnée
           </div>
         </CardContent>
@@ -81,14 +81,14 @@ export function LeadsTrendChart({ data, loading }: LeadsTrendChartProps) {
       <CardHeader>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <TrendingUp className="h-5 w-5 text-effinor-emerald" />
+            <TrendingUp className="h-5 w-5 text-[#10B981]" />
             <CardTitle>Évolution des leads</CardTitle>
           </div>
           <div className="text-right">
-            <p className="text-2xl font-bold text-effinor-gray-dark">
+            <p className="text-2xl font-bold text-[#111827]">
               {totalLeads}
             </p>
-            <p className="text-xs text-effinor-gray-text">
+            <p className="text-xs text-[#4B5563]">
               {totalWon} gagnés ({conversionRate}%)
             </p>
           </div>

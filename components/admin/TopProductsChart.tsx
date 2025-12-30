@@ -64,7 +64,7 @@ export function TopProductsChart({ data, loading, limit = 10 }: TopProductsChart
           <CardDescription>Aucune donnée disponible</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="h-64 flex items-center justify-center text-effinor-gray-text">
+          <div className="h-64 flex items-center justify-center text-[#4B5563]">
             Aucune donnée
           </div>
         </CardContent>
@@ -77,14 +77,14 @@ export function TopProductsChart({ data, loading, limit = 10 }: TopProductsChart
       <CardHeader>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Package className="h-5 w-5 text-effinor-emerald" />
+            <Package className="h-5 w-5 text-[#10B981]" />
             <CardTitle>Top {limit} produits</CardTitle>
           </div>
           <div className="text-right">
-            <p className="text-sm font-semibold text-effinor-gray-dark">
+            <p className="text-sm font-semibold text-[#111827]">
               {totalQuantity.toLocaleString('fr-FR')} unités
             </p>
-            <p className="text-xs text-effinor-gray-text">
+            <p className="text-xs text-[#4B5563]">
               {totalRevenue.toLocaleString('fr-FR')} € de CA
             </p>
           </div>

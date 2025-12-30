@@ -12,10 +12,10 @@ export default function LoginPage() {
       <div className="w-full max-w-md space-y-8">
         <div className="flex flex-col items-center">
           <Logo size={48} />
-          <h1 className="mt-4 text-3xl font-bold text-effinor-gray-dark">
+          <h1 className="mt-4 text-3xl font-bold text-[#111827]">
             Dashboard Effinor
           </h1>
-          <p className="mt-2 text-sm text-effinor-gray-text">
+          <p className="mt-2 text-sm text-[#4B5563]">
             Accès administrateur
           </p>
         </div>

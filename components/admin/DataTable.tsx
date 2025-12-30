@@ -177,7 +177,7 @@ export function DataTable<T extends { id: string }>({
                 <TableRow 
                   key={row.id}
                   className={cn(
-                    isRowSelected(row.id) && "bg-effinor-emerald/5"
+                    isRowSelected(row.id) && "bg-[#10B981]/5"
                   )}
                 >
                   {selectable && (

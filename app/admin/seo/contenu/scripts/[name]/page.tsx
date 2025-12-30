@@ -240,7 +240,7 @@ export default function SeoScriptEditPage() {
                   placeholder="meta-ads"
                   className="h-11"
                 />
-                <p className="text-xs text-effinor-gray-text">
+                <p className="text-xs text-[#4B5563]">
                   Identifiant unique du script (généré automatiquement depuis le libellé si vide)
                 </p>
               </div>
@@ -267,7 +267,7 @@ export default function SeoScriptEditPage() {
                   id="description"
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  className="w-full min-h-[80px] rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm text-effinor-gray-dark placeholder:text-effinor-gray-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-effinor-emerald focus-visible:ring-offset-2 focus-visible:border-effinor-emerald resize-y"
+                  className="w-full min-h-[80px] rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm text-[#111827] placeholder:text-[#4B5563] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#10B981] focus-visible:ring-offset-2 focus-visible:border-[#10B981] resize-y"
                   placeholder="Description du script..."
                 />
               </div>
@@ -300,7 +300,7 @@ export default function SeoScriptEditPage() {
                     placeholder="0"
                     className="h-11"
                   />
-                  <p className="text-xs text-effinor-gray-text">
+                  <p className="text-xs text-[#4B5563]">
                     Plus petit = exécuté en premier
                   </p>
                 </div>
@@ -312,7 +312,7 @@ export default function SeoScriptEditPage() {
                   id="active"
                   checked={formData.active}
                   onChange={(e) => setFormData({ ...formData, active: e.target.checked })}
-                  className="h-4 w-4 rounded border-gray-300 text-effinor-emerald focus:ring-effinor-emerald"
+                  className="h-4 w-4 rounded border-gray-300 text-[#10B981] focus:ring-[#10B981]"
                 />
                 <Label htmlFor="active" className="text-sm font-semibold cursor-pointer">
                   Script actif
@@ -337,10 +337,10 @@ export default function SeoScriptEditPage() {
                   id="scriptCode"
                   value={formData.scriptCode}
                   onChange={(e) => setFormData({ ...formData, scriptCode: e.target.value })}
-                  className="w-full min-h-[400px] rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm text-effinor-gray-dark placeholder:text-effinor-gray-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-effinor-emerald focus-visible:ring-offset-2 focus-visible:border-effinor-emerald resize-y font-mono"
+                  className="w-full min-h-[400px] rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm text-[#111827] placeholder:text-[#4B5563] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#10B981] focus-visible:ring-offset-2 focus-visible:border-[#10B981] resize-y font-mono"
                   placeholder="<!-- Meta Pixel Code -->&#10;&lt;script&gt;&#10;  !function(f,b,e,v,n,t,s)&#10;  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?&#10;  n.callMethod.apply(n,arguments):n.queue.push(arguments)};&#10;  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';&#10;  n.queue=[];t=b.createElement(e);t.async=!0;&#10;  t.src=v;s=b.getElementsByTagName(e)[0];&#10;  s.parentNode.insertBefore(t,s)}(window, document,'script',&#10;  'https://connect.facebook.net/en_US/fbevents.js');&#10;  fbq('init', 'VOTRE_PIXEL_ID');&#10;  fbq('track', 'PageView');&#10;&lt;/script&gt;&#10;&lt;noscript&gt;&lt;img height=&quot;1&quot; width=&quot;1&quot; style=&quot;display:none&quot;&#10;  src=&quot;https://www.facebook.com/tr?id=VOTRE_PIXEL_ID&amp;ev=PageView&amp;noscript=1&quot;&#10;/&gt;&lt;/noscript&gt;&#10;&lt;!-- End Meta Pixel Code --&gt;"
                 />
-                <p className="text-xs text-effinor-gray-text">
+                <p className="text-xs text-[#4B5563]">
                   Collez le code JavaScript complet du script. Il sera injecté dans le {formData.scriptPosition} de la page.
                 </p>
               </div>
@@ -358,14 +358,14 @@ export default function SeoScriptEditPage() {
               {!isNew && script && (
                 <>
                   <div>
-                    <Label className="text-xs text-effinor-gray-text">Créé le</Label>
-                    <p className="text-sm text-effinor-gray-dark mt-1">
+                    <Label className="text-xs text-[#4B5563]">Créé le</Label>
+                    <p className="text-sm text-[#111827] mt-1">
                       {new Date(script.createdAt).toLocaleDateString('fr-FR')}
                     </p>
                   </div>
                   <div>
-                    <Label className="text-xs text-effinor-gray-text">Modifié le</Label>
-                    <p className="text-sm text-effinor-gray-dark mt-1">
+                    <Label className="text-xs text-[#4B5563]">Modifié le</Label>
+                    <p className="text-sm text-[#111827] mt-1">
                       {new Date(script.updatedAt).toLocaleDateString('fr-FR')}
                     </p>
                   </div>

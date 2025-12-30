@@ -62,7 +62,7 @@ export function DateRangeFilter({
   return (
     <div className={`flex items-center gap-2 ${className || ''}`}>
       <div className="flex items-center gap-2">
-        <Calendar className="h-4 w-4 text-effinor-gray-text" />
+        <Calendar className="h-4 w-4 text-[#4B5563]" />
         <Select
           value={period}
           onChange={(e) => {
@@ -92,7 +92,7 @@ export function DateRangeFilter({
             onChange={(e) => setLocalStartDate(e.target.value)}
             className="text-sm border-0 focus:outline-none focus:ring-0 p-0 h-auto"
           />
-          <span className="text-effinor-gray-text">→</span>
+          <span className="text-[#4B5563]">→</span>
           <input
             type="date"
             value={localEndDate}
@@ -113,7 +113,7 @@ export function DateRangeFilter({
       )}
 
       {customRange && period === 'custom' && (
-        <span className="text-sm text-effinor-gray-text">
+        <span className="text-sm text-[#4B5563]">
           {format(customRange.start, 'dd MMM yyyy', { locale: fr })} - {format(customRange.end, 'dd MMM yyyy', { locale: fr })}
         </span>
       )}

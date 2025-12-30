@@ -365,16 +365,16 @@ export default function OrderDetailPage() {
             </CardHeader>
             <CardContent className="space-y-3">
               <div>
-                <p className="text-sm font-medium text-effinor-gray-text">Nom</p>
+                <p className="text-sm font-medium text-[#4B5563]">Nom</p>
                 <p className="text-sm">{order?.customerName}</p>
               </div>
               <div>
-                <p className="text-sm font-medium text-effinor-gray-text">Email</p>
+                <p className="text-sm font-medium text-[#4B5563]">Email</p>
                 <p className="text-sm">{order?.customerEmail}</p>
               </div>
               {order?.customerPhone && (
                 <div>
-                  <p className="text-sm font-medium text-effinor-gray-text">Téléphone</p>
+                  <p className="text-sm font-medium text-[#4B5563]">Téléphone</p>
                   <p className="text-sm">{order.customerPhone}</p>
                 </div>
               )}
@@ -389,17 +389,17 @@ export default function OrderDetailPage() {
               {order?.shippingAddress && (
                 <>
                   <div>
-                    <p className="text-sm font-medium text-effinor-gray-text">Adresse</p>
+                    <p className="text-sm font-medium text-[#4B5563]">Adresse</p>
                     <p className="text-sm">{order.shippingAddress.street}</p>
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-effinor-gray-text">Ville</p>
+                    <p className="text-sm font-medium text-[#4B5563]">Ville</p>
                     <p className="text-sm">
                       {order.shippingAddress.zipCode} {order.shippingAddress.city}
                     </p>
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-effinor-gray-text">Pays</p>
+                    <p className="text-sm font-medium text-[#4B5563]">Pays</p>
                     <p className="text-sm">{order.shippingAddress.country}</p>
                   </div>
                 </>
@@ -414,16 +414,16 @@ export default function OrderDetailPage() {
             <CardContent className="space-y-3">
               {order?.status && (
                 <div>
-                  <p className="text-sm font-medium text-effinor-gray-text mb-2">Statut</p>
+                  <p className="text-sm font-medium text-[#4B5563] mb-2">Statut</p>
                   <StatBadge label={order.status.label} color={order.status.color} />
                 </div>
               )}
               <div>
-                <p className="text-sm font-medium text-effinor-gray-text">Montant total</p>
+                <p className="text-sm font-medium text-[#4B5563]">Montant total</p>
                 <p className="text-lg font-bold">{order?.amount.toLocaleString("fr-FR")} € HT</p>
               </div>
               <div>
-                <p className="text-sm font-medium text-effinor-gray-text">Date de création</p>
+                <p className="text-sm font-medium text-[#4B5563]">Date de création</p>
                 <p className="text-sm">
                   {order?.createdAt && format(order.createdAt, "dd MMMM yyyy à HH:mm", { locale: fr })}
                 </p>
@@ -444,7 +444,7 @@ export default function OrderDetailPage() {
                   >
                     <div>
                       <p className="font-medium">{item.productName}</p>
-                      <p className="text-sm text-effinor-gray-text">
+                      <p className="text-sm text-[#4B5563]">
                         {item.quantity} × {item.price.toLocaleString("fr-FR")} € HT
                       </p>
                     </div>
@@ -712,7 +712,7 @@ export default function OrderDetailPage() {
                     id="notes"
                     value={formData.notes}
                     onChange={(e) => setFormData((prev) => ({ ...prev, notes: e.target.value }))}
-                    className="w-full min-h-[100px] rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm text-effinor-gray-dark placeholder:text-effinor-gray-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-effinor-emerald focus-visible:ring-offset-2 focus-visible:border-effinor-emerald resize-y"
+                    className="w-full min-h-[100px] rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm text-[#111827] placeholder:text-[#4B5563] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#10B981] focus-visible:ring-offset-2 focus-visible:border-[#10B981] resize-y"
                     placeholder="Notes internes sur la commande"
                   />
                 </div>

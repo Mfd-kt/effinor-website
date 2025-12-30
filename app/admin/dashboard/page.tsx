@@ -318,8 +318,8 @@ export default function DashboardPage() {
       {/* Alertes importantes */}
       {alerts.length > 0 && (
         <section className="space-y-3">
-          <h2 className="text-lg font-semibold text-effinor-gray-dark flex items-center gap-2">
-            <AlertCircle className="h-5 w-5 text-effinor-emerald" />
+          <h2 className="text-lg font-semibold text-[#111827] flex items-center gap-2">
+            <AlertCircle className="h-5 w-5 text-[#10B981]" />
             Alertes importantes
           </h2>
           <div className="grid gap-3 md:grid-cols-3">
@@ -327,10 +327,10 @@ export default function DashboardPage() {
               <Card key={alert.id} className="border-l-4 border-l-effinor-emerald hover:shadow-md transition-shadow">
                 <CardContent className="p-4">
                   <div className="flex items-start gap-3">
-                    <alert.icon className="h-5 w-5 text-effinor-emerald mt-0.5 flex-shrink-0" />
+                    <alert.icon className="h-5 w-5 text-[#10B981] mt-0.5 flex-shrink-0" />
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-semibold text-effinor-gray-dark">{alert.title}</p>
-                      <p className="text-xs text-effinor-gray-text mt-1">{alert.description}</p>
+                      <p className="text-sm font-semibold text-[#111827]">{alert.title}</p>
+                      <p className="text-xs text-[#4B5563] mt-1">{alert.description}</p>
                       {alert.link && (
                         <Link href={alert.link}>
                           <Button variant="link" size="sm" className="h-auto p-0 mt-2 text-xs">
@@ -350,8 +350,8 @@ export default function DashboardPage() {
       {/* Section Financier */}
       <section className="space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-effinor-gray-dark flex items-center gap-2">
-            <Euro className="h-5 w-5 text-effinor-emerald" />
+          <h2 className="text-lg font-semibold text-[#111827] flex items-center gap-2">
+            <Euro className="h-5 w-5 text-[#10B981]" />
             Indicateurs financiers
           </h2>
         </div>
@@ -359,15 +359,15 @@ export default function DashboardPage() {
           {kpiCards.slice(0, 4).map((card, index) => (
             <Card key={index} className="relative overflow-hidden hover:shadow-md transition-shadow">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-effinor-gray-text">
+                <CardTitle className="text-sm font-medium text-[#4B5563]">
                   {card.title}
                 </CardTitle>
-                <div className="h-8 w-8 rounded-full bg-effinor-emerald/10 flex items-center justify-center">
-                  <card.icon className="h-4 w-4 text-effinor-emerald" />
+                <div className="h-8 w-8 rounded-full bg-[#10B981]/10 flex items-center justify-center">
+                  <card.icon className="h-4 w-4 text-[#10B981]" />
                 </div>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-effinor-gray-dark">
+                <div className="text-2xl font-bold text-[#111827]">
                   {typeof card.value === 'number' 
                     ? card.value.toLocaleString('fr-FR')
                     : card.value}
@@ -375,13 +375,13 @@ export default function DashboardPage() {
                 {card.trend && (
                   <div className="flex items-center gap-1 mt-2">
                     {card.trend.isPositive ? (
-                      <TrendingUp className="h-3 w-3 text-effinor-emerald" />
+                      <TrendingUp className="h-3 w-3 text-[#10B981]" />
                     ) : (
                       <TrendingDown className="h-3 w-3 text-red-600" />
                     )}
                     <p
                       className={`text-xs font-medium ${
-                        card.trend.isPositive ? "text-effinor-emerald" : "text-red-600"
+                        card.trend.isPositive ? "text-[#10B981]" : "text-red-600"
                       }`}
                     >
                       {card.trend.isPositive ? "+" : ""}
@@ -391,7 +391,7 @@ export default function DashboardPage() {
                   </div>
                 )}
                 {card.description && (
-                  <p className="text-xs text-effinor-gray-text mt-1">
+                  <p className="text-xs text-[#4B5563] mt-1">
                     {card.description}
                   </p>
                 )}
@@ -403,8 +403,8 @@ export default function DashboardPage() {
 
       {/* Graphiques de tendances */}
       <section className="space-y-4">
-        <h2 className="text-lg font-semibold text-effinor-gray-dark flex items-center gap-2">
-          <TrendingUp className="h-5 w-5 text-effinor-emerald" />
+        <h2 className="text-lg font-semibold text-[#111827] flex items-center gap-2">
+          <TrendingUp className="h-5 w-5 text-[#10B981]" />
           Tendances
         </h2>
         <div className="grid gap-6 lg:grid-cols-2">
@@ -415,8 +415,8 @@ export default function DashboardPage() {
 
       {/* Section Ventes & Marketing */}
       <section className="space-y-4">
-        <h2 className="text-lg font-semibold text-effinor-gray-dark flex items-center gap-2">
-          <ShoppingCart className="h-5 w-5 text-effinor-emerald" />
+        <h2 className="text-lg font-semibold text-[#111827] flex items-center gap-2">
+          <ShoppingCart className="h-5 w-5 text-[#10B981]" />
           Ventes & Marketing
         </h2>
         <div className="grid gap-6 lg:grid-cols-2">
@@ -431,8 +431,8 @@ export default function DashboardPage() {
       {/* Section Produits */}
       <section className="space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-effinor-gray-dark flex items-center gap-2">
-            <Package className="h-5 w-5 text-effinor-emerald" />
+          <h2 className="text-lg font-semibold text-[#111827] flex items-center gap-2">
+            <Package className="h-5 w-5 text-[#10B981]" />
             Produits
           </h2>
           <Link href="/admin/produits">
@@ -445,21 +445,21 @@ export default function DashboardPage() {
           {kpiCards.slice(4, 6).map((card, index) => (
             <Card key={index} className="hover:shadow-md transition-shadow">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-effinor-gray-text">
+                <CardTitle className="text-sm font-medium text-[#4B5563]">
                   {card.title}
                 </CardTitle>
-                <div className="h-8 w-8 rounded-full bg-effinor-emerald/10 flex items-center justify-center">
-                  <card.icon className="h-4 w-4 text-effinor-emerald" />
+                <div className="h-8 w-8 rounded-full bg-[#10B981]/10 flex items-center justify-center">
+                  <card.icon className="h-4 w-4 text-[#10B981]" />
                 </div>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-effinor-gray-dark">
+                <div className="text-2xl font-bold text-[#111827]">
                   {typeof card.value === 'number' 
                     ? card.value.toLocaleString('fr-FR')
                     : card.value}
                 </div>
                 {card.description && (
-                  <p className="text-xs text-effinor-gray-text mt-1">
+                  <p className="text-xs text-[#4B5563] mt-1">
                     {card.description}
                   </p>
                 )}
@@ -472,22 +472,22 @@ export default function DashboardPage() {
 
       {/* Section Activité & Notifications */}
       <section className="space-y-4">
-        <h2 className="text-lg font-semibold text-effinor-gray-dark flex items-center gap-2">
-          <Activity className="h-5 w-5 text-effinor-emerald" />
+        <h2 className="text-lg font-semibold text-[#111827] flex items-center gap-2">
+          <Activity className="h-5 w-5 text-[#10B981]" />
           Activité récente
         </h2>
         <div className="grid gap-6 md:grid-cols-2">
           <Card className="hover:shadow-md transition-shadow">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Activity className="h-5 w-5 text-effinor-emerald" />
+                <Activity className="h-5 w-5 text-[#10B981]" />
                 Dernières actions
               </CardTitle>
               <CardDescription>Commandes et leads récents</CardDescription>
             </CardHeader>
             <CardContent>
               {recentActivity.length === 0 ? (
-                <p className="text-sm text-effinor-gray-text text-center py-8">
+                <p className="text-sm text-[#4B5563] text-center py-8">
                   Aucune activité récente
                 </p>
               ) : (
@@ -496,18 +496,18 @@ export default function DashboardPage() {
                     <Link
                       key={activity.id}
                       href={activity.link || "#"}
-                      className="block p-3 rounded-lg border border-gray-200 hover:border-effinor-emerald hover:bg-effinor-gray-light transition-colors"
+                      className="block p-3 rounded-lg border border-gray-200 hover:border-[#10B981] hover:bg-[#F9FAFB] transition-colors"
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-effinor-gray-dark">
+                          <p className="text-sm font-medium text-[#111827]">
                             {activity.type}
                           </p>
-                          <p className="text-xs text-effinor-gray-text mt-1 truncate">
+                          <p className="text-xs text-[#4B5563] mt-1 truncate">
                             {activity.description}
                           </p>
                         </div>
-                        <p className="text-xs text-effinor-gray-text ml-3 flex-shrink-0">
+                        <p className="text-xs text-[#4B5563] ml-3 flex-shrink-0">
                           {format(activity.date, "dd MMM", { locale: fr })}
                         </p>
                       </div>
@@ -523,10 +523,10 @@ export default function DashboardPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <CardTitle className="flex items-center gap-2">
-                    <Bell className="h-5 w-5 text-effinor-emerald" />
+                    <Bell className="h-5 w-5 text-[#10B981]" />
                     Notifications
                     {unreadCount > 0 && (
-                      <span className="ml-2 px-2 py-0.5 text-xs font-semibold rounded-full bg-effinor-emerald text-white">
+                      <span className="ml-2 px-2 py-0.5 text-xs font-semibold rounded-full bg-[#10B981] text-white">
                         {unreadCount}
                       </span>
                     )}
@@ -547,7 +547,7 @@ export default function DashboardPage() {
             </CardHeader>
             <CardContent>
               {notifications.length === 0 ? (
-                <p className="text-sm text-effinor-gray-text text-center py-8">
+                <p className="text-sm text-[#4B5563] text-center py-8">
                   Aucune notification
                 </p>
               ) : (
@@ -559,26 +559,26 @@ export default function DashboardPage() {
                       onClick={() => markAsRead(notification.id)}
                       className={`block p-3 rounded-lg border transition-all ${
                         notification.read
-                          ? 'border-gray-200 bg-effinor-gray-light hover:bg-effinor-gray-medium'
-                          : 'border-effinor-emerald bg-effinor-emerald/5 hover:bg-effinor-emerald/10'
+                          ? 'border-gray-200 bg-[#F9FAFB] hover:bg-[#F3F4F6]'
+                          : 'border-[#10B981] bg-[#10B981]/5 hover:bg-[#10B981]/10'
                       }`}
                     >
                       <div className="flex items-start justify-between gap-2">
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2">
                             <p className={`text-sm font-medium ${
-                              notification.read ? 'text-effinor-gray-dark' : 'text-effinor-gray-dark font-semibold'
+                              notification.read ? 'text-[#111827]' : 'text-[#111827] font-semibold'
                             }`}>
                               {notification.type === 'order' ? '🛒' : '📧'} {notification.title}
                             </p>
                             {!notification.read && (
-                              <span className="h-2 w-2 rounded-full bg-effinor-emerald flex-shrink-0"></span>
+                              <span className="h-2 w-2 rounded-full bg-[#10B981] flex-shrink-0"></span>
                             )}
                           </div>
-                          <p className="text-xs text-effinor-gray-text mt-1">
+                          <p className="text-xs text-[#4B5563] mt-1">
                             {notification.description}
                           </p>
-                          <p className="text-xs text-effinor-gray-text mt-2">
+                          <p className="text-xs text-[#4B5563] mt-2">
                             {format(notification.createdAt, "dd MMM yyyy HH:mm", { locale: fr })}
                           </p>
                         </div>
@@ -598,7 +598,7 @@ export default function DashboardPage() {
                     </Link>
                   ))}
                   {notifications.length > 10 && (
-                    <p className="text-xs text-effinor-gray-text text-center pt-2">
+                    <p className="text-xs text-[#4B5563] text-center pt-2">
                       + {notifications.length - 10} autres notifications
                     </p>
                   )}

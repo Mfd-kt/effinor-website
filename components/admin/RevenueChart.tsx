@@ -63,7 +63,7 @@ export function RevenueChart({ data, loading, period }: RevenueChartProps) {
           <CardDescription>Aucune donnée disponible pour la période sélectionnée</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="h-64 flex items-center justify-center text-effinor-gray-text">
+          <div className="h-64 flex items-center justify-center text-[#4B5563]">
             Aucune donnée
           </div>
         </CardContent>
@@ -77,7 +77,7 @@ export function RevenueChart({ data, loading, period }: RevenueChartProps) {
         <div className="flex items-center justify-between">
           <div>
             <CardTitle className="flex items-center gap-2">
-              <TrendingUp className="h-5 w-5 text-effinor-emerald" />
+              <TrendingUp className="h-5 w-5 text-[#10B981]" />
               Évolution des revenus
             </CardTitle>
             <CardDescription>
@@ -85,10 +85,10 @@ export function RevenueChart({ data, loading, period }: RevenueChartProps) {
             </CardDescription>
           </div>
           <div className="text-right">
-            <p className="text-2xl font-bold text-effinor-gray-dark">
+            <p className="text-2xl font-bold text-[#111827]">
               {totalRevenue.toLocaleString('fr-FR')} €
             </p>
-            <p className="text-xs text-effinor-gray-text">
+            <p className="text-xs text-[#4B5563]">
               Moyenne : {averageRevenue.toLocaleString('fr-FR', { maximumFractionDigits: 0 })} €/jour
             </p>
           </div>

@@ -24,19 +24,19 @@ export function LeadScoreCard({ lead }: LeadScoreCardProps) {
   const getScoreColor = (score: number) => {
     if (score < 50) return "text-red-600";
     if (score < 75) return "text-orange-600";
-    return "text-effinor-emerald";
+    return "text-[#10B981]";
   };
 
   const getScoreBgColor = (score: number) => {
     if (score < 50) return "bg-red-50 border-red-200";
     if (score < 75) return "bg-orange-50 border-orange-200";
-    return "bg-effinor-emerald/10 border-effinor-emerald/20";
+    return "bg-[#10B981]/10 border-[#10B981]/20";
   };
 
   const getProgressColor = (score: number) => {
     if (score < 50) return "bg-red-600";
     if (score < 75) return "bg-orange-600";
-    return "bg-effinor-emerald";
+    return "bg-[#10B981]";
   };
 
   // Calculer les scores par section
@@ -162,7 +162,7 @@ export function LeadScoreCard({ lead }: LeadScoreCardProps) {
             <CardTitle className="flex items-center gap-2">
               Score de complétion
               {score >= 75 ? (
-                <CheckCircle2 className="h-5 w-5 text-effinor-emerald" />
+                <CheckCircle2 className="h-5 w-5 text-[#10B981]" />
               ) : score >= 50 ? (
                 <AlertCircle className="h-5 w-5 text-orange-600" />
               ) : (
@@ -190,10 +190,10 @@ export function LeadScoreCard({ lead }: LeadScoreCardProps) {
         {/* Barre de progression globale */}
         <div className="space-y-2">
           <div className="flex justify-between text-sm">
-            <span className="text-effinor-gray-text">Progression globale</span>
+            <span className="text-[#4B5563]">Progression globale</span>
             <span className={cn("font-semibold", getScoreColor(score))}>{score}%</span>
           </div>
-          <div className="relative h-3 w-full overflow-hidden rounded-full bg-effinor-gray-medium">
+          <div className="relative h-3 w-full overflow-hidden rounded-full bg-[#F3F4F6]">
             <div
               className={cn("h-full transition-all", getProgressColor(score))}
               style={{ width: `${score}%` }}
@@ -203,7 +203,7 @@ export function LeadScoreCard({ lead }: LeadScoreCardProps) {
 
         {/* Scores par section */}
         <div className="space-y-4">
-          <h4 className="text-sm font-semibold text-effinor-gray-dark">Détail par section</h4>
+          <h4 className="text-sm font-semibold text-[#111827]">Détail par section</h4>
           <div className="grid gap-3 md:grid-cols-2">
             {sections.map((section) => {
               const sectionPercentage = section.maxScore > 0 
@@ -216,16 +216,16 @@ export function LeadScoreCard({ lead }: LeadScoreCardProps) {
                   className="p-3 rounded-lg border border-gray-200 bg-white"
                 >
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-medium text-effinor-gray-dark">
+                    <span className="text-sm font-medium text-[#111827]">
                       {section.name}
                     </span>
-                    <span className="text-sm font-semibold text-effinor-gray-text">
+                    <span className="text-sm font-semibold text-[#4B5563]">
                       {section.score}/{section.maxScore}
                     </span>
                   </div>
-                  <div className="relative h-2 w-full overflow-hidden rounded-full bg-effinor-gray-medium">
+                  <div className="relative h-2 w-full overflow-hidden rounded-full bg-[#F3F4F6]">
             <div
-              className="h-full bg-effinor-emerald transition-all"
+              className="h-full bg-[#10B981] transition-all"
               style={{ width: `${sectionPercentage}%` }}
             />
           </div>
@@ -238,16 +238,16 @@ export function LeadScoreCard({ lead }: LeadScoreCardProps) {
         {/* Champs manquants */}
         {allMissingFields.length > 0 && (
           <div className="space-y-3 pt-4 border-t border-gray-200">
-            <h4 className="text-sm font-semibold text-effinor-gray-dark">
+            <h4 className="text-sm font-semibold text-[#111827]">
               Champs manquants ({allMissingFields.length})
             </h4>
             <div className="grid gap-2 md:grid-cols-2">
               {allMissingFields.map((field, index) => (
                 <div
                   key={index}
-                  className="flex items-center justify-between p-2 rounded bg-effinor-gray-light text-sm"
+                  className="flex items-center justify-between p-2 rounded bg-[#F9FAFB] text-sm"
                 >
-                  <span className="text-effinor-gray-text">{field.name}</span>
+                  <span className="text-[#4B5563]">{field.name}</span>
                   <Badge variant="outline" className="text-xs">
                     +{field.points} pts
                   </Badge>
@@ -259,7 +259,7 @@ export function LeadScoreCard({ lead }: LeadScoreCardProps) {
 
         {allMissingFields.length === 0 && (
           <div className="pt-4 border-t border-gray-200">
-            <div className="flex items-center gap-2 text-effinor-emerald">
+            <div className="flex items-center gap-2 text-[#10B981]">
               <CheckCircle2 className="h-5 w-5" />
               <span className="text-sm font-medium">Tous les champs sont remplis !</span>
             </div>

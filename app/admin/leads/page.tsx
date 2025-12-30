@@ -292,12 +292,12 @@ export default function LeadsPage() {
         const getScoreColor = (score: number) => {
           if (score < 50) return "bg-red-600";
           if (score < 75) return "bg-orange-600";
-          return "bg-effinor-emerald";
+          return "bg-[#10B981]";
         };
         
         return (
           <div className="flex items-center gap-2 min-w-[120px]">
-            <div className="flex-1 relative h-2 w-16 overflow-hidden rounded-full bg-effinor-gray-medium">
+            <div className="flex-1 relative h-2 w-16 overflow-hidden rounded-full bg-[#F3F4F6]">
               <div
                 className={cn("h-full transition-all", getScoreColor(score))}
                 style={{ width: `${score}%` }}
@@ -305,7 +305,7 @@ export default function LeadsPage() {
             </div>
             <span className={cn(
               "text-sm font-semibold",
-              score < 50 ? "text-red-600" : score < 75 ? "text-orange-600" : "text-effinor-emerald"
+              score < 50 ? "text-red-600" : score < 75 ? "text-orange-600" : "text-[#10B981]"
             )}>
               {score}
             </span>
@@ -591,7 +591,7 @@ export default function LeadsPage() {
                 variant="default"
                 size="sm"
                 onClick={() => handleOpenMergeDialog(duplicateEmail)}
-                className="bg-effinor-emerald hover:bg-effinor-emerald/90"
+                className="bg-[#10B981] hover:bg-[#10B981]/90"
               >
                 Fusionner tous
               </Button>

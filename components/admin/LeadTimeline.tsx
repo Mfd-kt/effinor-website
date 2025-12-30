@@ -57,7 +57,7 @@ export function LeadTimeline({ leadId }: LeadTimelineProps) {
       case 'email_sent': return 'bg-purple-100 text-purple-600';
       case 'call_made': return 'bg-orange-100 text-orange-600';
       case 'note_added': return 'bg-gray-100 text-gray-600';
-      case 'status_changed': return 'bg-effinor-emerald/10 text-effinor-emerald';
+      case 'status_changed': return 'bg-[#10B981]/10 text-[#10B981]';
       case 'merged': return 'bg-yellow-100 text-yellow-600';
       default: return 'bg-gray-100 text-gray-600';
     }

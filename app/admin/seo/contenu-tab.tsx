@@ -90,9 +90,9 @@ export function ContentPageContent() {
                     </CardDescription>
                   </div>
                   {langCount > 0 ? (
-                    <CheckCircle2 className="h-5 w-5 text-effinor-emerald flex-shrink-0" />
+                    <CheckCircle2 className="h-5 w-5 text-[#10B981] flex-shrink-0" />
                   ) : (
-                    <Circle className="h-5 w-5 text-effinor-gray-text flex-shrink-0" />
+                    <Circle className="h-5 w-5 text-[#4B5563] flex-shrink-0" />
                   )}
                 </div>
               </CardHeader>
@@ -104,14 +104,14 @@ export function ContentPageContent() {
                   >
                     {langCount > 0 ? `${langCount}/3 langues` : "Non créé"}
                   </Badge>
-                  <span className="text-xs text-effinor-gray-text">
+                  <span className="text-xs text-[#4B5563]">
                     /{page.slug}
                   </span>
                 </div>
                 
                 {/* Indicateurs de langues */}
                 <div className="flex items-center gap-2">
-                  <Globe className="h-4 w-4 text-effinor-gray-text" />
+                  <Globe className="h-4 w-4 text-[#4B5563]" />
                   <div className="flex gap-1">
                     <Badge variant={hasFr ? "default" : "outline"} className="text-xs px-1.5 py-0.5">
                       FR
@@ -164,11 +164,11 @@ export function ContentPageContent() {
       <div className="mt-8 pt-6 border-t border-gray-200">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h3 className="text-lg font-semibold text-effinor-gray-dark flex items-center gap-2">
-              <Code className="h-5 w-5 text-effinor-emerald" />
+            <h3 className="text-lg font-semibold text-[#111827] flex items-center gap-2">
+              <Code className="h-5 w-5 text-[#10B981]" />
               Scripts de tracking et publicité
             </h3>
-            <p className="text-sm text-effinor-gray-text mt-1">
+            <p className="text-sm text-[#4B5563] mt-1">
               Gérez les scripts de tracking (Meta Ads, Google Ads, etc.)
             </p>
           </div>
@@ -203,7 +203,7 @@ export function ContentPageContent() {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="flex items-center gap-2 text-xs text-effinor-gray-text mb-3">
+                  <div className="flex items-center gap-2 text-xs text-[#4B5563] mb-3">
                     <span className="capitalize">{script.scriptPosition}</span>
                     <span>•</span>
                     <span>Priorité: {script.priority}</span>
@@ -224,8 +224,8 @@ export function ContentPageContent() {
         ) : (
           <Card>
             <CardContent className="py-8 text-center">
-              <Code className="h-10 w-10 text-effinor-gray-text mx-auto mb-3" />
-              <p className="text-sm text-effinor-gray-text mb-4">
+              <Code className="h-10 w-10 text-[#4B5563] mx-auto mb-3" />
+              <p className="text-sm text-[#4B5563] mb-4">
                 Aucun script configuré
               </p>
               <Button
