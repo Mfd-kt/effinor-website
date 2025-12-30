@@ -263,7 +263,7 @@ export default function ContactFormSection({ lang, dict, compact = false, catego
   const iconColor = 'text-gray-400';
   
   const formContent = (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-5">
       {/* Indicateur de sauvegarde */}
       {currentLeadId && (saving || saved) && (
         <div className="flex items-center gap-2 text-sm text-[#10B981] mb-2">
@@ -283,7 +283,7 @@ export default function ContactFormSection({ lang, dict, compact = false, catego
 
       {/* Nom complet */}
       <div>
-        <label htmlFor="name" className={`block text-sm font-medium ${labelTextColor} mb-2`}>
+        <label htmlFor="name" className={`block text-sm font-medium ${labelTextColor} mb-1.5`}>
           {dict.contact.form.name} *
         </label>
         <div className="flex items-center gap-2">
@@ -296,14 +296,14 @@ export default function ContactFormSection({ lang, dict, compact = false, catego
             onChange={(e) => setName(e.target.value)}
             required
             placeholder="Jean Dupont"
-            className="flex-1 w-full rounded-xl border-2 border-gray-400 bg-white px-4 py-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981] transition-colors"
+            className="flex-1 w-full rounded-xl border-2 border-gray-400 bg-white px-4 py-3.5 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981] transition-colors"
           />
         </div>
       </div>
 
       {/* Téléphone */}
       <div>
-        <label htmlFor="phone" className={`block text-sm font-medium ${labelTextColor} mb-2`}>
+        <label htmlFor="phone" className={`block text-sm font-medium ${labelTextColor} mb-1.5`}>
           {dict.contact.form.phone} *
         </label>
         <div className="flex items-center gap-2">
@@ -316,14 +316,14 @@ export default function ContactFormSection({ lang, dict, compact = false, catego
             onChange={(e) => setPhone(e.target.value)}
             required
             placeholder="+33 6 XX XX XX XX"
-            className="flex-1 w-full rounded-xl border-2 border-gray-400 bg-white px-4 py-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981] transition-colors"
+            className="flex-1 w-full rounded-xl border-2 border-gray-400 bg-white px-4 py-3.5 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981] transition-colors"
           />
         </div>
       </div>
 
       {/* Type de bâtiment */}
       <div>
-        <label htmlFor="building_type" className={`block text-sm font-medium ${labelTextColor} mb-2`}>
+        <label htmlFor="building_type" className={`block text-sm font-medium ${labelTextColor} mb-1.5`}>
           {dict.contact.form.buildingTypeLabel || dict.contact.form.needTypeLabel} *
         </label>
         <div className="flex items-center gap-2">
@@ -335,7 +335,7 @@ export default function ContactFormSection({ lang, dict, compact = false, catego
               value={selectedBuildingType}
               onChange={(e) => setSelectedBuildingType(e.target.value)}
               required
-              className="w-full rounded-xl border-2 border-gray-400 bg-white px-4 py-3 pr-10 text-sm text-gray-900 appearance-none focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981] transition-colors"
+              className="w-full rounded-xl border-2 border-gray-400 bg-white px-4 py-3.5 pr-10 text-sm text-gray-900 appearance-none focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981] transition-colors"
             >
               <option value="" disabled>
                 {lang === 'fr' ? 'Sélectionner...' : lang === 'en' ? 'Select...' : 'اختر...'}
@@ -357,7 +357,7 @@ export default function ContactFormSection({ lang, dict, compact = false, catego
 
       {/* Surface (m²) */}
       <div>
-        <label htmlFor="surface_m2" className={`block text-sm font-medium ${labelTextColor} mb-2`}>
+        <label htmlFor="surface_m2" className={`block text-sm font-medium ${labelTextColor} mb-1.5`}>
           {dict.contact.form.surfaceLabel} *
         </label>
         <div className="flex items-center gap-2">
@@ -372,14 +372,14 @@ export default function ContactFormSection({ lang, dict, compact = false, catego
             min="0"
             step="0.01"
             placeholder="Ex: 1000"
-            className="flex-1 w-full rounded-xl border-2 border-gray-400 bg-white px-4 py-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981] transition-colors"
+            className="flex-1 w-full rounded-xl border-2 border-gray-400 bg-white px-4 py-3.5 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981] transition-colors"
           />
         </div>
       </div>
 
       {/* Email professionnel */}
       <div>
-        <label htmlFor="email" className={`block text-sm font-medium ${labelTextColor} mb-2`}>
+        <label htmlFor="email" className={`block text-sm font-medium ${labelTextColor} mb-1.5`}>
           {dict.contact.form.email} *
         </label>
         <div className="flex items-center gap-2">
@@ -392,7 +392,7 @@ export default function ContactFormSection({ lang, dict, compact = false, catego
             onChange={(e) => setEmail(e.target.value)}
             required
             placeholder="votre.email@entreprise.fr"
-            className="flex-1 w-full rounded-xl border-2 border-gray-400 bg-white px-4 py-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981] transition-colors"
+            className="flex-1 w-full rounded-xl border-2 border-gray-400 bg-white px-4 py-3.5 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981] transition-colors"
           />
         </div>
       </div>
@@ -484,7 +484,7 @@ export default function ContactFormSection({ lang, dict, compact = false, catego
       <button
         type="submit"
         disabled={submitting}
-        className="mt-4 inline-flex w-full items-center justify-center rounded-full bg-[#10B981] px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-[#059669] transition-colors disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:ring-offset-2"
+        className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-[#10B981] px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-[#059669] transition-colors disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:ring-offset-2"
       >
         {submitting ? (
           dict.contact.form.submitting
@@ -501,7 +501,7 @@ export default function ContactFormSection({ lang, dict, compact = false, catego
   // La Card a toujours un fond blanc, donc les textes sont toujours sombres
   if (compact) {
     return (
-      <Card className="max-w-md bg-white" padding="lg">
+      <Card className="max-w-md bg-white" padding="xl">
         {/* Titre et sous-titre centrés */}
         <div className="text-center mb-8">
           <div className="w-12 h-12 rounded-full bg-[#10B981]/10 flex items-center justify-center mx-auto mb-4">
@@ -526,7 +526,7 @@ export default function ContactFormSection({ lang, dict, compact = false, catego
     <section className="py-16 md:py-24 bg-white">
       <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl mx-auto">
-          <Card padding="lg">
+          <Card padding="xl">
             {/* Titre et sous-titre centrés */}
             <div className="text-center mb-8">
               <div className="w-12 h-12 rounded-full bg-[#10B981]/10 flex items-center justify-center mx-auto mb-4">
