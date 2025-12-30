@@ -263,7 +263,7 @@ export default function ContactFormSection({ lang, dict, compact = false, catego
   const iconColor = 'text-gray-400';
   
   const formContent = (
-    <form onSubmit={handleSubmit} className="space-y-5">
+    <form onSubmit={handleSubmit} className="space-y-6">
       {/* Indicateur de sauvegarde */}
       {currentLeadId && (saving || saved) && (
         <div className="flex items-center gap-2 text-sm text-[#10B981] mb-2">
@@ -296,7 +296,7 @@ export default function ContactFormSection({ lang, dict, compact = false, catego
             onChange={(e) => setName(e.target.value)}
             required
             placeholder="Jean Dupont"
-            className="flex-1 w-full rounded-xl border-2 border-gray-400 bg-white px-3 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981] transition-colors"
+            className="flex-1 w-full rounded-xl border-2 border-gray-400 bg-white px-4 py-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981] transition-colors"
           />
         </div>
       </div>
@@ -316,7 +316,7 @@ export default function ContactFormSection({ lang, dict, compact = false, catego
             onChange={(e) => setPhone(e.target.value)}
             required
             placeholder="+33 6 XX XX XX XX"
-            className="flex-1 w-full rounded-xl border-2 border-gray-400 bg-white px-3 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981] transition-colors"
+            className="flex-1 w-full rounded-xl border-2 border-gray-400 bg-white px-4 py-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981] transition-colors"
           />
         </div>
       </div>
@@ -335,7 +335,7 @@ export default function ContactFormSection({ lang, dict, compact = false, catego
               value={selectedBuildingType}
               onChange={(e) => setSelectedBuildingType(e.target.value)}
               required
-              className="w-full rounded-xl border-2 border-gray-400 bg-white px-3 py-2.5 pr-10 text-sm text-gray-900 appearance-none focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981] transition-colors"
+              className="w-full rounded-xl border-2 border-gray-400 bg-white px-4 py-3 pr-10 text-sm text-gray-900 appearance-none focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981] transition-colors"
             >
               <option value="" disabled>
                 {lang === 'fr' ? 'Sélectionner...' : lang === 'en' ? 'Select...' : 'اختر...'}
@@ -372,7 +372,7 @@ export default function ContactFormSection({ lang, dict, compact = false, catego
             min="0"
             step="0.01"
             placeholder="Ex: 1000"
-            className="flex-1 w-full rounded-xl border-2 border-gray-400 bg-white px-3 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981] transition-colors"
+            className="flex-1 w-full rounded-xl border-2 border-gray-400 bg-white px-4 py-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981] transition-colors"
           />
         </div>
       </div>
@@ -392,7 +392,7 @@ export default function ContactFormSection({ lang, dict, compact = false, catego
             onChange={(e) => setEmail(e.target.value)}
             required
             placeholder="votre.email@entreprise.fr"
-            className="flex-1 w-full rounded-xl border-2 border-gray-400 bg-white px-3 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981] transition-colors"
+            className="flex-1 w-full rounded-xl border-2 border-gray-400 bg-white px-4 py-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981] transition-colors"
           />
         </div>
       </div>
@@ -501,7 +501,7 @@ export default function ContactFormSection({ lang, dict, compact = false, catego
   // La Card a toujours un fond blanc, donc les textes sont toujours sombres
   if (compact) {
     return (
-      <Card className="max-w-md bg-white" padding="md">
+      <Card className="max-w-md bg-white" padding="lg">
         {/* Icône éclair en haut à gauche */}
         <div className="flex items-start gap-3 mb-4">
           <div className="w-8 h-8 rounded-full bg-[#10B981]/10 flex items-center justify-center flex-shrink-0">
