@@ -22,6 +22,8 @@ const nextConfig: NextConfig = {
     ],
   },
   // Exclure le Dashboard du build (c'est une application séparée)
+  // Note: Le Dashboard est déjà exclu via .vercelignore
+  // La config webpack est utilisée uniquement avec --webpack flag
   webpack: (config, { isServer }) => {
     // Ignorer le dossier Dashboard lors du watch et du build
     const existingIgnored = config.watchOptions?.ignored;
