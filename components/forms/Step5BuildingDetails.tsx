@@ -151,7 +151,7 @@ export default function Step5BuildingDetailsComponent({
                     type: e.target.value as BuildingType,
                   })
                 }
-                className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981]"
+                className="w-full rounded-xl border-2 border-gray-400 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981]"
               >
                 <option value="">{dict.detailedForm.step5.general.selectType}</option>
                 {BUILDING_TYPES.map((type) => (
@@ -176,7 +176,7 @@ export default function Step5BuildingDetailsComponent({
                     })
                   }
                   placeholder={dict.detailedForm.step5.general.surfacePlaceholder}
-                  className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981]"
+                  className="w-full rounded-xl border-2 border-gray-400 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981]"
                 />
               </div>
 
@@ -194,7 +194,7 @@ export default function Step5BuildingDetailsComponent({
                     })
                   }
                   placeholder={dict.detailedForm.step5.general.heightPlaceholder}
-                  className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981]"
+                  className="w-full rounded-xl border-2 border-gray-400 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981]"
                 />
               </div>
             </div>
@@ -240,7 +240,7 @@ export default function Step5BuildingDetailsComponent({
                         mode: e.target.value || null,
                       })
                     }
-                    className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981]"
+                    className="w-full rounded-xl border-2 border-gray-400 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981]"
                   >
                     <option value="">{dict.detailedForm.step5.heating.selectMode}</option>
                     <option value="electric">Électrique</option>
@@ -264,7 +264,7 @@ export default function Step5BuildingDetailsComponent({
                         })
                       }
                       placeholder={dict.detailedForm.step5.heating.powerPlaceholder}
-                      className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981]"
+                      className="w-full rounded-xl border-2 border-gray-400 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981]"
                     />
                   </div>
 
@@ -281,7 +281,7 @@ export default function Step5BuildingDetailsComponent({
                         })
                       }
                       placeholder={dict.detailedForm.step5.heating.setpointPlaceholder}
-                      className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981]"
+                      className="w-full rounded-xl border-2 border-gray-400 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981]"
                     />
                   </div>
                 </div>
@@ -338,7 +338,7 @@ export default function Step5BuildingDetailsComponent({
                         })
                       }
                       placeholder={dict.detailedForm.step5.lighting.neon.countPlaceholder}
-                      className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981]"
+                      className="w-full rounded-lg border-2 border-gray-400 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981]"
                     />
                   </div>
                   <div>
@@ -357,7 +357,7 @@ export default function Step5BuildingDetailsComponent({
                         })
                       }
                       placeholder={dict.detailedForm.step5.lighting.neon.powerPlaceholder}
-                      className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981]"
+                      className="w-full rounded-lg border-2 border-gray-400 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981]"
                     />
                   </div>
                 </div>
@@ -402,7 +402,7 @@ export default function Step5BuildingDetailsComponent({
                         })
                       }
                       placeholder={dict.detailedForm.step5.lighting.doubleNeon.countPlaceholder}
-                      className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981]"
+                      className="w-full rounded-lg border-2 border-gray-400 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981]"
                     />
                   </div>
                   <div>
@@ -421,7 +421,7 @@ export default function Step5BuildingDetailsComponent({
                         })
                       }
                       placeholder={dict.detailedForm.step5.lighting.doubleNeon.powerPlaceholder}
-                      className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981]"
+                      className="w-full rounded-lg border-2 border-gray-400 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981]"
                     />
                   </div>
                 </div>
@@ -466,7 +466,7 @@ export default function Step5BuildingDetailsComponent({
                         })
                       }
                       placeholder={dict.detailedForm.step5.lighting.halogen.countPlaceholder}
-                      className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981]"
+                      className="w-full rounded-lg border-2 border-gray-400 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981]"
                     />
                   </div>
                   <div>
@@ -485,7 +485,7 @@ export default function Step5BuildingDetailsComponent({
                         })
                       }
                       placeholder={dict.detailedForm.step5.lighting.halogen.powerPlaceholder}
-                      className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981]"
+                      className="w-full rounded-lg border-2 border-gray-400 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981]"
                     />
                   </div>
                 </div>
