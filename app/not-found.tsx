@@ -9,7 +9,7 @@ export default function NotFound() {
         <h1 className="text-4xl md:text-5xl font-extrabold text-[#111827] mb-4">404</h1>
         <p className="text-xl text-[#4B5563] mb-8">Page non trouvée</p>
         <Link href="/fr">
-          <Button variant="primary">
+          <Button variant="default">
             Retour à l'accueil
           </Button>
         </Link>

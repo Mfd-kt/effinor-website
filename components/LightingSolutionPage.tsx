@@ -36,7 +36,7 @@ export default function LightingSolutionPage({
               {detail.heroSubtitle}
             </p>
             <Link href="#contact">
-              <Button variant="primary" className="bg-[#10B981] hover:bg-[#059669]">
+              <Button variant="default" className="bg-[#10B981] hover:bg-[#059669] text-white">
                 {detail.ctaButton}
               </Button>
             </Link>

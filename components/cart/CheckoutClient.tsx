@@ -335,7 +335,7 @@ export default function CheckoutClient({ lang, dict }: CheckoutClientProps) {
                 {/* Bouton submit */}
                 <Button
                   type="submit"
-                  variant="primary"
+                  variant="default"
                   disabled={submitting}
                   className="w-full"
                 >

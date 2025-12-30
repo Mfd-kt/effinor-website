@@ -76,7 +76,7 @@ export default async function AboutPage({ params }: AboutPageProps) {
             </p>
             <div className="text-center mt-12">
               <Link href={`/${validLang}/contact`}>
-                <Button variant="primary">{dict.hero.ctaPrimary}</Button>
+                <Button variant="default">{dict.hero.ctaPrimary}</Button>
               </Link>
             </div>
           </div>

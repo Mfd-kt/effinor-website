@@ -401,12 +401,12 @@ export default function DetailedFormWizard({
         )}
 
         {currentStep < TOTAL_STEPS ? (
-          <Button variant="primary" onClick={handleNext} disabled={submitting}>
+          <Button variant="default" onClick={handleNext} disabled={submitting}>
             {dict.detailedForm.next}
           </Button>
         ) : (
           <Button
-            variant="primary"
+            variant="default"
             onClick={handleSubmit}
             disabled={submitting}
           >

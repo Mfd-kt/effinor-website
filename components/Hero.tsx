@@ -21,7 +21,7 @@ export default function Hero({ lang, dict }: HeroProps) {
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <Link href={`/${lang}/contact`}>
-              <Button variant="primary" className="bg-[#10B981] hover:bg-[#059669]">
+              <Button variant="default" className="bg-[#10B981] hover:bg-[#059669]">
                 {dict.hero.ctaPrimary}
               </Button>
             </Link>

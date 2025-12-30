@@ -78,7 +78,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
                 {validLang === 'ar' && 'المدونة ستكون متاحة قريباً. عد قريباً لاكتشاف مقالاتنا!'}
               </p>
               <Link href={`/${validLang}`}>
-                <Button variant="primary">
+                <Button variant="default">
                   {dict.nav.home} →
                 </Button>
               </Link>

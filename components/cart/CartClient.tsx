@@ -35,7 +35,7 @@ export default function CartClient({ lang, dict }: CartClientProps) {
           <Card className="text-center py-12">
             <p className="text-lg text-[#4B5563] mb-6">{dict.cart.empty}</p>
             <Link href={`/${lang}/products`}>
-              <Button variant="primary">
+              <Button variant="default">
                 {dict.cart.browseProducts || 'Voir les produits'}
               </Button>
             </Link>
@@ -100,7 +100,7 @@ export default function CartClient({ lang, dict }: CartClientProps) {
 
               {/* Bouton Continuer */}
               <Button
-                variant="primary"
+                variant="default"
                 onClick={handleContinue}
                 className="w-full"
               >

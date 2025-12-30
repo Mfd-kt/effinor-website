@@ -258,7 +258,7 @@ export default async function EtudePage({ params }: EtudePageProps) {
                 }`}
               >
                 <Link href="#products">
-                  <Button variant="primary" className="bg-[#10B981] hover:bg-[#059669] w-full sm:w-auto">
+                  <Button variant="default" className="bg-[#10B981] hover:bg-[#059669] w-full sm:w-auto">
                     {content.hero.ctaPrimary}
                   </Button>
                 </Link>
@@ -385,7 +385,7 @@ export default async function EtudePage({ params }: EtudePageProps) {
             }`}
           >
             <Link href="#contact">
-              <Button variant="primary" className="bg-[#10B981] hover:bg-[#059669] w-full sm:w-auto">
+              <Button variant="default" className="bg-[#10B981] hover:bg-[#059669] w-full sm:w-auto">
                 {content.cta.ctaPrimary}
               </Button>
             </Link>

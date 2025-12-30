@@ -61,7 +61,7 @@ export default async function ThankYouPage({ params }: ThankYouPageProps) {
 
           <div className={`flex flex-col sm:flex-row gap-4 justify-center ${isRTL ? 'sm:flex-row-reverse' : ''}`}>
             <Link href={`/${lang}`}>
-              <Button variant="primary">
+              <Button variant="default">
                 {messages.backHome[lang]}
               </Button>
             </Link>

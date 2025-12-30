@@ -48,7 +48,7 @@ export default async function SolutionPage({ params }: SolutionPageProps) {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href={`/${lang}/contact`}>
-                <Button variant="primary" className="bg-[#10B981] hover:bg-[#059669]">
+                <Button variant="default" className="bg-[#10B981] hover:bg-[#059669]">
                   {dict.hero.ctaPrimary}
                 </Button>
               </Link>
@@ -155,7 +155,7 @@ export default async function SolutionPage({ params }: SolutionPageProps) {
             {lang === 'ar' && 'اتصل بنا اليوم للحصول على تقدير مجاني'}
           </p>
           <Link href={`/${lang}/contact`}>
-            <Button variant="primary" className="bg-[#10B981] hover:bg-[#059669]">
+            <Button variant="default" className="bg-[#10B981] hover:bg-[#059669]">
               {dict.hero.ctaPrimary}
             </Button>
           </Link>

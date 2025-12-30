@@ -50,7 +50,7 @@ export default async function MerciPage({ params }: MerciPageProps) {
             Nous avons bien reçu votre formulaire et nous vous recontacterons rapidement.
           </p>
           <Link href={`/${validLang}`}>
-            <Button variant="primary">
+            <Button variant="default">
               Retour à l'accueil
             </Button>
           </Link>
