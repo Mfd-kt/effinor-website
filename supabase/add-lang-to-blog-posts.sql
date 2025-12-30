@@ -24,4 +24,3 @@ CREATE INDEX IF NOT EXISTS idx_blog_posts_lang ON public.blog_posts(lang);
 
 -- Commentaire pour documentation
 COMMENT ON COLUMN public.blog_posts.lang IS 'Langue de l''article de blog (fr, en, ar)';
-

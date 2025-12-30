@@ -24,10 +24,13 @@ import { cn } from "@/lib/utils";
 import { useAdminShell } from "./AdminShell";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { getCurrentUser } from "@/lib/auth/mockAuth";
+import { getCurrentUserClient } from "@/lib/auth/auth-client";
 import { useEffect } from "react";
 import { User } from "@/lib/types/user";
 import { Logo } from "@/components/ui/Logo";
+import { logout } from "@/app/actions/auth";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/toast";
 
 interface MenuItem {
   title: string;
@@ -178,11 +181,44 @@ function MenuItemComponent({
 
 function SidebarContent({ isMobile = false }: { isMobile?: boolean }) {
   const pathname = usePathname();
+  const router = useRouter();
+  const { addToast } = useToast();
   const [user, setUser] = useState<User | null>(null);
+  const [loggingOut, setLoggingOut] = useState(false);
 
   useEffect(() => {
-    getCurrentUser().then(setUser);
+    getCurrentUserClient().then(setUser);
   }, []);
+
+  const handleLogout = async () => {
+    setLoggingOut(true);
+    try {
+      const result = await logout();
+      if (result.success) {
+        addToast({
+          title: 'Déconnexion réussie',
+          description: 'Vous avez été déconnecté avec succès',
+          variant: 'default',
+        });
+        router.push('/login');
+        router.refresh();
+      } else {
+        addToast({
+          title: 'Erreur de déconnexion',
+          description: result.error?.message || 'Une erreur est survenue',
+          variant: 'destructive',
+        });
+        setLoggingOut(false);
+      }
+    } catch (error) {
+      addToast({
+        title: 'Erreur',
+        description: 'Une erreur inattendue est survenue',
+        variant: 'destructive',
+      });
+      setLoggingOut(false);
+    }
+  };
 
   return (
     <div className="flex flex-col h-full bg-[#0F172A] text-white">
@@ -227,9 +263,11 @@ function SidebarContent({ isMobile = false }: { isMobile?: boolean }) {
         <Button
           variant="ghost"
           className="w-full justify-start text-white hover:bg-[#1E293B]"
+          onClick={handleLogout}
+          disabled={loggingOut}
         >
           <LogOut className="h-4 w-4 mr-2" />
-          Se déconnecter
+          {loggingOut ? 'Déconnexion...' : 'Se déconnecter'}
         </Button>
       </div>
     </div>

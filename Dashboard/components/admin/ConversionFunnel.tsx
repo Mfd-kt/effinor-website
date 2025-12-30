@@ -141,9 +141,11 @@ export function ConversionFunnel({ data, loading }: ConversionFunnelProps) {
                 borderRadius: '8px',
                 padding: '8px',
               }}
-              formatter={(value: number, name: string, props: any) => {
+              formatter={(value: any, name: any, props: any) => {
+                const numValue = value ?? 0;
+                const percentage = props?.payload?.percentage ?? 0;
                 return [
-                  `${value} leads (${props.payload.percentage}%)`,
+                  `${numValue} leads (${percentage}%)`,
                   'Nombre de leads',
                 ];
               }}
@@ -171,4 +173,6 @@ export function ConversionFunnel({ data, loading }: ConversionFunnelProps) {
     </Card>
   );
 }
+
+
 

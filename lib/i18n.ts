@@ -3,6 +3,9 @@ import { fr } from '@/i18n/fr';
 import { en } from '@/i18n/en';
 import { ar } from '@/i18n/ar';
 
+// Réexporter Lang pour faciliter les imports
+export type { Lang } from '@/types';
+
 /**
  * Récupère le dictionnaire de traduction pour une langue donnée
  * @param lang - La langue souhaitée ('fr', 'en', 'ar')

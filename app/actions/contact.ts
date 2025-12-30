@@ -11,7 +11,9 @@ type ContactFormInput = {
   company?: string;
   message?: string;
   solution?: string; // Conservé pour rétrocompatibilité
-  category_id?: string;
+  category_id?: string; // Conservé pour rétrocompatibilité
+  building_type?: string; // Type de bâtiment (entrepot-logistique, bureau, usine-production, commerce-retail, autre-batiment)
+  surface_m2?: number;
   page?: string;
   origin?: string;
   utm_source?: string;
@@ -25,6 +27,9 @@ type ContactFormInput = {
 
 export async function submitContactLead(formData: FormData) {
   // 1. Récupération des champs du formulaire
+  const surfaceM2Value = formData.get('surface_m2');
+  const surfaceM2 = surfaceM2Value ? Number(surfaceM2Value) : undefined;
+  
   const payload: ContactFormInput = {
     lang: (formData.get('lang') as 'fr' | 'en' | 'ar') ?? 'fr',
     name: String(formData.get('name') || '').trim(),
@@ -34,6 +39,8 @@ export async function submitContactLead(formData: FormData) {
     message: String(formData.get('message') || '').trim() || undefined,
     solution: String(formData.get('solution') || '').trim() || undefined,
     category_id: String(formData.get('category_id') || '').trim() || undefined,
+    building_type: String(formData.get('building_type') || '').trim() || undefined,
+    surface_m2: surfaceM2 && !isNaN(surfaceM2) && surfaceM2 > 0 ? surfaceM2 : undefined,
     page: String(formData.get('page') || '').trim() || undefined,
     origin: String(formData.get('origin') || '').trim() || 'homepage_form',
     utm_source: String(formData.get('utm_source') || '').trim() || undefined,
@@ -46,7 +53,7 @@ export async function submitContactLead(formData: FormData) {
   };
 
   // 2. Validation simple
-  if (!payload.name || !payload.email || !payload.phone) {
+  if (!payload.name || !payload.email || !payload.phone || !payload.building_type) {
     return {
       success: false,
       error: 'MISSING_FIELDS',
@@ -61,10 +68,27 @@ export async function submitContactLead(formData: FormData) {
     };
   }
 
-  // 3. Insertion dans Supabase
+  // 3. Vérifier les doublons AVANT l'insertion
   try {
     const supabase = createSupabaseClient();
 
+    // Normaliser l'email (minuscules, trim)
+    const normalizedEmail = payload.email.toLowerCase().trim();
+
+    // Chercher les leads existants avec le même email
+    const { data: existingLeads, error: searchError } = await supabase
+      .from('leads')
+      .select('id, name, email, phone, created_at, status')
+      .ilike('email', normalizedEmail) // Recherche insensible à la casse
+      .order('created_at', { ascending: false })
+      .limit(5);
+
+    if (searchError) {
+      console.error('Error searching for duplicates:', searchError);
+      // Continuer quand même l'insertion si la recherche échoue
+    }
+
+    // 4. Insertion dans Supabase
     const { data: insertedData, error } = await supabase
       .from('leads')
       .insert({
@@ -75,7 +99,9 @@ export async function submitContactLead(formData: FormData) {
         company: payload.company,
         message: payload.message,
         solution: payload.solution,
-        category_id: payload.category_id,
+        category_id: payload.category_id || null,
+        building_type: payload.building_type || null,
+        surface_m2: payload.surface_m2 || null,
         page: payload.page,
         origin: payload.origin,
         utm_source: payload.utm_source,
@@ -155,11 +181,81 @@ export async function submitContactLead(formData: FormData) {
       }
     }
 
+    // Retourner le résultat avec information sur les doublons
+    return {
+      success: true,
+      leadId: insertedData.id,
+      duplicateWarning: existingLeads && existingLeads.length > 0,
+      existingLeads: existingLeads || [],
+    };
+  } catch (error) {
+    console.error('Unexpected error creating lead:', error);
+    return {
+      success: false,
+      error: 'UNEXPECTED_ERROR',
+    };
+  }
+}
+
+/**
+ * Met à jour un lead existant avec les champs fournis
+ * Utilisé pour l'auto-save du formulaire initial
+ */
+export async function updateContactLead(
+  leadId: string,
+  fields: Partial<ContactFormInput>
+): Promise<{ success: true } | { success: false; error: string }> {
+  if (!leadId) {
+    return {
+      success: false,
+      error: 'MISSING_LEAD_ID',
+    };
+  }
+
+  try {
+    const supabase = createSupabaseClient();
+
+    // Préparer les données de mise à jour
+    const updateData: any = {};
+
+    if (fields.name !== undefined) {
+      updateData.name = fields.name.trim() || null;
+    }
+    if (fields.email !== undefined) {
+      updateData.email = fields.email.trim() || null;
+    }
+    if (fields.phone !== undefined) {
+      updateData.phone = fields.phone.trim() || null;
+    }
+    if (fields.company !== undefined) {
+      updateData.company = fields.company.trim() || null;
+    }
+    if (fields.building_type !== undefined) {
+      updateData.building_type = fields.building_type.trim() || null;
+    }
+    if (fields.surface_m2 !== undefined) {
+      updateData.surface_m2 = fields.surface_m2 && fields.surface_m2 > 0 ? fields.surface_m2 : null;
+    }
+    // Note: message n'est pas auto-sauvegardé, seulement à la soumission
+
+    const { error } = await supabase
+      .from('leads')
+      .update(updateData)
+      .eq('id', leadId);
+
+    if (error) {
+      console.error('Supabase update lead error:', error);
+      return {
+        success: false,
+        error: 'SUPABASE_ERROR',
+      };
+    }
+
     return {
       success: true,
     };
   } catch (error) {
-    console.error('Unexpected error creating lead:', error);
+    console.error('Unexpected error updating lead:', error);
     return {
       success: false,
       error: 'UNEXPECTED_ERROR',

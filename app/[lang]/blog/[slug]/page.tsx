@@ -68,7 +68,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <div className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         {/* Bouton retour */}
         <Link href={`/${validLang}/blog`} className="inline-block mb-8">
-          <Button variant="outline" size="sm">
+          <Button variant="outline" className="text-sm">
             ← {validLang === 'fr' ? 'Retour au blog' : validLang === 'en' ? 'Back to blog' : 'العودة إلى المدونة'}
           </Button>
         </Link>

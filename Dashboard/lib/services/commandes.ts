@@ -259,7 +259,7 @@ export async function createOrder(orderData: CreateOrderData): Promise<Order> {
       return {
         ...item,
         name: productName,
-        sku: product?.sku || null,
+        sku: (product as any)?.sku || null,
       };
     });
 
@@ -303,7 +303,7 @@ export async function createOrder(orderData: CreateOrderData): Promise<Order> {
           if (orderItemsRaw) {
             const quoteOnlyMap = new Map(orderItemsRaw.map((oi: any) => [oi.id, oi.is_quote_only]));
             items.forEach(item => {
-              item.isQuoteOnly = quoteOnlyMap.get(item.id) || false;
+              item.isQuoteOnly = Boolean(quoteOnlyMap.get(item.id)) || false;
             });
           }
 
@@ -501,7 +501,7 @@ export async function updateOrder(id: string, orderData: UpdateOrderData): Promi
         return {
           ...item,
           name: productName,
-          sku: product?.sku || null,
+          sku: (product as any)?.sku || null,
         };
       });
 

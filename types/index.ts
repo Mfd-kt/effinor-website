@@ -118,6 +118,8 @@ export interface Dictionary {
     subtitle: string;
     form: {
       formTitle: string;
+      estimateTitle?: string;
+      estimateSubtitle?: string;
       name: string;
       company: string;
       email: string;
@@ -126,6 +128,8 @@ export interface Dictionary {
       solutionPlaceholder: string;
       needTypeLabel: string;
       needTypePlaceholder: string;
+      buildingTypeLabel?: string;
+      surfaceLabel?: string;
       solutionOptions: {
         none: string;
         lighting: string;
@@ -208,6 +212,137 @@ export interface Dictionary {
     error: string;
     backToCart: string;
     deliveryRequired: string;
+  };
+  detailedForm: {
+    title: string;
+    subtitle: string;
+    progress: string;
+    next: string;
+    previous: string;
+    submit: string;
+    submitting: string;
+    success: string;
+    error: string;
+    step1: {
+      title: string;
+      subtitle: string;
+      companyName: string;
+      companyNamePlaceholder: string;
+      siret: string;
+      siretPlaceholder: string;
+      address: string;
+      addressPlaceholder: string;
+      postalCode: string;
+      postalCodePlaceholder: string;
+      city: string;
+      cityPlaceholder: string;
+    };
+    step2: {
+      title: string;
+      subtitle: string;
+      titleLabel: string;
+      lastName: string;
+      lastNamePlaceholder: string;
+      firstName: string;
+      firstNamePlaceholder: string;
+      function: string;
+      functionPlaceholder: string;
+      phone: string;
+      phonePlaceholder: string;
+      email: string;
+      emailPlaceholder: string;
+    };
+    step3: {
+      title: string;
+      subtitle: string;
+      whyInfo: string;
+      whyInfoText: string;
+      annualExpenseRange: string;
+      selectRange: string;
+      ranges: {
+        'less-than-10000': string;
+        '10000-50000': string;
+        '50000-100000': string;
+        '100000-500000': string;
+        'more-than-500000': string;
+      };
+    };
+    step4: {
+      title: string;
+      subtitle: string;
+      infoTitle: string;
+      infoText: string;
+      buildingCount: string;
+      selectCount: string;
+      building: string;
+      buildings: string;
+    };
+    step5: {
+      title: string;
+      subtitle: string;
+      buildingNumber: string;
+      general: {
+        title: string;
+        type: string;
+        selectType: string;
+        types: {
+          entrepot: string;
+          bureau: string;
+          usine: string;
+          commerce: string;
+          autre: string;
+        };
+        surface: string;
+        surfacePlaceholder: string;
+        height: string;
+        heightPlaceholder: string;
+      };
+      heating: {
+        title: string;
+        isHeated: string;
+        mode: string;
+        selectMode: string;
+        power: string;
+        powerPlaceholder: string;
+        setpoint: string;
+        setpointPlaceholder: string;
+      };
+      lighting: {
+        title: string;
+        neon: {
+          label: string;
+          count: string;
+          countPlaceholder: string;
+          power: string;
+          powerPlaceholder: string;
+        };
+        doubleNeon: {
+          label: string;
+          count: string;
+          countPlaceholder: string;
+          power: string;
+          powerPlaceholder: string;
+        };
+        halogen: {
+          label: string;
+          count: string;
+          countPlaceholder: string;
+          power: string;
+          powerPlaceholder: string;
+        };
+      };
+    };
+    step6: {
+      title: string;
+      subtitle: string;
+      companyInfo: string;
+      mainContact: string;
+      energyExpenses: string;
+      buildingConfig: string;
+      buildingDetails: string;
+      confirm: string;
+      submitButton: string;
+    };
   };
 }
 

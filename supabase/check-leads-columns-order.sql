@@ -15,3 +15,5 @@ ORDER BY ordinal_position;
 -- Cette requête vous montrera l'ordre exact des colonnes
 -- Utilisez cet ordre pour votre INSERT
 
+
+

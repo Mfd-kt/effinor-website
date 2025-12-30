@@ -69,6 +69,9 @@ export interface Lead {
   exteriorPhotoUrl?: string;
   cadastralPhotoUrl?: string;
   
+  // Type de bâtiment
+  buildingType?: string; // entrepot-logistique, bureau, usine-production, commerce-retail, autre-batiment
+  
   // Score de complétion
   completionScore?: number; // 0-100
 }

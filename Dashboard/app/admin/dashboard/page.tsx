@@ -120,7 +120,6 @@ export default function DashboardPage() {
           ordersData,
           leadsData,
           visitorsData,
-          notificationsData,
         ] = await Promise.all([
           calculateRevenue(period, customRange),
           calculateOrderStats(period, customRange),
@@ -130,6 +129,9 @@ export default function DashboardPage() {
           getLeads(),
           getVisiteurs(),
         ]);
+        
+        // notificationsData sera chargé séparément si nécessaire
+        const notificationsData: any[] = [];
 
         // Charger les données des graphiques
         const [revenueTrendData, leadTrendData, topProductsData, salesByCategoryData, conversionFunnelData] =

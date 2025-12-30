@@ -1,5 +1,6 @@
 import { supabase } from '@/lib/supabase/client';
 import { Lead, LeadStatus, LeadSource, LeadPriority } from '@/lib/types/lead';
+import { format } from 'date-fns';
 
 // Mapping des statuts depuis la base vers notre format
 function mapStatus(status: string): { label: string; color: string } {
@@ -100,6 +101,9 @@ function mapLead(item: any): Lead {
     exteriorPhotoUrl: item.exterior_photo_url || undefined,
     cadastralPhotoUrl: item.cadastral_photo_url || undefined,
     
+    // Type de bâtiment
+    buildingType: item.building_type || undefined,
+    
     // Score de complétion
     completionScore: item.completion_score !== null && item.completion_score !== undefined ? Number(item.completion_score) : undefined,
   };
@@ -183,22 +187,40 @@ export async function getLeadRaw(id: string): Promise<any | null> {
   return data;
 }
 
-export async function updateLead(id: string, lead: Partial<Lead & { categoryId?: string }>): Promise<Lead | null> {
+export async function updateLead(id: string, lead: Partial<Lead & { categoryId?: string; detailedFormData?: string }>): Promise<Lead | null> {
   const updateData: any = {};
 
   // Mapper les champs modifiables de base
   if (lead.fullName !== undefined || lead.firstName !== undefined || lead.lastName !== undefined) {
     // Reconstruire le nom complet
     const fullName = lead.fullName || `${lead.firstName || ''} ${lead.lastName || ''}`.trim();
-    updateData.name = fullName;
+    // Name est NOT NULL, donc on ne peut pas le mettre à null
+    if (fullName && fullName.trim()) {
+      updateData.name = fullName.trim();
+    } else {
+      // Si name est vide, on ne le met pas à jour (garder l'ancien)
+      console.warn('Name vide, mise à jour ignorée pour préserver la contrainte NOT NULL');
+    }
   }
 
   if (lead.email !== undefined) {
-    updateData.email = lead.email;
+    // Email est NOT NULL, donc on ne peut pas le mettre à null
+    if (lead.email && lead.email.trim()) {
+      updateData.email = lead.email.trim();
+    } else {
+      // Si email est vide, on ne le met pas à jour (garder l'ancien)
+      console.warn('Email vide, mise à jour ignorée pour préserver la contrainte NOT NULL');
+    }
   }
 
   if (lead.phone !== undefined) {
-    updateData.phone = lead.phone;
+    // Phone est NOT NULL, donc on ne peut pas le mettre à null
+    if (lead.phone && lead.phone.trim()) {
+      updateData.phone = lead.phone.trim();
+    } else {
+      // Si phone est vide, on ne le met pas à jour (garder l'ancien)
+      console.warn('Phone vide, mise à jour ignorée pour préserver la contrainte NOT NULL');
+    }
   }
 
   if (lead.company !== undefined) {
@@ -206,7 +228,19 @@ export async function updateLead(id: string, lead: Partial<Lead & { categoryId?:
   }
 
   if (lead.statusId !== undefined) {
-    updateData.status = lead.statusId;
+    // Valider que le statut est valide selon la contrainte CHECK
+    // Statuts autorisés dans la base: 'new', 'contacted', 'qualified', 'converted', 'archived', 'in_progress', 'won', 'lost'
+    const validStatuses = ['new', 'contacted', 'qualified', 'converted', 'archived', 'in_progress', 'won', 'lost'];
+    if (lead.statusId && validStatuses.includes(lead.statusId)) {
+      updateData.status = lead.statusId;
+    } else if (lead.statusId) {
+      console.warn(`⚠️ Statut invalide: "${lead.statusId}", utilisation de 'new' par défaut`);
+      console.warn(`📋 Statuts valides: ${validStatuses.join(', ')}`);
+      updateData.status = 'new';
+    } else {
+      // Si statusId est une chaîne vide, ne pas mettre à jour (garder l'ancien)
+      console.warn('⚠️ statusId est vide, mise à jour ignorée');
+    }
   }
 
   if (lead.notes !== undefined) {
@@ -252,6 +286,23 @@ export async function updateLead(id: string, lead: Partial<Lead & { categoryId?:
   if (lead.exteriorPhotoUrl !== undefined) updateData.exterior_photo_url = lead.exteriorPhotoUrl || null;
   if (lead.cadastralPhotoUrl !== undefined) updateData.cadastral_photo_url = lead.cadastralPhotoUrl || null;
 
+  // Type de bâtiment
+  if (lead.buildingType !== undefined) updateData.building_type = lead.buildingType || null;
+
+  // Detailed form data (JSONB)
+  if ('detailedFormData' in lead && lead.detailedFormData !== undefined) {
+    updateData.detailed_form_data = lead.detailedFormData;
+  }
+
+  // Vérifier qu'il y a au moins un champ à mettre à jour
+  if (Object.keys(updateData).length === 0) {
+    console.warn('No fields to update for lead:', id);
+    // Retourner le lead actuel si rien à mettre à jour
+    return await getLead(id);
+  }
+
+  console.log('Updating lead with data:', JSON.stringify(updateData, null, 2));
+
   const { data, error } = await supabase
     .from('leads')
     .update(updateData)
@@ -261,7 +312,13 @@ export async function updateLead(id: string, lead: Partial<Lead & { categoryId?:
 
   if (error) {
     console.error('Error updating lead:', error);
-    throw error;
+    console.error('Error details:', {
+      message: error.message,
+      details: error.details,
+      hint: error.hint,
+      code: error.code,
+    });
+    throw new Error(`Erreur lors de la mise à jour du lead: ${error.message || 'Erreur inconnue'}`);
   }
 
   return data ? mapLead(data) : null;
@@ -500,4 +557,321 @@ export function calculateRegion(postcode: string): string {
     default:
       return "Région inconnue";
   }
+}
+
+/**
+ * Fusionne plusieurs leads en un seul lead principal
+ * @param mainLeadId - ID du lead à conserver (lead principal)
+ * @param duplicateLeadIds - IDs des leads à fusionner (seront supprimés après fusion)
+ * @returns Le lead fusionné ou null en cas d'erreur
+ */
+export async function mergeLeads(
+  mainLeadId: string,
+  duplicateLeadIds: string[]
+): Promise<Lead | null> {
+  try {
+    if (!mainLeadId || duplicateLeadIds.length === 0) {
+      throw new Error('Lead principal et leads à fusionner requis');
+    }
+
+    // Récupérer le lead principal
+    const mainLead = await getLeadRaw(mainLeadId);
+    if (!mainLead) {
+      throw new Error('Lead principal introuvable');
+    }
+
+    // Récupérer tous les leads à fusionner
+    const duplicateLeads = await Promise.all(
+      duplicateLeadIds.map(id => getLeadRaw(id))
+    );
+
+    // Fusionner les données : garder les valeurs les plus complètes
+    const mergedData: any = { ...mainLead };
+
+    duplicateLeads.forEach((duplicate) => {
+      if (!duplicate) return;
+
+      // Pour chaque champ, garder la valeur la plus complète
+      // (non-null et non-vide)
+      Object.keys(duplicate).forEach((key) => {
+        // Ignorer les champs système
+        if (key === 'id' || key === 'created_at' || key === 'updated_at') {
+          return;
+        }
+
+        const mainValue = mergedData[key];
+        const duplicateValue = duplicate[key];
+
+        // Si le champ principal est vide/null et le doublon a une valeur, prendre celle du doublon
+        if ((!mainValue || mainValue === '' || mainValue === null) && 
+            duplicateValue && duplicateValue !== '' && duplicateValue !== null) {
+          mergedData[key] = duplicateValue;
+        }
+        
+        // Pour les champs numériques, garder la valeur la plus élevée (score, surface, etc.)
+        if (key === 'completion_score' || key === 'qualification_score' || key === 'surface_m2') {
+          const mainNum = Number(mainValue) || 0;
+          const dupNum = Number(duplicateValue) || 0;
+          if (dupNum > mainNum) {
+            mergedData[key] = duplicateValue;
+          }
+        }
+
+        // Pour les photos, garder celles qui existent
+        if ((key === 'exterior_photo_url' || key === 'cadastral_photo_url') && 
+            !mainValue && duplicateValue) {
+          mergedData[key] = duplicateValue;
+        }
+
+        // Pour detailed_form_data (JSONB), fusionner les objets
+        if (key === 'detailed_form_data' && duplicateValue) {
+          try {
+            const mainData = mainValue ? (typeof mainValue === 'string' ? JSON.parse(mainValue) : mainValue) : {};
+            const dupData = typeof duplicateValue === 'string' ? JSON.parse(duplicateValue) : duplicateValue;
+            
+            // Fusionner les données JSON (garder les données les plus complètes)
+            const mergedJson: any = {
+              ...mainData,
+              ...dupData,
+            };
+            
+            // Si step5.buildings existe dans les deux, fusionner les tableaux
+            if (dupData.step5?.buildings || mainData.step5?.buildings) {
+              mergedJson.step5 = {
+                ...mainData.step5,
+                ...dupData.step5,
+                buildings: [
+                  ...(mainData.step5?.buildings || []),
+                  ...(dupData.step5?.buildings || [])
+                ]
+              };
+            }
+            
+            mergedData[key] = JSON.stringify(mergedJson);
+          } catch (e) {
+            // Si erreur de parsing, garder la valeur principale
+            console.warn('Erreur lors de la fusion de detailed_form_data:', e);
+          }
+        }
+      });
+    });
+
+    // Mettre à jour le lead principal avec les données fusionnées
+    const { data: updatedLead, error: updateError } = await supabase
+      .from('leads')
+      .update(mergedData)
+      .eq('id', mainLeadId)
+      .select('*')
+      .single();
+
+    if (updateError) {
+      console.error('Error updating merged lead:', updateError);
+      throw updateError;
+    }
+
+    // Supprimer les leads fusionnés
+    const { error: deleteError } = await supabase
+      .from('leads')
+      .delete()
+      .in('id', duplicateLeadIds);
+
+    if (deleteError) {
+      console.error('Error deleting duplicate leads:', deleteError);
+      // Ne pas throw pour ne pas perdre la fusion même si la suppression échoue
+      console.warn('Les leads ont été fusionnés mais la suppression des doublons a échoué');
+    }
+
+    return updatedLead ? mapLead(updatedLead) : null;
+  } catch (error) {
+    console.error('Error merging leads:', error);
+    throw error;
+  }
+}
+
+/**
+ * Exporte les leads en CSV
+ */
+export async function exportLeadsToCSV(leads: Lead[]): Promise<string> {
+  const headers = [
+    'ID', 'Nom', 'Prénom', 'Nom complet', 'Email', 'Téléphone', 'Entreprise',
+    'Statut', 'Source', 'Priorité', 'Score complétion', 'Score qualification',
+    'CA Potentiel', 'Date de création', 'Code postal travaux', 'Région',
+    'Zone climatique', 'Type de bâtiment', 'Surface (m²)', 'SIRET',
+    'Adresse siège social', 'Ville siège social', 'Code postal siège social'
+  ];
+  
+  const rows = leads.map(lead => [
+    lead.id,
+    lead.firstName || '',
+    lead.lastName || '',
+    lead.fullName || '',
+    lead.email || '',
+    lead.phone || '',
+    lead.company || '',
+    lead.status?.label || '',
+    lead.source || '',
+    lead.priority || '',
+    lead.completionScore?.toString() || '0',
+    lead.qualificationScore?.toString() || '0',
+    lead.potentialRevenue?.toString() || '0',
+    format(lead.createdAt, 'dd/MM/yyyy HH:mm'),
+    lead.workPostcode || '',
+    lead.workRegion || '',
+    lead.workClimateZone || '',
+    lead.buildingType || '',
+    lead.surfaceM2?.toString() || '',
+    lead.siretNumber || '',
+    lead.headquartersAddress || '',
+    lead.headquartersCity || '',
+    lead.headquartersPostcode || ''
+  ]);
+  
+  const csvContent = [
+    headers.map(h => `"${h}"`).join('",') + '"',
+    ...rows.map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(','))
+  ].join('\n');
+  
+  return csvContent;
+}
+
+/**
+ * Télécharge un fichier CSV
+ */
+export function downloadCSV(content: string, filename: string = 'leads-export.csv') {
+  const blob = new Blob([content], { type: 'text/csv;charset=utf-8;' });
+  const link = document.createElement('a');
+  const url = URL.createObjectURL(blob);
+  link.setAttribute('href', url);
+  link.setAttribute('download', filename);
+  link.style.visibility = 'hidden';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+/**
+ * Importe des leads depuis un CSV
+ */
+export async function importLeadsFromCSV(csvContent: string): Promise<{ success: number; errors: string[] }> {
+  const lines = csvContent.split('\n').filter(line => line.trim());
+  if (lines.length < 2) {
+    throw new Error('Le fichier CSV est vide ou invalide');
+  }
+  
+  const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
+  const errors: string[] = [];
+  let success = 0;
+  
+  for (let i = 1; i < lines.length; i++) {
+    try {
+      const values = lines[i].split(',').map(v => {
+        let val = v.trim();
+        if (val.startsWith('"') && val.endsWith('"')) {
+          val = val.slice(1, -1).replace(/""/g, '"');
+        }
+        return val;
+      });
+      
+      // Mapper les valeurs aux colonnes
+      const getValue = (headerName: string) => {
+        const index = headers.indexOf(headerName);
+        return index >= 0 && index < values.length ? values[index] : '';
+      };
+      
+      const leadData: any = {
+        name: getValue('Nom complet') || `${getValue('Prénom')} ${getValue('Nom')}`.trim(),
+        email: getValue('Email'),
+        phone: getValue('Téléphone') || null,
+        company: getValue('Entreprise') || null,
+        status: getValue('Statut')?.toLowerCase() || 'new',
+        origin: getValue('Source')?.toLowerCase() || 'other',
+        work_postcode: getValue('Code postal travaux') || null,
+        work_region: getValue('Région') || null,
+        work_climate_zone: getValue('Zone climatique') || null,
+        building_type: getValue('Type de bâtiment') || null,
+        surface_m2: getValue('Surface (m²)') ? parseFloat(getValue('Surface (m²)')) : null,
+        siret_number: getValue('SIRET') || null,
+        headquarters_address: getValue('Adresse siège social') || null,
+        headquarters_city: getValue('Ville siège social') || null,
+        headquarters_postcode: getValue('Code postal siège social') || null,
+      };
+      
+      // Valider et insérer
+      if (leadData.email) {
+        const { error } = await supabase.from('leads').insert(leadData);
+        if (error) {
+          errors.push(`Ligne ${i + 1}: ${error.message}`);
+        } else {
+          success++;
+        }
+      } else {
+        errors.push(`Ligne ${i + 1}: Email manquant`);
+      }
+    } catch (error) {
+      errors.push(`Ligne ${i + 1}: ${error instanceof Error ? error.message : 'Erreur inconnue'}`);
+    }
+  }
+  
+  return { success, errors };
+}
+
+/**
+ * Met à jour plusieurs leads en masse
+ */
+export async function bulkUpdateLeads(
+  leadIds: string[],
+  updates: Partial<Lead>
+): Promise<{ success: number; errors: string[] }> {
+  const errors: string[] = [];
+  let success = 0;
+  
+  const updateData: any = {};
+  
+  if (updates.statusId !== undefined) updateData.status = updates.statusId;
+  if (updates.priority !== undefined) {
+    // Priorité n'est pas stockée directement, on peut l'ajouter dans internal_notes ou créer une colonne
+    // Pour l'instant, on skip
+  }
+  
+  try {
+    const { error } = await supabase
+      .from('leads')
+      .update(updateData)
+      .in('id', leadIds);
+    
+    if (error) {
+      throw error;
+    }
+    
+    success = leadIds.length;
+  } catch (error) {
+    errors.push(error instanceof Error ? error.message : 'Erreur lors de la mise à jour en masse');
+  }
+  
+  return { success, errors };
+}
+
+/**
+ * Supprime plusieurs leads en masse
+ */
+export async function bulkDeleteLeads(leadIds: string[]): Promise<{ success: number; errors: string[] }> {
+  const errors: string[] = [];
+  let success = 0;
+  
+  try {
+    const { error } = await supabase
+      .from('leads')
+      .delete()
+      .in('id', leadIds);
+    
+    if (error) {
+      throw error;
+    }
+    
+    success = leadIds.length;
+  } catch (error) {
+    errors.push(error instanceof Error ? error.message : 'Erreur lors de la suppression en masse');
+  }
+  
+  return { success, errors };
 }

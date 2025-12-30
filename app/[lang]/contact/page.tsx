@@ -1,6 +1,5 @@
 import { notFound } from 'next/navigation';
 import { isValidLang, getDictionary } from '@/lib/i18n';
-import { getCategories } from '@/lib/categories';
 import { Lang } from '@/types';
 import ContactFormSection from '@/components/ContactFormSection';
 import { Card } from '@/components/ui/Card';
@@ -47,7 +46,6 @@ export default async function ContactPage({ params }: ContactPageProps) {
 
   const validLang = lang as Lang;
   const dict = getDictionary(validLang);
-  const categories = await getCategories(validLang);
   const isRTL = validLang === 'ar';
 
   // Récupérer le contenu depuis Supabase
@@ -70,7 +68,7 @@ export default async function ContactPage({ params }: ContactPageProps) {
 
         <div className="max-w-4xl mx-auto">
           {/* Formulaire de contact */}
-          <ContactFormSection lang={validLang} dict={dict} categories={categories} />
+          <ContactFormSection lang={validLang} dict={dict} />
 
           {/* Informations de contact depuis la base de données */}
           <Card className="mt-12" padding="lg">

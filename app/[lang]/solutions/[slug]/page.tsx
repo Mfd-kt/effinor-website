@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import ContactFormSection from '@/components/ContactFormSection';
-import { getCategories } from '@/lib/categories';
 
 interface SolutionPageProps {
   params: Promise<{ lang: string; slug: string }>;
@@ -32,7 +31,6 @@ export default async function SolutionPage({ params }: SolutionPageProps) {
   }
 
   const dict = getDictionary(lang);
-  const categories = await getCategories(lang);
   const solution = dict.solutions[solutionKey];
   const isRTL = lang === 'ar';
 
@@ -136,7 +134,7 @@ export default async function SolutionPage({ params }: SolutionPageProps) {
             {/* Colonne formulaire */}
             <div className="lg:col-span-1">
               <div className="sticky top-24">
-                <ContactFormSection lang={lang} dict={dict} categories={categories} compact={true} />
+                <ContactFormSection lang={lang} dict={dict} compact={true} />
               </div>
             </div>
           </div>

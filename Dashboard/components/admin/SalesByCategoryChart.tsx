@@ -103,7 +103,7 @@ export function SalesByCategoryChart({ data, loading }: SalesByCategoryChartProp
               cx="50%"
               cy="50%"
               labelLine={false}
-              label={({ name, percent }) => `${String(name)}: ${(percent * 100).toFixed(0)}%`}
+              label={({ name, percent }: any) => `${String(name)}: ${((percent ?? 0) * 100).toFixed(0)}%`}
               outerRadius={100}
               fill="#8884d8"
               dataKey="value"
@@ -119,10 +119,11 @@ export function SalesByCategoryChart({ data, loading }: SalesByCategoryChartProp
                 borderRadius: '8px',
                 padding: '8px',
               }}
-              formatter={(value: number, name: string, props: any) => {
+              formatter={(value: any, name: any, props: any) => {
+                const numValue = value ?? 0;
                 if (name === 'value') {
                   return [
-                    `${value.toLocaleString('fr-FR')} €`,
+                    `${numValue.toLocaleString('fr-FR')} €`,
                     'Revenus',
                   ];
                 }

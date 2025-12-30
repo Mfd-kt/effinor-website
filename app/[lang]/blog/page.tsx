@@ -121,7 +121,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
                     href={`/${postLang}/blog/${post.slug}`}
                     className="group"
                   >
-                    <Card className="h-full hover:shadow-lg transition-shadow" padding="none">
+                    <Card className="h-full hover:shadow-lg transition-shadow p-0">
                       {post.coverImageUrl && (
                         <div className="relative w-full h-48 overflow-hidden rounded-t-lg">
                           <Image

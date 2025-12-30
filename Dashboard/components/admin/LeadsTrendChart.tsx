@@ -127,14 +127,15 @@ export function LeadsTrendChart({ data, loading }: LeadsTrendChartProps) {
                 borderRadius: '8px',
                 padding: '8px',
               }}
-              formatter={(value: number, name: string) => {
+              formatter={(value: any, name: any) => {
+                const numValue = value ?? 0;
                 if (name === 'count') {
-                  return [value, 'Leads créés'];
+                  return [numValue, 'Leads créés'];
                 }
                 if (name === 'won') {
-                  return [value, 'Leads gagnés'];
+                  return [numValue, 'Leads gagnés'];
                 }
-                return [value, name];
+                return [numValue, name || ''];
               }}
             />
             <Legend
@@ -169,4 +170,6 @@ export function LeadsTrendChart({ data, loading }: LeadsTrendChartProps) {
     </Card>
   );
 }
+
+
 

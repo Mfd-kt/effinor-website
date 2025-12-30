@@ -40,7 +40,15 @@ export const supabase = hasValidConfig
           data: { session: null }, 
           error: null 
         }),
+        signInWithPassword: async () => ({
+          data: { user: null, session: null },
+          error: { message: 'Supabase non configuré' },
+        }),
         signOut: async () => ({ error: null }),
+      },
+      rpc: async () => {
+        console.warn('⚠️ Supabase non configuré - Mock appelé pour rpc');
+        return { data: null, error: null };
       },
       from: (table: string) => ({
         select: (columns?: string) => ({

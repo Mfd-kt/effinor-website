@@ -4,16 +4,13 @@ import type { NextRequest } from 'next/server';
 /**
  * Middleware pour le Dashboard Effinor
  * 
- * Pour l'instant, ce middleware laisse passer toutes les requêtes.
- * Vous pouvez ajouter ici la logique d'authentification si nécessaire.
+ * TEMPORAIREMENT DÉSACTIVÉ - L'authentification sera réimplémentée proprement
+ * 
+ * Pour l'instant, toutes les routes sont accessibles sans authentification
  */
-export function middleware(request: NextRequest) {
-  // Pour l'instant, on laisse passer toutes les requêtes
-  // Vous pouvez ajouter ici :
-  // - Vérification de l'authentification
-  // - Redirection vers /login si non authentifié
-  // - Gestion des permissions
-  
+export async function middleware(request: NextRequest) {
+  // Pour l'instant, laisser passer toutes les requêtes
+  // L'authentification sera réimplémentée proprement
   return NextResponse.next();
 }
 
@@ -29,4 +26,6 @@ export const config = {
     '/((?!api|_next/static|_next/image|favicon.ico).*)',
   ],
 };
+
+
 

@@ -1,7 +1,6 @@
 import { notFound } from 'next/navigation';
 import { isValidLang, getDictionary } from '@/lib/i18n';
 import { getProductsByCategorySlug } from '@/lib/products';
-import { getCategories } from '@/lib/categories';
 import { Lang } from '@/types';
 import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
@@ -217,7 +216,6 @@ export default async function LuminairePage({ params }: LuminairePageProps) {
 
   const dict = getDictionary(lang);
   const products = await getProductsByCategorySlug(lang, 'luminaire');
-  const categories = await getCategories(lang);
   const content = pageContent[lang];
   const isRTL = lang === 'ar';
 
@@ -265,7 +263,7 @@ export default async function LuminairePage({ params }: LuminairePageProps) {
                   </Button>
                 </Link>
                 <Link href="#contact">
-                  <Button variant="secondary" className="border-white/30 text-white hover:bg-white/10 w-full sm:w-auto">
+                  <Button variant="secondary" className="bg-transparent border-2 border-white/30 text-white hover:bg-white/10 hover:border-white/50 w-full sm:w-auto">
                     {content.hero.ctaSecondary}
                   </Button>
                 </Link>
@@ -275,7 +273,7 @@ export default async function LuminairePage({ params }: LuminairePageProps) {
             {/* Colonne droite : Formulaire compact */}
             <div className={isRTL ? 'lg:col-start-1 lg:row-start-1' : ''}>
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
-                <ContactFormSection lang={lang} dict={dict} categories={categories} compact={true} />
+                <ContactFormSection lang={lang} dict={dict} compact={true} />
               </div>
             </div>
           </div>
@@ -392,7 +390,7 @@ export default async function LuminairePage({ params }: LuminairePageProps) {
               </Button>
             </Link>
             <Link href="#contact">
-              <Button variant="secondary" className="border-white/30 text-white hover:bg-white/10 w-full sm:w-auto">
+              <Button variant="secondary" className="bg-transparent border-2 border-white/30 text-white hover:bg-white/10 hover:border-white/50 w-full sm:w-auto">
                 {content.cta.ctaSecondary}
               </Button>
             </Link>
@@ -403,7 +401,7 @@ export default async function LuminairePage({ params }: LuminairePageProps) {
       {/* Formulaire contact final */}
       <section className="py-16 bg-[#F9FAFB]">
         <div className="container mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
-          <ContactFormSection lang={lang} dict={dict} categories={categories} />
+          <ContactFormSection lang={lang} dict={dict} />
         </div>
       </section>
     </div>

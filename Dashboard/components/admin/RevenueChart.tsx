@@ -115,11 +115,12 @@ export function RevenueChart({ data, loading, period }: RevenueChartProps) {
                 borderRadius: '8px',
                 padding: '8px',
               }}
-              formatter={(value: number, name: string) => {
+              formatter={(value: any, name: any) => {
+                const numValue = value ?? 0;
                 if (name === 'revenue') {
-                  return [`${value.toLocaleString('fr-FR')} €`, 'Revenus'];
+                  return [`${numValue.toLocaleString('fr-FR')} €`, 'Revenus'];
                 }
-                return [value, 'Commandes'];
+                return [numValue, 'Commandes'];
               }}
               labelStyle={{ color: '#111827', fontWeight: 'bold' }}
             />
@@ -155,4 +156,6 @@ export function RevenueChart({ data, loading, period }: RevenueChartProps) {
     </Card>
   );
 }
+
+
 

@@ -5,10 +5,10 @@ import { PageHeader } from "@/components/admin/PageHeader";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Select } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/toast";
 import { useRouter } from "next/navigation";
+import { inviteUser } from "@/app/actions/utilisateurs";
 
 export default function InviterUtilisateurPage() {
   const { addToast } = useToast();
@@ -19,14 +19,44 @@ export default function InviterUtilisateurPage() {
     lastName: "",
     role: "viewer",
   });
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    addToast({
-      title: "Invitation envoyée",
-      description: `Une invitation a été envoyée à ${formData.email}`,
-    });
-    router.push("/admin/utilisateurs");
+    setLoading(true);
+
+    try {
+      const result = await inviteUser(
+        formData.email,
+        formData.firstName,
+        formData.lastName,
+        formData.role
+      );
+
+      if (result.success) {
+        addToast({
+          title: "Utilisateur créé",
+          description: `L'utilisateur ${formData.email} a été créé avec succès`,
+          variant: "default",
+        });
+        router.push("/admin/utilisateurs");
+      } else {
+        addToast({
+          title: "Erreur",
+          description: result.error?.message || "Impossible de créer l'utilisateur",
+          variant: "destructive",
+        });
+      }
+    } catch (error: any) {
+      console.error('Error inviting user:', error);
+      addToast({
+        title: "Erreur",
+        description: error?.message || "Une erreur est survenue",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -83,28 +113,34 @@ export default function InviterUtilisateurPage() {
             </div>
             <div>
               <Label htmlFor="role">Rôle *</Label>
-              <Select
+              <select
                 id="role"
                 value={formData.role}
                 onChange={(e) =>
                   setFormData({ ...formData, role: e.target.value })
                 }
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                required
+                disabled={loading}
               >
                 <option value="viewer">Viewer</option>
                 <option value="editor">Editor</option>
                 <option value="admin">Admin</option>
                 <option value="super_admin">Super Admin</option>
-              </Select>
+              </select>
             </div>
             <div className="flex justify-end gap-2">
               <Button
                 type="button"
                 variant="outline"
                 onClick={() => router.back()}
+                disabled={loading}
               >
                 Annuler
               </Button>
-              <Button type="submit">Envoyer l'invitation</Button>
+              <Button type="submit" disabled={loading}>
+                {loading ? 'Création...' : 'Créer l\'utilisateur'}
+              </Button>
             </div>
           </form>
         </CardContent>

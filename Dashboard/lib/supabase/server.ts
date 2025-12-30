@@ -14,13 +14,20 @@ export async function createClient() {
         },
         setAll(cookiesToSet) {
           try {
-            cookiesToSet.forEach(({ name, value, options }) =>
-              cookieStore.set(name, value, options)
-            );
-          } catch {
+            cookiesToSet.forEach(({ name, value, options }) => {
+              cookieStore.set(name, value, options);
+              // Log pour déboguer (seulement en développement)
+              if (process.env.NODE_ENV === 'development') {
+                console.log(`🍪 Setting cookie: ${name} (length: ${value?.length || 0})`);
+              }
+            });
+          } catch (error) {
             // The `setAll` method was called from a Server Component.
             // This can be ignored if you have middleware refreshing
             // user sessions.
+            if (process.env.NODE_ENV === 'development') {
+              console.error('❌ Error setting cookies in Server Action:', error);
+            }
           }
         },
       },

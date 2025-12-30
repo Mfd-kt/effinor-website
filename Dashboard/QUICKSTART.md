@@ -108,3 +108,5 @@ Le Dashboard utilise exactement la même charte graphique que le site principal 
 
 Tous les composants ont été adaptés pour respecter cette charte.
 
+
+

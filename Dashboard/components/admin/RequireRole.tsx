@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getCurrentUser } from "@/lib/auth/mockAuth";
+import { getCurrentUserClient } from "@/lib/auth/auth-client";
 import { User } from "@/lib/types/user";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -15,7 +15,7 @@ export function RequireRole({ children, allowedRoles }: RequireRoleProps) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getCurrentUser().then((userData) => {
+    getCurrentUserClient().then((userData) => {
       setUser(userData);
       setLoading(false);
     }).catch(() => {

@@ -44,3 +44,5 @@ UPDATE public.seo_content SET lang = 'fr' WHERE lang IS NULL OR lang = '';
 -- 6. Commentaire pour documentation
 COMMENT ON COLUMN public.seo_content.lang IS 'Code langue : fr (français), en (anglais), ar (arabe)';
 
+
+

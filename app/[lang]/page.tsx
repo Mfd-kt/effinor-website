@@ -1,6 +1,5 @@
 import { notFound } from 'next/navigation';
 import { isValidLang, getDictionary } from '@/lib/i18n';
-import { getCategories } from '@/lib/categories';
 import { Lang } from '@/types';
 import Link from 'next/link';
 import SolutionsSection from '@/components/SolutionsSection';
@@ -22,7 +21,6 @@ export default async function HomePage({ params }: HomePageProps) {
   }
 
   const dict = getDictionary(lang);
-  const categories = await getCategories(lang);
   const isRTL = lang === 'ar';
 
   return (
@@ -68,7 +66,7 @@ export default async function HomePage({ params }: HomePageProps) {
 
           {/* Colonne droite : formulaire lead */}
           <div className="w-full md:w-1/2">
-            <ContactFormSection lang={lang} dict={dict} categories={categories} compact={true} />
+            <ContactFormSection lang={lang} dict={dict} compact={true} />
           </div>
         </div>
       </section>

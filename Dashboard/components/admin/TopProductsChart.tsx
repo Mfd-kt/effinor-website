@@ -116,14 +116,15 @@ export function TopProductsChart({ data, loading, limit = 10 }: TopProductsChart
                 borderRadius: '8px',
                 padding: '8px',
               }}
-              formatter={(value: number, name: string) => {
+              formatter={(value: any, name: any) => {
+                const numValue = value ?? 0;
                 if (name === 'quantity') {
-                  return [`${value.toLocaleString('fr-FR')} unités`, 'Quantité'];
+                  return [`${numValue.toLocaleString('fr-FR')} unités`, 'Quantité'];
                 }
                 if (name === 'revenue') {
-                  return [`${value.toLocaleString('fr-FR')} €`, 'Revenus'];
+                  return [`${numValue.toLocaleString('fr-FR')} €`, 'Revenus'];
                 }
-                return [value, name];
+                return [numValue, name || ''];
               }}
               labelFormatter={(label) => {
                 const item = chartData.find((d) => d.name === label);
@@ -146,4 +147,6 @@ export function TopProductsChart({ data, loading, limit = 10 }: TopProductsChart
     </Card>
   );
 }
+
+
 

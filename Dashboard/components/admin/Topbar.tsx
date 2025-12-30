@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
 import { SidebarToggle } from "./Sidebar";
-import { getCurrentUser } from "@/lib/auth/mockAuth";
+import { getCurrentUserClient } from "@/lib/auth/auth-client";
 import { User as UserType } from "@/lib/types/user";
 import { Logo } from "@/components/ui/Logo";
 import { useNotificationsContext } from "@/components/admin/NotificationsProvider";
@@ -44,7 +44,7 @@ export function Topbar() {
   const { notifications, unreadCount, markAsRead, removeNotification, markAllAsRead } = useNotificationsContext();
 
   useEffect(() => {
-    getCurrentUser().then((userData) => {
+    getCurrentUserClient().then((userData) => {
       setUser(userData);
     });
   }, []);

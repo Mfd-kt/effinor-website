@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/dialog";
 import { getPost, createPost, updatePost, deletePost } from "@/lib/services/blog";
 import { getCategories } from "@/lib/services/categories";
-import { getCurrentUser } from "@/lib/auth/mockAuth";
+import { getCurrentUserClient } from "@/lib/auth/auth-client";
 import { BlogPost, BlogPostStatus } from "@/lib/types/blog";
 import { Category } from "@/lib/types/product";
 import { ArrowLeft, Save, Trash2 } from "lucide-react";
@@ -60,7 +60,7 @@ export default function BlogDetailPage() {
 
   useEffect(() => {
     async function loadCurrentUser() {
-      const user = await getCurrentUser();
+      const user = await getCurrentUserClient();
       if (user) {
         setCurrentUserId(user.id);
       }
@@ -84,6 +84,7 @@ export default function BlogDetailPage() {
             excerpt: "",
             content: "",
             status: "draft",
+            lang: "fr",
             tags: [],
             categoryId: "",
             seoTitle: "",
@@ -511,7 +512,7 @@ export default function BlogDetailPage() {
             <BlogImageUploader
               postId={isNew ? "new" : postId}
               coverImageUrl={formData.coverImageUrl}
-              onCoverImageChange={(url) => setFormData((prev) => ({ ...prev, coverImageUrl: url }))}
+              onCoverImageChange={(url) => setFormData((prev) => ({ ...prev, coverImageUrl: url || "" }))}
             />
           </CardContent>
         </Card>

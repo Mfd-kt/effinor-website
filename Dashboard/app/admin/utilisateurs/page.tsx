@@ -5,7 +5,7 @@ import { PageHeader } from "@/components/admin/PageHeader";
 import { DataTable, Column } from "@/components/admin/DataTable";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
-import { getUtilisateurs } from "@/lib/services/utilisateurs";
+import { getUtilisateursClient } from "@/lib/services/utilisateurs-client";
 import { User } from "@/lib/types/user";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/components/ui/toast";
@@ -58,7 +58,7 @@ export default function UtilisateursPage() {
     async function loadData() {
       try {
         setLoading(true);
-        const usersData = await getUtilisateurs();
+        const usersData = await getUtilisateursClient();
         setUsers(usersData);
       } catch (error) {
         console.error('Error loading data:', error);

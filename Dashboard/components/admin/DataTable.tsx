@@ -25,6 +25,9 @@ interface DataTableProps<T> {
   columns: Column<T>[];
   pageSize?: number;
   className?: string;
+  selectable?: boolean;
+  selectedRows?: string[];
+  onSelectionChange?: (selectedIds: string[]) => void;
 }
 
 export function DataTable<T extends { id: string }>({
@@ -32,10 +35,17 @@ export function DataTable<T extends { id: string }>({
   columns,
   pageSize = 10,
   className,
+  selectable = false,
+  selectedRows = [],
+  onSelectionChange,
 }: DataTableProps<T>) {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortColumn, setSortColumn] = useState<keyof T | null>(null);
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
+  const [internalSelectedRows, setInternalSelectedRows] = useState<string[]>(selectedRows);
+  
+  const selectedRowsState = onSelectionChange ? selectedRows : internalSelectedRows;
+  const setSelectedRows = onSelectionChange || setInternalSelectedRows;
 
   const sortedData = useMemo(() => {
     if (!sortColumn) return data;
@@ -80,6 +90,26 @@ export function DataTable<T extends { id: string }>({
     setCurrentPage(1);
   }, [data.length]);
 
+  const handleSelectAll = () => {
+    if (selectedRowsState.length === paginatedData.length) {
+      setSelectedRows([]);
+    } else {
+      setSelectedRows(paginatedData.map(row => row.id));
+    }
+  };
+
+  const handleSelectRow = (rowId: string) => {
+    if (selectedRowsState.includes(rowId)) {
+      setSelectedRows(selectedRowsState.filter(id => id !== rowId));
+    } else {
+      setSelectedRows([...selectedRowsState, rowId]);
+    }
+  };
+
+  const isRowSelected = (rowId: string) => selectedRowsState.includes(rowId);
+  const isAllSelected = paginatedData.length > 0 && selectedRowsState.length === paginatedData.length;
+  const isSomeSelected = selectedRowsState.length > 0 && selectedRowsState.length < paginatedData.length;
+
   const handleSort = (column: Column<T>) => {
     if (!column.sortable) return;
 
@@ -102,6 +132,19 @@ export function DataTable<T extends { id: string }>({
         <Table>
           <TableHeader>
             <TableRow>
+              {selectable && (
+                <TableHead className="w-12">
+                  <input
+                    type="checkbox"
+                    checked={isAllSelected}
+                    ref={(input) => {
+                      if (input) input.indeterminate = isSomeSelected;
+                    }}
+                    onChange={handleSelectAll}
+                    className="rounded"
+                  />
+                </TableHead>
+              )}
               {columns.map((column, index) => (
                 <TableHead
                   key={index}
@@ -131,7 +174,22 @@ export function DataTable<T extends { id: string }>({
               </TableRow>
             ) : (
               paginatedData.map((row) => (
-                <TableRow key={row.id}>
+                <TableRow 
+                  key={row.id}
+                  className={cn(
+                    isRowSelected(row.id) && "bg-effinor-emerald/5"
+                  )}
+                >
+                  {selectable && (
+                    <TableCell>
+                      <input
+                        type="checkbox"
+                        checked={isRowSelected(row.id)}
+                        onChange={() => handleSelectRow(row.id)}
+                        className="rounded"
+                      />
+                    </TableCell>
+                  )}
                   {columns.map((column, index) => (
                     <TableCell key={index}>
                       {typeof column.accessor === "function"

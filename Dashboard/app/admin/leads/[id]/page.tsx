@@ -14,11 +14,24 @@ import { getLead, getLeadRaw, updateLead, getLeadStatuses, calculateClimateZone,
 import { getCategories } from "@/lib/services/categories";
 import { Lead, LeadStatus } from "@/lib/types/lead";
 import { Category } from "@/lib/types/product";
-import { ArrowLeft, Phone, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, Phone, CheckCircle2, Building, Thermometer, Lightbulb } from "lucide-react";
 import { format } from "date-fns";
 import { StarRating } from "@/components/admin/StarRating";
 import { LeadPhotoUploader } from "@/components/admin/LeadPhotoUploader";
 import { LeadScoreCard } from "@/components/admin/LeadScoreCard";
+import { LeadTags } from "@/components/admin/LeadTags";
+import { LeadTimeline } from "@/components/admin/LeadTimeline";
+import { LeadReminders } from "@/components/admin/LeadReminders";
+import { LeadQuickActions } from "@/components/admin/LeadQuickActions";
+import { LeadOverview } from "@/components/admin/LeadOverview";
+import { LeadSuggestions } from "@/components/admin/LeadSuggestions";
+import { LeadDocuments } from "@/components/admin/LeadDocuments";
+import { LeadNotes } from "@/components/admin/LeadNotes";
+import { LeadStats } from "@/components/admin/LeadStats";
+import { LeadNavigation } from "@/components/admin/LeadNavigation";
+import BuildingEditor from "@/components/admin/BuildingEditor";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { User, Building2, Activity, TrendingUp, Mail, Phone as PhoneIcon, Calendar, FileText, MapPin, Briefcase } from "lucide-react";
 
 export default function LeadDetailPage() {
   const router = useRouter();
@@ -46,6 +59,7 @@ export default function LeadDetailPage() {
     statusId: "",
     categoryId: "",
     internalNotes: "",
+    buildingType: "",
     
     // Siège Social
     headquartersAddress: "",
@@ -104,10 +118,10 @@ export default function LeadDetailPage() {
 
     // Champs secondaires (5 points chacun)
     if (data.company && data.company.trim() !== '') score += 5;
+    if (data.workCompanyName && data.workCompanyName.trim() !== '') score += 5;
     if (data.headquartersAddress && data.headquartersAddress.trim() !== '') score += 5;
     if (data.headquartersCity && data.headquartersCity.trim() !== '') score += 5;
     if (data.headquartersPostcode && data.headquartersPostcode.trim() !== '') score += 5;
-    if (data.workCompanyName && data.workCompanyName.trim() !== '') score += 5;
     if (data.workRegion && data.workRegion.trim() !== '') score += 5;
     if (data.workClimateZone && data.workClimateZone.trim() !== '') score += 5;
     if (data.beneficiaryTitle && data.beneficiaryTitle.trim() !== '') score += 5;
@@ -190,10 +204,11 @@ export default function LeadDetailPage() {
         fullName: `${safeTrim(formData.firstName) || ''} ${safeTrim(formData.lastName) || ''}`.trim() || formData.email || '',
         email: safeTrim(formData.email) || '',
         phone: safeTrim(formData.phone),
-        company: safeTrim(formData.company),
+        company: safeTrim(formData.company) || undefined,
         statusId: formData.statusId || '',
         notes: safeTrim(formData.internalNotes),
         categoryId: formData.categoryId || undefined,
+        buildingType: safeTrim(formData.buildingType) || undefined,
         
         // Siège Social
         headquartersAddress: safeTrim(formData.headquartersAddress),
@@ -249,10 +264,22 @@ export default function LeadDetailPage() {
       }
     } catch (error) {
       console.error("Error updating lead:", error);
+      const errorMessage = error instanceof Error 
+        ? error.message 
+        : typeof error === 'object' && error !== null && 'message' in error
+        ? String(error.message)
+        : 'Erreur inconnue lors de la mise à jour';
+      
+      console.error("Error details:", {
+        error,
+        errorType: typeof error,
+        errorMessage,
+      });
+      
       if (showToast) {
         addToast({
           title: "Erreur",
-          description: "Impossible de mettre à jour le lead",
+          description: errorMessage,
           variant: "destructive",
         });
       }
@@ -310,10 +337,11 @@ export default function LeadDetailPage() {
         fullName: `${safeTrim(mergedData.firstName) || ''} ${safeTrim(mergedData.lastName) || ''}`.trim() || mergedData.email || '',
         email: safeTrim(mergedData.email) || '',
         phone: safeTrim(mergedData.phone),
-        company: safeTrim(mergedData.company),
+        company: safeTrim(mergedData.company) || undefined,
         statusId: mergedData.statusId || '',
         notes: safeTrim(mergedData.internalNotes),
         categoryId: mergedData.categoryId || undefined,
+        buildingType: safeTrim(mergedData.buildingType) || undefined,
         
         // Siège Social
         headquartersAddress: safeTrim(mergedData.headquartersAddress),
@@ -369,10 +397,22 @@ export default function LeadDetailPage() {
       }
     } catch (error) {
       console.error("Error updating lead:", error);
+      const errorMessage = error instanceof Error 
+        ? error.message 
+        : typeof error === 'object' && error !== null && 'message' in error
+        ? String(error.message)
+        : 'Erreur inconnue lors de la mise à jour';
+      
+      console.error("Error details:", {
+        error,
+        errorType: typeof error,
+        errorMessage,
+      });
+      
       if (showToast) {
         addToast({
           title: "Erreur",
-          description: "Impossible de mettre à jour le lead",
+          description: errorMessage,
           variant: "destructive",
         });
       }
@@ -415,6 +455,23 @@ export default function LeadDetailPage() {
         setCategories(categoriesData);
         setLeadStatuses(statusesData);
 
+        // Debug: vérifier la structure de detailed_form_data
+        if (leadRawData?.detailed_form_data) {
+          console.log('📦 detailed_form_data:', leadRawData.detailed_form_data);
+          console.log('📦 Type:', typeof leadRawData.detailed_form_data);
+          if (typeof leadRawData.detailed_form_data === 'string') {
+            try {
+              const parsed = JSON.parse(leadRawData.detailed_form_data);
+              console.log('📦 Parsed:', parsed);
+              console.log('📦 Buildings:', parsed.buildings);
+            } catch (e) {
+              console.error('❌ Error parsing detailed_form_data:', e);
+            }
+          } else {
+            console.log('📦 Buildings:', leadRawData.detailed_form_data.buildings);
+          }
+        }
+
         // Initialize form data
         isInitialLoadRef.current = true;
         setFormData({
@@ -423,10 +480,11 @@ export default function LeadDetailPage() {
           lastName: leadData.lastName || "",
           email: leadData.email || "",
           phone: leadData.phone || "",
-          company: leadData.company || "",
+          company: leadData.company || leadRawData.company || "",
           statusId: leadData.statusId || "",
           categoryId: leadRawData.category_id || "",
           internalNotes: leadRawData.internal_notes || "",
+          buildingType: leadData.buildingType || leadRawData.building_type || "",
           
           // Siège Social
           headquartersAddress: leadData.headquartersAddress || leadRawData.headquarters_address || "",
@@ -521,70 +579,126 @@ export default function LeadDetailPage() {
     leadRaw.gclid ||
     leadRaw.fbclid;
 
+  // Fonction helper pour extraire les bâtiments depuis detailed_form_data
+  const getBuildingsFromDetailedForm = (): any[] => {
+    if (!leadRaw || !leadRaw.detailed_form_data) {
+      return [];
+    }
+    
+    let data = leadRaw.detailed_form_data;
+    
+    // Si c'est une chaîne, parser
+    if (typeof data === 'string') {
+      try {
+        data = JSON.parse(data);
+      } catch (e) {
+        console.error('Error parsing detailed_form_data:', e);
+        return [];
+      }
+    }
+    
+    // Les bâtiments peuvent être dans step5.buildings ou directement dans buildings
+    const buildings = data.step5?.buildings || data.buildings || null;
+    const result = Array.isArray(buildings) ? buildings : [];
+    
+    // Debug
+    console.log('🏢 getBuildingsFromDetailedForm result:', result);
+    
+    return result;
+  };
+
+  // Créer un lead virtuel avec les données du formulaire pour le calcul en temps réel
+  const virtualLead: Lead | null = lead ? {
+    ...lead,
+    // Informations de contact
+    firstName: formData.firstName,
+    lastName: formData.lastName,
+    fullName: `${formData.firstName.trim()} ${formData.lastName.trim()}`.trim() || lead.fullName,
+    email: formData.email,
+    phone: formData.phone,
+    company: formData.company,
+    notes: formData.internalNotes,
+    // Siège Social
+    headquartersAddress: formData.headquartersAddress,
+    headquartersCity: formData.headquartersCity,
+    headquartersPostcode: formData.headquartersPostcode,
+    siretNumber: formData.siretNumber,
+    sirenNumber: formData.sirenNumber,
+    // Adresse des travaux
+    workCompanyName: formData.workCompanyName,
+    workAddress: formData.workAddress,
+    workCity: formData.workCity,
+    workPostcode: formData.workPostcode,
+    workSiret: formData.workSiret,
+    workRegion: formData.workRegion,
+    workClimateZone: formData.workClimateZone,
+    // Bénéficiaire
+    beneficiaryTitle: formData.beneficiaryTitle,
+    beneficiaryLastName: formData.beneficiaryLastName,
+    beneficiaryFirstName: formData.beneficiaryFirstName,
+    beneficiaryFunction: formData.beneficiaryFunction,
+    beneficiaryPhone: formData.beneficiaryPhone,
+    beneficiaryEmail: formData.beneficiaryEmail,
+    beneficiaryLandline: formData.beneficiaryLandline,
+    // Cadastre
+    cadastralParcel: formData.cadastralParcel,
+    qualificationScore: formData.qualificationScore,
+    surfaceM2: formData.surfaceM2 ? parseFloat(formData.surfaceM2) : undefined,
+    // Photos
+    exteriorPhotoUrl: formData.exteriorPhotoUrl,
+    cadastralPhotoUrl: formData.cadastralPhotoUrl,
+    // Score calculé en temps réel
+    completionScore: calculateCompletionScore(formData),
+  } : null;
+
   return (
     <div className="space-y-6">
-      <PageHeader
-        title={lead.fullName || "Lead"}
-        description="Consultez et modifiez les informations du lead"
-        actions={
-          <Button
-            variant="outline"
-            onClick={() => router.push("/admin/leads")}
-            size="sm"
-          >
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Retour
-          </Button>
-        }
-      />
-
-      {/* Score de complétion - Utiliser un lead virtuel basé sur formData pour le calcul en temps réel */}
-      {lead && (() => {
-        // Créer un lead virtuel avec les données du formulaire pour le calcul en temps réel
-        const virtualLead: Lead = {
-          ...lead,
-          // Informations de contact
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          fullName: `${formData.firstName.trim()} ${formData.lastName.trim()}`.trim() || lead.fullName,
-          email: formData.email,
-          phone: formData.phone,
-          company: formData.company,
-          notes: formData.internalNotes,
-          // Siège Social
-          headquartersAddress: formData.headquartersAddress,
-          headquartersCity: formData.headquartersCity,
-          headquartersPostcode: formData.headquartersPostcode,
-          siretNumber: formData.siretNumber,
-          sirenNumber: formData.sirenNumber,
-          // Adresse des travaux
-          workCompanyName: formData.workCompanyName,
-          workAddress: formData.workAddress,
-          workCity: formData.workCity,
-          workPostcode: formData.workPostcode,
-          workSiret: formData.workSiret,
-          workRegion: formData.workRegion,
-          workClimateZone: formData.workClimateZone,
-          // Bénéficiaire
-          beneficiaryTitle: formData.beneficiaryTitle,
-          beneficiaryLastName: formData.beneficiaryLastName,
-          beneficiaryFirstName: formData.beneficiaryFirstName,
-          beneficiaryFunction: formData.beneficiaryFunction,
-          beneficiaryPhone: formData.beneficiaryPhone,
-          beneficiaryEmail: formData.beneficiaryEmail,
-          beneficiaryLandline: formData.beneficiaryLandline,
-          // Cadastre
-          cadastralParcel: formData.cadastralParcel,
-          qualificationScore: formData.qualificationScore,
-          surfaceM2: formData.surfaceM2 ? parseFloat(formData.surfaceM2) : undefined,
-          // Photos
-          exteriorPhotoUrl: formData.exteriorPhotoUrl,
-          cadastralPhotoUrl: formData.cadastralPhotoUrl,
-          // Score calculé en temps réel
-          completionScore: calculateCompletionScore(formData),
-        };
-        return <LeadScoreCard lead={virtualLead} />;
-      })()}
+      {/* Header amélioré */}
+      <div className="flex items-start justify-between">
+        <div className="flex-1">
+          <div className="flex items-center gap-3 mb-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => router.push("/admin/leads")}
+              className="h-8 w-8 p-0"
+            >
+              <ArrowLeft className="h-4 w-4" />
+            </Button>
+            <div>
+              <h1 className="text-2xl font-bold text-effinor-gray-dark">
+                {lead.fullName || "Lead"}
+              </h1>
+              <div className="flex items-center gap-4 mt-1 text-sm text-effinor-gray-text">
+                {lead.email && (
+                  <div className="flex items-center gap-1">
+                    <Mail className="h-3 w-3" />
+                    <span>{lead.email}</span>
+                  </div>
+                )}
+                {lead.phone && (
+                  <div className="flex items-center gap-1">
+                    <PhoneIcon className="h-3 w-3" />
+                    <span>{lead.phone}</span>
+                  </div>
+                )}
+                {lead.company && (
+                  <div className="flex items-center gap-1">
+                    <Briefcase className="h-3 w-3" />
+                    <span>{lead.company}</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+          <div className="flex items-center gap-2 mt-3">
+            <LeadNavigation currentLeadId={leadId} />
+          </div>
+        </div>
+        <div className="flex items-center gap-2">
+          <LeadQuickActions lead={lead} />
+        </div>
+      </div>
 
       {/* Indicateur de sauvegarde automatique */}
       {lastSaved && (
@@ -594,16 +708,41 @@ export default function LeadDetailPage() {
         </div>
       )}
 
-      <div className="space-y-6">
-        {/* Section 1: Informations de contact - Priorité */}
-        <Card>
-          <CardHeader className="pb-4">
-            <CardTitle>Informations de contact</CardTitle>
-            <CardDescription>
-              Informations principales du lead
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-5">
+      {/* Layout en 2 colonnes */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Colonne principale - Contenu avec onglets */}
+        <div className="lg:col-span-2 space-y-6">
+          <Tabs defaultValue="overview" className="w-full">
+            <TabsList className="grid w-full grid-cols-4">
+              <TabsTrigger value="overview" className="flex items-center gap-2">
+                <User className="h-4 w-4" />
+                Vue d'ensemble
+              </TabsTrigger>
+              <TabsTrigger value="project" className="flex items-center gap-2">
+                <Building2 className="h-4 w-4" />
+                Projet
+              </TabsTrigger>
+              <TabsTrigger value="activity" className="flex items-center gap-2">
+                <Activity className="h-4 w-4" />
+                Activité
+              </TabsTrigger>
+              <TabsTrigger value="marketing" className="flex items-center gap-2">
+                <TrendingUp className="h-4 w-4" />
+                Marketing
+              </TabsTrigger>
+            </TabsList>
+
+            {/* Onglet 1: Vue d'ensemble */}
+            <TabsContent value="overview" className="space-y-6 mt-6">
+              {/* Section 1: Informations de contact */}
+              <Card id="contact">
+                <CardHeader className="pb-4">
+                  <CardTitle>Informations de contact</CardTitle>
+                  <CardDescription>
+                    Informations principales du lead
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-5">
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="firstName" className="text-sm font-semibold">
@@ -646,420 +785,446 @@ export default function LeadDetailPage() {
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="phone" className="text-sm font-semibold">
-                  Téléphone
-                </Label>
-                <Input
-                  id="phone"
-                  type="tel"
-                  value={formData.phone}
-                  {...createFieldProps('phone')}
-                  placeholder="+33 6 12 34 56 78"
-                  className="h-11"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="company" className="text-sm font-semibold">
-                  Entreprise
-                </Label>
-                <Input
-                  id="company"
-                  value={formData.company}
-                  {...createFieldProps('company')}
-                  placeholder="Nom de l'entreprise"
-                  className="h-11"
-                />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Section 2: Statut et catégorie */}
-        <div className="grid gap-6 md:grid-cols-2">
-          <Card>
-            <CardHeader className="pb-4">
-              <CardTitle>Statut</CardTitle>
-              <CardDescription>
-                Statut actuel du lead
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2">
-                <Label htmlFor="status" className="text-sm font-semibold">
-                  Statut
-                </Label>
-                <Select
-                  id="status"
-                  value={formData.statusId}
-                  {...createFieldProps('statusId')}
-                  className="h-11"
-                >
-                  {leadStatuses.map((status) => (
-                    <option key={status.id} value={status.id}>
-                      {status.label}
-                    </option>
-                  ))}
-                </Select>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="pb-4">
-              <CardTitle>Catégorie</CardTitle>
-              <CardDescription>
-                Catégorie du lead
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2">
-                <Label htmlFor="category" className="text-sm font-semibold">
-                  Catégorie
-                </Label>
-                <Select
-                  id="category"
-                  value={formData.categoryId}
-                  {...createFieldProps('categoryId')}
-                  className="h-11"
-                >
-                  <option value="">Aucune catégorie</option>
-                  {categories.map((cat) => (
-                    <option key={cat.id} value={cat.id}>
-                      {cat.name}
-                    </option>
-                  ))}
-                </Select>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Section 3: Siège Social */}
-        <Card>
-          <CardHeader className="pb-4">
-            <CardTitle>Siège Social</CardTitle>
-            <CardDescription>
-              Informations du siège social de l'entreprise
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-5">
             <div className="space-y-2">
-              <Label htmlFor="headquartersAddress" className="text-sm font-semibold">
-                Adresse du siège
+              <Label htmlFor="phone" className="text-sm font-semibold">
+                Téléphone
               </Label>
               <Input
-                id="headquartersAddress"
-                value={formData.headquartersAddress}
-                onChange={(e) => setFormData((prev) => ({ ...prev, headquartersAddress: e.target.value }))}
-                placeholder="140 RUE DE LA CROIX D'AMES"
+                id="phone"
+                type="tel"
+                value={formData.phone}
+                {...createFieldProps('phone')}
+                placeholder="+33 6 12 34 56 78"
                 className="h-11"
               />
             </div>
-            
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="headquartersCity" className="text-sm font-semibold">
-                  Ville siège
-                </Label>
-                <Input
-                  id="headquartersCity"
-                  value={formData.headquartersCity}
-                  {...createFieldProps('headquartersCity')}
-                  placeholder="AMES"
-                  className="h-11"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="headquartersPostcode" className="text-sm font-semibold">
-                  Code Postal Siège
-                </Label>
-                <Input
-                  id="headquartersPostcode"
-                  value={formData.headquartersPostcode}
-                  {...createFieldProps('headquartersPostcode')}
-                  placeholder="62190"
-                  className="h-11"
-                />
-              </div>
-            </div>
-            
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="siretNumber" className="text-sm font-semibold">
-                  N° de Siret
-                </Label>
-                <Input
-                  id="siretNumber"
-                  value={formData.siretNumber}
-                  {...createFieldProps('siretNumber')}
-                  placeholder="80915095600013"
-                  className="h-11"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="sirenNumber" className="text-sm font-semibold">
-                  Siren
-                </Label>
-                <Input
-                  id="sirenNumber"
-                  value={formData.sirenNumber}
-                  {...createFieldProps('sirenNumber')}
-                  placeholder="809150956"
-                  className="h-11"
-                />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
 
-        {/* Section 4: Adresse des travaux */}
-        <Card>
-          <CardHeader className="pb-4">
-            <CardTitle>Adresse des travaux</CardTitle>
-            <CardDescription>
-              Informations du site où les travaux seront effectués
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-5">
             <div className="space-y-2">
-              <Label htmlFor="workCompanyName" className="text-sm font-semibold">
-                Raison sociale
+              <Label htmlFor="buildingType" className="text-sm font-semibold">
+                Type de bâtiment
               </Label>
-              <Input
-                id="workCompanyName"
-                value={formData.workCompanyName}
-                {...createFieldProps('workCompanyName')}
-                placeholder="DE LA CROIX D'AMES"
+              <Select
+                id="buildingType"
+                value={formData.buildingType}
+                {...createFieldProps('buildingType')}
                 className="h-11"
-              />
+              >
+                <option value="">Sélectionner...</option>
+                <option value="entrepot-logistique">Entrepôt / Logistique</option>
+                <option value="bureau">Bureau</option>
+                <option value="usine-production">Usine / Production</option>
+                <option value="commerce-retail">Commerce / Retail</option>
+                <option value="autre-batiment">Autre</option>
+              </Select>
             </div>
-            
-            <div className="space-y-2">
-              <Label htmlFor="workAddress" className="text-sm font-semibold">
-                Adresse des travaux
-              </Label>
-              <Input
-                id="workAddress"
-                value={formData.workAddress}
-                {...createFieldProps('workAddress')}
-                placeholder="140 RUE DE LA CROIX D'AMES"
-                className="h-11"
-              />
-            </div>
-            
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="workCity" className="text-sm font-semibold">
-                  Ville travaux
-                </Label>
-                <Input
-                  id="workCity"
-                  value={formData.workCity}
-                  {...createFieldProps('workCity')}
-                  placeholder="AMES"
-                  className="h-11"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="workPostcode" className="text-sm font-semibold">
-                  Code postale travaux
-                </Label>
-                <Input
-                  id="workPostcode"
-                  value={formData.workPostcode}
-                  {...createFieldProps('workPostcode')}
-                  placeholder="62190"
-                  className="h-11"
-                />
-              </div>
-            </div>
-            
-            <div className="space-y-2">
-              <Label htmlFor="workSiret" className="text-sm font-semibold">
-                SIRET DU SITE DES TRAVAUX
-              </Label>
-              <Input
-                id="workSiret"
-                value={formData.workSiret}
-                {...createFieldProps('workSiret')}
-                placeholder="80915095600013"
-                className="h-11"
-              />
-            </div>
-            
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="workRegion" className="text-sm font-semibold">
-                  Region
-                </Label>
-                <Input
-                  id="workRegion"
-                  value={formData.workRegion || (formData.workPostcode ? calculateRegion(formData.workPostcode) || "" : "")}
-                  readOnly
-                  placeholder="Hauts-de-France"
-                  className="h-11 bg-effinor-gray-light cursor-not-allowed"
-                  title="Région calculée automatiquement depuis le code postal"
-                />
-                {formData.workPostcode && (
-                  <p className="text-xs text-effinor-gray-text">
-                    Calculée automatiquement depuis le code postal
-                  </p>
-                )}
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="workClimateZone" className="text-sm font-semibold">
-                  Zone climatique
-                </Label>
-                <Input
-                  id="workClimateZone"
-                  value={formData.workClimateZone || (formData.workPostcode ? calculateClimateZone(formData.workPostcode) || "" : "")}
-                  readOnly
-                  placeholder="H1"
-                  className="h-11 bg-effinor-gray-light cursor-not-allowed"
-                  title="Zone calculée automatiquement depuis le code postal"
-                />
-                {formData.workPostcode && (
-                  <p className="text-xs text-effinor-gray-text">
-                    Calculée automatiquement depuis le code postal
-                  </p>
-                )}
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+                </CardContent>
+              </Card>
 
-        {/* Section 5: Bénéficiaire de travaux */}
-        <Card>
-          <CardHeader className="pb-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <CardTitle>Bénéficiaire de travaux</CardTitle>
-                <CardDescription>
-                  Informations du responsable bénéficiaire
-                </CardDescription>
-              </div>
-              {formData.beneficiaryPhone && (
-                <Button
-                  type="button"
-                  variant="default"
-                  size="sm"
-                  asChild
-                >
-                  <a href={`tel:${formData.beneficiaryPhone.replace(/\s/g, '')}`}>
-                    <Phone className="h-4 w-4 mr-2" />
-                    Appeler le client
-                  </a>
-                </Button>
-              )}
-            </div>
-          </CardHeader>
-          <CardContent className="space-y-5">
-            <div className="grid grid-cols-3 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="beneficiaryTitle" className="text-sm font-semibold">
-                  Civilité
-                </Label>
-                <Select
-                  id="beneficiaryTitle"
-                  value={formData.beneficiaryTitle}
-                  {...createFieldProps('beneficiaryTitle')}
-                  className="h-11"
-                >
-                  <option value="">-</option>
-                  <option value="M.">M.</option>
-                  <option value="Mme">Mme</option>
-                  <option value="Mlle">Mlle</option>
-                </Select>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="beneficiaryLastName" className="text-sm font-semibold">
-                  Nom du responsable
-                </Label>
-                <Input
-                  id="beneficiaryLastName"
-                  value={formData.beneficiaryLastName}
-                  {...createFieldProps('beneficiaryLastName')}
-                  placeholder="BOUCHER"
-                  className="h-11"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="beneficiaryFirstName" className="text-sm font-semibold">
-                  Prénom du responsable
-                </Label>
-                <Input
-                  id="beneficiaryFirstName"
-                  value={formData.beneficiaryFirstName}
-                  {...createFieldProps('beneficiaryFirstName')}
-                  placeholder="Marion"
-                  className="h-11"
-                />
-              </div>
-            </div>
-            
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="beneficiaryFunction" className="text-sm font-semibold">
-                  Fonction du responsable
-                </Label>
-                <Input
-                  id="beneficiaryFunction"
-                  value={formData.beneficiaryFunction}
-                  {...createFieldProps('beneficiaryFunction')}
-                  placeholder="Responsable Logistique"
-                  className="h-11"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="beneficiaryPhone" className="text-sm font-semibold">
-                  Num de tél du responsable
-                </Label>
-                <Input
-                  id="beneficiaryPhone"
-                  type="tel"
-                  value={formData.beneficiaryPhone}
-                  {...createFieldProps('beneficiaryPhone')}
-                  placeholder="0321619293"
-                  className="h-11"
-                />
-              </div>
-            </div>
-            
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="beneficiaryEmail" className="text-sm font-semibold">
-                  Email
-                </Label>
-                <Input
-                  id="beneficiaryEmail"
-                  type="email"
-                  value={formData.beneficiaryEmail}
-                  {...createFieldProps('beneficiaryEmail')}
-                  placeholder="logistique@bovinsterroirs.fr"
-                  className="h-11"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="beneficiaryLandline" className="text-sm font-semibold">
-                  Num de téléphone fixe
-                </Label>
-                <Input
-                  id="beneficiaryLandline"
-                  type="tel"
-                  value={formData.beneficiaryLandline}
-                  {...createFieldProps('beneficiaryLandline')}
-                  placeholder="0321619293"
-                  className="h-11"
-                />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+              {/* Section 2: Statut et catégorie */}
+              <div className="grid gap-6 md:grid-cols-2">
+                <Card>
+                  <CardHeader className="pb-4">
+                    <CardTitle>Statut</CardTitle>
+                    <CardDescription>
+                      Statut actuel du lead
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-2">
+                      <Label htmlFor="status" className="text-sm font-semibold">
+                        Statut
+                      </Label>
+                      <Select
+                        id="status"
+                        value={formData.statusId}
+                        {...createFieldProps('statusId')}
+                        className="h-11"
+                      >
+                        {leadStatuses.map((status) => (
+                          <option key={status.id} value={status.id}>
+                            {status.label}
+                          </option>
+                        ))}
+                      </Select>
+                    </div>
+                  </CardContent>
+                </Card>
 
-        {/* Section 6: Photos */}
-        <Card>
+                <Card>
+                  <CardHeader className="pb-4">
+                    <CardTitle>Catégorie</CardTitle>
+                    <CardDescription>
+                      Catégorie du lead
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-2">
+                      <Label htmlFor="category" className="text-sm font-semibold">
+                        Catégorie
+                      </Label>
+                      <Select
+                        id="category"
+                        value={formData.categoryId}
+                        {...createFieldProps('categoryId')}
+                        className="h-11"
+                      >
+                        <option value="">Aucune catégorie</option>
+                        {categories.map((cat) => (
+                          <option key={cat.id} value={cat.id}>
+                            {cat.name}
+                          </option>
+                        ))}
+                      </Select>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Section 3: Siège Social */}
+              <Card id="headquarters">
+                <CardHeader className="pb-4">
+                  <CardTitle>Siège Social</CardTitle>
+                  <CardDescription>
+                    Informations du siège social de l'entreprise
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-5">
+                  <div className="space-y-2">
+                    <Label htmlFor="company" className="text-sm font-semibold">
+                      Raison sociale
+                    </Label>
+                    <Input
+                      id="company"
+                      value={formData.company}
+                      {...createFieldProps('company')}
+                      placeholder="Nom de l'entreprise"
+                      className="h-11"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="headquartersAddress" className="text-sm font-semibold">
+                      Adresse du siège
+                    </Label>
+                    <Input
+                      id="headquartersAddress"
+                      value={formData.headquartersAddress}
+                      onChange={(e) => setFormData((prev) => ({ ...prev, headquartersAddress: e.target.value }))}
+                      placeholder="140 RUE DE LA CROIX D'AMES"
+                      className="h-11"
+                    />
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="headquartersCity" className="text-sm font-semibold">
+                        Ville siège
+                      </Label>
+                      <Input
+                        id="headquartersCity"
+                        value={formData.headquartersCity}
+                        {...createFieldProps('headquartersCity')}
+                        placeholder="AMES"
+                        className="h-11"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="headquartersPostcode" className="text-sm font-semibold">
+                        Code Postal Siège
+                      </Label>
+                      <Input
+                        id="headquartersPostcode"
+                        value={formData.headquartersPostcode}
+                        {...createFieldProps('headquartersPostcode')}
+                        placeholder="62190"
+                        className="h-11"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="siretNumber" className="text-sm font-semibold">
+                        N° de Siret
+                      </Label>
+                      <Input
+                        id="siretNumber"
+                        value={formData.siretNumber}
+                        {...createFieldProps('siretNumber')}
+                        placeholder="80915095600013"
+                        className="h-11"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="sirenNumber" className="text-sm font-semibold">
+                        Siren
+                      </Label>
+                      <Input
+                        id="sirenNumber"
+                        value={formData.sirenNumber}
+                        {...createFieldProps('sirenNumber')}
+                        placeholder="809150956"
+                        className="h-11"
+                      />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Section 4: Adresse des travaux */}
+              <Card id="work-address">
+                <CardHeader className="pb-4">
+                  <CardTitle>Adresse des travaux</CardTitle>
+                  <CardDescription>
+                    Informations du site où les travaux seront effectués
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-5">
+                  <div className="space-y-2">
+                    <Label htmlFor="workCompanyName" className="text-sm font-semibold">
+                      Raison sociale
+                    </Label>
+                    <Input
+                      id="workCompanyName"
+                      value={formData.workCompanyName}
+                      {...createFieldProps('workCompanyName')}
+                      placeholder="DE LA CROIX D'AMES"
+                      className="h-11"
+                    />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="workAddress" className="text-sm font-semibold">
+                      Adresse des travaux
+                    </Label>
+                    <Input
+                      id="workAddress"
+                      value={formData.workAddress}
+                      {...createFieldProps('workAddress')}
+                      placeholder="140 RUE DE LA CROIX D'AMES"
+                      className="h-11"
+                    />
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="workCity" className="text-sm font-semibold">
+                        Ville travaux
+                      </Label>
+                      <Input
+                        id="workCity"
+                        value={formData.workCity}
+                        {...createFieldProps('workCity')}
+                        placeholder="AMES"
+                        className="h-11"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="workPostcode" className="text-sm font-semibold">
+                        Code postale travaux
+                      </Label>
+                      <Input
+                        id="workPostcode"
+                        value={formData.workPostcode}
+                        {...createFieldProps('workPostcode')}
+                        placeholder="62190"
+                        className="h-11"
+                      />
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="workSiret" className="text-sm font-semibold">
+                      SIRET DU SITE DES TRAVAUX
+                    </Label>
+                    <Input
+                      id="workSiret"
+                      value={formData.workSiret}
+                      {...createFieldProps('workSiret')}
+                      placeholder="80915095600013"
+                      className="h-11"
+                    />
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="workRegion" className="text-sm font-semibold">
+                        Region
+                      </Label>
+                      <Input
+                        id="workRegion"
+                        value={formData.workRegion || (formData.workPostcode ? calculateRegion(formData.workPostcode) || "" : "")}
+                        readOnly
+                        placeholder="Hauts-de-France"
+                        className="h-11 bg-effinor-gray-light cursor-not-allowed"
+                        title="Région calculée automatiquement depuis le code postal"
+                      />
+                      {formData.workPostcode && (
+                        <p className="text-xs text-effinor-gray-text">
+                          Calculée automatiquement depuis le code postal
+                        </p>
+                      )}
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="workClimateZone" className="text-sm font-semibold">
+                        Zone climatique
+                      </Label>
+                      <Input
+                        id="workClimateZone"
+                        value={formData.workClimateZone || (formData.workPostcode ? calculateClimateZone(formData.workPostcode) || "" : "")}
+                        readOnly
+                        placeholder="H1"
+                        className="h-11 bg-effinor-gray-light cursor-not-allowed"
+                        title="Zone calculée automatiquement depuis le code postal"
+                      />
+                      {formData.workPostcode && (
+                        <p className="text-xs text-effinor-gray-text">
+                          Calculée automatiquement depuis le code postal
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Section 5: Bénéficiaire de travaux */}
+              <Card id="beneficiary">
+                <CardHeader className="pb-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <CardTitle>Bénéficiaire de travaux</CardTitle>
+                      <CardDescription>
+                        Informations du responsable bénéficiaire
+                      </CardDescription>
+                    </div>
+                    {formData.beneficiaryPhone && (
+                      <Button
+                        type="button"
+                        variant="default"
+                        size="sm"
+                        asChild
+                      >
+                        <a href={`tel:${formData.beneficiaryPhone.replace(/\s/g, '')}`}>
+                          <Phone className="h-4 w-4 mr-2" />
+                          Appeler le client
+                        </a>
+                      </Button>
+                    )}
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-5">
+                  <div className="grid grid-cols-3 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="beneficiaryTitle" className="text-sm font-semibold">
+                        Civilité
+                      </Label>
+                      <Select
+                        id="beneficiaryTitle"
+                        value={formData.beneficiaryTitle}
+                        {...createFieldProps('beneficiaryTitle')}
+                        className="h-11"
+                      >
+                        <option value="">-</option>
+                        <option value="M.">M.</option>
+                        <option value="Mme">Mme</option>
+                        <option value="Mlle">Mlle</option>
+                      </Select>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="beneficiaryLastName" className="text-sm font-semibold">
+                        Nom du responsable
+                      </Label>
+                      <Input
+                        id="beneficiaryLastName"
+                        value={formData.beneficiaryLastName}
+                        {...createFieldProps('beneficiaryLastName')}
+                        placeholder="BOUCHER"
+                        className="h-11"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="beneficiaryFirstName" className="text-sm font-semibold">
+                        Prénom du responsable
+                      </Label>
+                      <Input
+                        id="beneficiaryFirstName"
+                        value={formData.beneficiaryFirstName}
+                        {...createFieldProps('beneficiaryFirstName')}
+                        placeholder="Marion"
+                        className="h-11"
+                      />
+                    </div>
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="beneficiaryFunction" className="text-sm font-semibold">
+                        Fonction du responsable
+                      </Label>
+                      <Input
+                        id="beneficiaryFunction"
+                        value={formData.beneficiaryFunction}
+                        {...createFieldProps('beneficiaryFunction')}
+                        placeholder="Responsable Logistique"
+                        className="h-11"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="beneficiaryPhone" className="text-sm font-semibold">
+                        Num de tél du responsable
+                      </Label>
+                      <Input
+                        id="beneficiaryPhone"
+                        type="tel"
+                        value={formData.beneficiaryPhone}
+                        {...createFieldProps('beneficiaryPhone')}
+                        placeholder="0321619293"
+                        className="h-11"
+                      />
+                    </div>
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="beneficiaryEmail" className="text-sm font-semibold">
+                        Email
+                      </Label>
+                      <Input
+                        id="beneficiaryEmail"
+                        type="email"
+                        value={formData.beneficiaryEmail}
+                        {...createFieldProps('beneficiaryEmail')}
+                        placeholder="logistique@bovinsterroirs.fr"
+                        className="h-11"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="beneficiaryLandline" className="text-sm font-semibold">
+                        Num de téléphone fixe
+                      </Label>
+                      <Input
+                        id="beneficiaryLandline"
+                        type="tel"
+                        value={formData.beneficiaryLandline}
+                        {...createFieldProps('beneficiaryLandline')}
+                        placeholder="0321619293"
+                        className="h-11"
+                      />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            {/* Onglet 2: Projet */}
+            <TabsContent value="project" className="space-y-6 mt-6">
+              {/* Score de complétion */}
+              <div data-section="completion-score">
+                {virtualLead && <LeadScoreCard lead={virtualLead} />}
+              </div>
+
+              {/* Section 6: Photos */}
+              <Card id="photos">
           <CardHeader className="pb-4">
             <CardTitle>Photos</CardTitle>
             <CardDescription>
@@ -1097,8 +1262,8 @@ export default function LeadDetailPage() {
           </CardContent>
         </Card>
 
-        {/* Section 7: Informations cadastrales */}
-        <Card>
+              {/* Section 7: Informations cadastrales */}
+              <Card>
           <CardHeader className="pb-4">
             <CardTitle>Informations cadastrales</CardTitle>
             <CardDescription>
@@ -1152,151 +1317,316 @@ export default function LeadDetailPage() {
           </CardContent>
         </Card>
 
-        {/* Section 9: Informations du lead */}
-        <Card>
-          <CardHeader className="pb-4">
-            <CardTitle>Informations du lead</CardTitle>
-            <CardDescription>
-              Informations collectées lors de la soumission du formulaire
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <Label className="text-sm font-semibold text-effinor-gray-text">Source</Label>
-                <p className="text-sm text-effinor-gray-dark mt-1">
-                  {lead.source.charAt(0).toUpperCase() + lead.source.slice(1)}
-                </p>
-              </div>
-              <div>
-                <Label className="text-sm font-semibold text-effinor-gray-text">Langue</Label>
-                <p className="text-sm text-effinor-gray-dark mt-1">
-                  {leadRaw.lang?.toUpperCase() || "N/A"}
-                </p>
-              </div>
-            </div>
+              {/* Section 8: Détails des bâtiments */}
+              <BuildingEditor
+          buildings={getBuildingsFromDetailedForm()}
+          onSave={async (buildings) => {
+            // Récupérer les données existantes de detailed_form_data
+            let existingData: any = {};
+            if (leadRaw?.detailed_form_data) {
+              if (typeof leadRaw.detailed_form_data === 'string') {
+                try {
+                  existingData = JSON.parse(leadRaw.detailed_form_data);
+                } catch (e) {
+                  console.error('Error parsing detailed_form_data:', e);
+                }
+              } else {
+                existingData = leadRaw.detailed_form_data;
+              }
+            }
 
-            {leadRaw.page && (
-              <div>
-                <Label className="text-sm font-semibold text-effinor-gray-text">Page</Label>
-                <p className="text-sm text-effinor-gray-dark mt-1">{leadRaw.page}</p>
-              </div>
-            )}
+            // Mettre à jour step5.buildings
+            const updatedData = {
+              ...existingData,
+              step5: {
+                ...existingData.step5,
+                buildings: buildings,
+              },
+            };
 
-            {leadRaw.origin && (
-              <div>
-                <Label className="text-sm font-semibold text-effinor-gray-text">Origine</Label>
-                <p className="text-sm text-effinor-gray-dark mt-1">{leadRaw.origin}</p>
-              </div>
-            )}
+            // Sauvegarder dans la base de données
+            await updateLead(leadId, {
+              detailedFormData: JSON.stringify(updatedData),
+            });
 
-            {leadRaw.solution && (
-              <div>
-                <Label className="text-sm font-semibold text-effinor-gray-text">Solution</Label>
-                <p className="text-sm text-effinor-gray-dark mt-1">{leadRaw.solution}</p>
-              </div>
-            )}
+            // Recharger les données
+            const [leadData, leadRawData] = await Promise.all([
+              getLead(leadId),
+              getLeadRaw(leadId),
+            ]);
+            setLead(leadData);
+            setLeadRaw(leadRawData);
 
-            <div>
-              <Label className="text-sm font-semibold text-effinor-gray-text">Date de création</Label>
-              <p className="text-sm text-effinor-gray-dark mt-1">
-                {format(lead.createdAt, "dd MMM yyyy à HH:mm")}
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Section 8: Notes */}
-        <Card>
-          <CardHeader className="pb-4">
-            <CardTitle>Notes</CardTitle>
-            <CardDescription>
-              Message du lead et notes internes
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-5">
-            {leadRaw.message && (
-              <div>
-                <Label className="text-sm font-semibold text-effinor-gray-text">
-                  Message du lead
-                </Label>
-                <div className="mt-2 p-3 bg-effinor-gray-light rounded-md text-sm text-effinor-gray-dark">
-                  {leadRaw.message}
-                </div>
-              </div>
-            )}
-
-            <div className="space-y-2">
-              <Label htmlFor="internalNotes" className="text-sm font-semibold">
-                Notes internes
-              </Label>
-              <textarea
-                id="internalNotes"
-                value={formData.internalNotes}
-                {...createFieldProps('internalNotes')}
-                className="w-full min-h-[120px] rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm text-effinor-gray-dark placeholder:text-effinor-gray-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-effinor-emerald focus-visible:ring-offset-2 focus-visible:border-effinor-emerald resize-y"
-                placeholder="Ajoutez des notes internes sur ce lead..."
+            addToast({
+              title: "Succès",
+              description: "Les bâtiments ont été mis à jour avec succès",
+            });
+              }}
               />
-            </div>
-          </CardContent>
-        </Card>
+            </TabsContent>
 
-        {/* UTM Parameters */}
-        {hasUtmParams && (
+            {/* Onglet 3: Activité */}
+            <TabsContent value="activity" className="space-y-6 mt-6">
+              {/* Section Timeline */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Historique</CardTitle>
+                  <CardDescription>
+                    Chronologie des modifications et actions
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <LeadTimeline leadId={leadId} />
+                </CardContent>
+              </Card>
+
+              {/* Section Notes collaboratives */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Notes collaboratives</CardTitle>
+                  <CardDescription>
+                    Notes partagées entre les membres de l'équipe
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <LeadNotes leadId={leadId} />
+                </CardContent>
+              </Card>
+
+              {/* Section Notes */}
+              <Card>
+                <CardHeader className="pb-4">
+                  <CardTitle>Notes</CardTitle>
+                  <CardDescription>
+                    Message du lead et notes internes
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-5">
+                  {leadRaw.message && (
+                    <div>
+                      <Label className="text-sm font-semibold text-effinor-gray-text">
+                        Message du lead
+                      </Label>
+                      <div className="mt-2 p-3 bg-effinor-gray-light rounded-md text-sm text-effinor-gray-dark">
+                        {leadRaw.message}
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="space-y-2">
+                    <Label htmlFor="internalNotes" className="text-sm font-semibold">
+                      Notes internes
+                    </Label>
+                    <textarea
+                      id="internalNotes"
+                      value={formData.internalNotes}
+                      {...createFieldProps('internalNotes')}
+                      className="w-full min-h-[120px] rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm text-effinor-gray-dark placeholder:text-effinor-gray-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-effinor-emerald focus-visible:ring-offset-2 focus-visible:border-effinor-emerald resize-y"
+                      placeholder="Ajoutez des notes internes sur ce lead..."
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Section Rappels */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Rappels et tâches</CardTitle>
+                  <CardDescription>
+                    Gérez vos rappels pour ce lead
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <LeadReminders leadId={leadId} />
+                </CardContent>
+              </Card>
+
+              {/* Section Documents */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Documents</CardTitle>
+                  <CardDescription>
+                    Gérez les documents associés à ce lead
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <LeadDocuments leadId={leadId} />
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            {/* Onglet 4: Marketing */}
+            <TabsContent value="marketing" className="space-y-6 mt-6">
+              {/* Section 9: Informations du lead */}
+              <Card>
+                <CardHeader className="pb-4">
+                  <CardTitle>Informations du lead</CardTitle>
+                  <CardDescription>
+                    Informations collectées lors de la soumission du formulaire
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label className="text-sm font-semibold text-effinor-gray-text">Source</Label>
+                      <p className="text-sm text-effinor-gray-dark mt-1">
+                        {lead.source.charAt(0).toUpperCase() + lead.source.slice(1)}
+                      </p>
+                    </div>
+                    <div>
+                      <Label className="text-sm font-semibold text-effinor-gray-text">Langue</Label>
+                      <p className="text-sm text-effinor-gray-dark mt-1">
+                        {leadRaw.lang?.toUpperCase() || "N/A"}
+                      </p>
+                    </div>
+                  </div>
+
+                  {leadRaw.page && (
+                    <div>
+                      <Label className="text-sm font-semibold text-effinor-gray-text">Page</Label>
+                      <p className="text-sm text-effinor-gray-dark mt-1">{leadRaw.page}</p>
+                    </div>
+                  )}
+
+                  {leadRaw.origin && (
+                    <div>
+                      <Label className="text-sm font-semibold text-effinor-gray-text">Origine</Label>
+                      <p className="text-sm text-effinor-gray-dark mt-1">{leadRaw.origin}</p>
+                    </div>
+                  )}
+
+                  {leadRaw.solution && (
+                    <div>
+                      <Label className="text-sm font-semibold text-effinor-gray-text">Solution</Label>
+                      <p className="text-sm text-effinor-gray-dark mt-1">{leadRaw.solution}</p>
+                    </div>
+                  )}
+
+                  <div>
+                    <Label className="text-sm font-semibold text-effinor-gray-text">Date de création</Label>
+                    <p className="text-sm text-effinor-gray-dark mt-1">
+                      {format(lead.createdAt, "dd MMM yyyy à HH:mm")}
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* UTM Parameters */}
+              {hasUtmParams && (
+                <Card>
+                  <CardHeader className="pb-4">
+                    <CardTitle>Paramètres UTM</CardTitle>
+                    <CardDescription>
+                      Paramètres de tracking marketing
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    {leadRaw.utm_source && (
+                      <div>
+                        <Label className="text-sm font-semibold text-effinor-gray-text">UTM Source</Label>
+                        <p className="text-sm text-effinor-gray-dark mt-1">{leadRaw.utm_source}</p>
+                      </div>
+                    )}
+                    {leadRaw.utm_medium && (
+                      <div>
+                        <Label className="text-sm font-semibold text-effinor-gray-text">UTM Medium</Label>
+                        <p className="text-sm text-effinor-gray-dark mt-1">{leadRaw.utm_medium}</p>
+                      </div>
+                    )}
+                    {leadRaw.utm_campaign && (
+                      <div>
+                        <Label className="text-sm font-semibold text-effinor-gray-text">UTM Campaign</Label>
+                        <p className="text-sm text-effinor-gray-dark mt-1">{leadRaw.utm_campaign}</p>
+                      </div>
+                    )}
+                    {leadRaw.utm_term && (
+                      <div>
+                        <Label className="text-sm font-semibold text-effinor-gray-text">UTM Term</Label>
+                        <p className="text-sm text-effinor-gray-dark mt-1">{leadRaw.utm_term}</p>
+                      </div>
+                    )}
+                    {leadRaw.utm_content && (
+                      <div>
+                        <Label className="text-sm font-semibold text-effinor-gray-text">UTM Content</Label>
+                        <p className="text-sm text-effinor-gray-dark mt-1">{leadRaw.utm_content}</p>
+                      </div>
+                    )}
+                    {leadRaw.gclid && (
+                      <div>
+                        <Label className="text-sm font-semibold text-effinor-gray-text">Google Click ID</Label>
+                        <p className="text-sm text-effinor-gray-dark mt-1 font-mono text-xs">{leadRaw.gclid}</p>
+                      </div>
+                    )}
+                    {leadRaw.fbclid && (
+                      <div>
+                        <Label className="text-sm font-semibold text-effinor-gray-text">Facebook Click ID</Label>
+                        <p className="text-sm text-effinor-gray-dark mt-1 font-mono text-xs">{leadRaw.fbclid}</p>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              )}
+
+              {/* Section Tags */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Tags</CardTitle>
+                  <CardDescription>
+                    Organisez ce lead avec des tags personnalisés
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <LeadTags leadId={leadId} />
+                </CardContent>
+              </Card>
+            </TabsContent>
+          </Tabs>
+        </div>
+
+        {/* Sidebar droite - Résumé et actions */}
+        <div className="lg:col-span-1 space-y-6">
+          {/* Vue d'ensemble */}
           <Card>
-            <CardHeader className="pb-4">
-              <CardTitle>Paramètres UTM</CardTitle>
-              <CardDescription>
-                Paramètres de tracking marketing
-              </CardDescription>
+            <CardHeader>
+              <CardTitle>Vue d'ensemble</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-3">
-              {leadRaw.utm_source && (
-                <div>
-                  <Label className="text-sm font-semibold text-effinor-gray-text">UTM Source</Label>
-                  <p className="text-sm text-effinor-gray-dark mt-1">{leadRaw.utm_source}</p>
-                </div>
-              )}
-              {leadRaw.utm_medium && (
-                <div>
-                  <Label className="text-sm font-semibold text-effinor-gray-text">UTM Medium</Label>
-                  <p className="text-sm text-effinor-gray-dark mt-1">{leadRaw.utm_medium}</p>
-                </div>
-              )}
-              {leadRaw.utm_campaign && (
-                <div>
-                  <Label className="text-sm font-semibold text-effinor-gray-text">UTM Campaign</Label>
-                  <p className="text-sm text-effinor-gray-dark mt-1">{leadRaw.utm_campaign}</p>
-                </div>
-              )}
-              {leadRaw.utm_term && (
-                <div>
-                  <Label className="text-sm font-semibold text-effinor-gray-text">UTM Term</Label>
-                  <p className="text-sm text-effinor-gray-dark mt-1">{leadRaw.utm_term}</p>
-                </div>
-              )}
-              {leadRaw.utm_content && (
-                <div>
-                  <Label className="text-sm font-semibold text-effinor-gray-text">UTM Content</Label>
-                  <p className="text-sm text-effinor-gray-dark mt-1">{leadRaw.utm_content}</p>
-                </div>
-              )}
-              {leadRaw.gclid && (
-                <div>
-                  <Label className="text-sm font-semibold text-effinor-gray-text">Google Click ID</Label>
-                  <p className="text-sm text-effinor-gray-dark mt-1 font-mono text-xs">{leadRaw.gclid}</p>
-                </div>
-              )}
-              {leadRaw.fbclid && (
-                <div>
-                  <Label className="text-sm font-semibold text-effinor-gray-text">Facebook Click ID</Label>
-                  <p className="text-sm text-effinor-gray-dark mt-1 font-mono text-xs">{leadRaw.fbclid}</p>
-                </div>
-              )}
+            <CardContent>
+              <LeadOverview lead={lead} />
             </CardContent>
           </Card>
-        )}
 
+          {/* Statistiques */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Statistiques</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <LeadStats lead={lead} />
+            </CardContent>
+          </Card>
+
+          {/* Score de complétion */}
+          {virtualLead && (
+            <Card>
+              <CardHeader>
+                <CardTitle>Score de complétion</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <LeadScoreCard lead={virtualLead} />
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Suggestions intelligentes */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Suggestions</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <LeadSuggestions lead={lead} />
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div>
   );
