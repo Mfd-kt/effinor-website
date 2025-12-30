@@ -23,10 +23,6 @@ const nextConfig: NextConfig = {
   },
   // Configuration Turbopack pour Next.js 16 (utilisé par défaut sur Vercel)
   turbopack: {},
-  // Ignorer les erreurs ESLint lors du build (pour le déploiement)
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
 };
 
 export default nextConfig;

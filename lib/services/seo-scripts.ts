@@ -194,5 +194,18 @@ export async function deleteSeoScript(name: string): Promise<void> {
   }
 }
 
+/**
+ * Récupérer uniquement les scripts SEO actifs
+ */
+export async function getActiveSeoScripts(): Promise<SeoScript[]> {
+  try {
+    const scripts = await getSeoScripts();
+    return scripts.filter(script => script.active);
+  } catch (error) {
+    console.error('Exception in getActiveSeoScripts:', error);
+    throw error;
+  }
+}
+
 
 

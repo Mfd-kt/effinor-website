@@ -298,3 +298,16 @@ export async function deleteBlogImageFromStorage(imageUrl: string): Promise<void
     throw error;
   }
 }
+
+// Wrapper functions for backward compatibility
+export async function getPublishedPosts(): Promise<BlogPost[]> {
+  const posts = await getPosts();
+  return posts.filter(post => post.status === 'published');
+}
+
+export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
+  const posts = await getPosts();
+  const post = posts.find(p => p.slug === slug);
+  return post || null;
+}
+
