@@ -1,4 +1,4 @@
-import { supabase } from '@/lib/supabase/client';
+import { createClient } from '@/lib/supabase/server';
 import { BlogPost, BlogPostStatus } from '@/lib/types/blog';
 
 function mapBlogPost(item: any): BlogPost {
@@ -31,13 +31,7 @@ function mapBlogPost(item: any): BlogPost {
 
 export async function getPosts(): Promise<BlogPost[]> {
   try {
-    // Vérifier si Supabase est configuré
-    const { isSupabaseConfigured } = await import('@/lib/supabase/client');
-    if (!isSupabaseConfigured()) {
-      console.error('❌ Supabase n\'est pas configuré ! Vérifiez NEXT_PUBLIC_SUPABASE_URL et NEXT_PUBLIC_SUPABASE_ANON_KEY');
-      return [];
-    }
-
+    const supabase = await createClient();
     console.log('🔍 Fetching blog posts from Supabase...');
     const { data, error } = await supabase
       .from('blog_posts')
@@ -78,12 +72,7 @@ export async function getPosts(): Promise<BlogPost[]> {
 
 export async function getPost(id: string): Promise<BlogPost | null> {
   try {
-    const { isSupabaseConfigured } = await import('@/lib/supabase/client');
-    if (!isSupabaseConfigured()) {
-      console.error('❌ Supabase n\'est pas configuré !');
-      return null;
-    }
-
+    const supabase = await createClient();
     console.log('🔍 Fetching blog post from Supabase:', id);
     const { data, error } = await supabase
       .from('blog_posts')
@@ -111,11 +100,7 @@ export async function getPost(id: string): Promise<BlogPost | null> {
 
 export async function createPost(post: Omit<BlogPost, 'id' | 'createdAt' | 'updatedAt' | 'authorName'>): Promise<BlogPost> {
   try {
-    const { isSupabaseConfigured } = await import('@/lib/supabase/client');
-    if (!isSupabaseConfigured()) {
-      throw new Error('Supabase n\'est pas configuré');
-    }
-
+    const supabase = await createClient();
     console.log('🔍 Creating blog post:', post.title);
     
     const insertData: any = {
@@ -162,11 +147,7 @@ export async function createPost(post: Omit<BlogPost, 'id' | 'createdAt' | 'upda
 
 export async function updatePost(id: string, post: Partial<Omit<BlogPost, 'id' | 'createdAt' | 'updatedAt' | 'authorName'>>): Promise<BlogPost | null> {
   try {
-    const { isSupabaseConfigured } = await import('@/lib/supabase/client');
-    if (!isSupabaseConfigured()) {
-      throw new Error('Supabase n\'est pas configuré');
-    }
-
+    const supabase = await createClient();
     console.log('🔍 Updating blog post:', id);
     
     const updateData: any = {};
@@ -217,11 +198,7 @@ export async function updatePost(id: string, post: Partial<Omit<BlogPost, 'id' |
 
 export async function deletePost(id: string): Promise<boolean> {
   try {
-    const { isSupabaseConfigured } = await import('@/lib/supabase/client');
-    if (!isSupabaseConfigured()) {
-      throw new Error('Supabase n\'est pas configuré');
-    }
-
+    const supabase = await createClient();
     console.log('🔍 Deleting blog post:', id);
     
     const { error } = await supabase
@@ -244,6 +221,7 @@ export async function deletePost(id: string): Promise<boolean> {
 
 // Storage functions for blog images
 export async function uploadBlogImageToStorage(postId: string, file: File): Promise<string> {
+  const supabase = await createClient();
   const timestamp = Date.now();
   const fileExt = file.name.split('.').pop();
   const fileName = `${timestamp}-${Math.random().toString(36).substring(7)}.${fileExt}`;
@@ -270,6 +248,7 @@ export async function deleteBlogImageFromStorage(imageUrl: string): Promise<void
   // Extract file path from URL
   // URL format: https://project.supabase.co/storage/v1/object/public/product-blog/postId/filename
   try {
+    const supabase = await createClient();
     const urlParts = imageUrl.split('/');
     const bucketIndex = urlParts.findIndex(part => part === 'product-blog');
     

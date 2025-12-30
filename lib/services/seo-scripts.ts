@@ -1,4 +1,4 @@
-import { supabase } from '@/lib/supabase/client';
+import { createClient } from '@/lib/supabase/server';
 import { SeoScript } from '@/lib/types/seo';
 
 /**
@@ -24,6 +24,7 @@ function mapSeoScript(item: any): SeoScript {
  */
 export async function getSeoScripts(): Promise<SeoScript[]> {
   try {
+    const supabase = await createClient();
     const { data, error } = await supabase
       .from('seo_scripts')
       .select('*')
@@ -47,6 +48,7 @@ export async function getSeoScripts(): Promise<SeoScript[]> {
  */
 export async function getSeoScript(name: string): Promise<SeoScript | null> {
   try {
+    const supabase = await createClient();
     const { data, error } = await supabase
       .from('seo_scripts')
       .select('*')
@@ -76,6 +78,7 @@ export async function createSeoScript(
   script: Omit<SeoScript, 'id' | 'createdAt' | 'updatedAt'>
 ): Promise<SeoScript> {
   try {
+    const supabase = await createClient();
     const { data, error } = await supabase
       .from('seo_scripts')
       .insert({
@@ -114,6 +117,7 @@ export async function updateSeoScript(
   script: Partial<Omit<SeoScript, 'id' | 'name' | 'createdAt' | 'updatedAt'>>
 ): Promise<SeoScript> {
   try {
+    const supabase = await createClient();
     const updateData: any = {};
 
     if (script.label !== undefined) updateData.label = script.label;
@@ -151,6 +155,7 @@ export async function updateSeoScript(
  */
 export async function toggleSeoScript(name: string, active: boolean): Promise<SeoScript> {
   try {
+    const supabase = await createClient();
     const { data, error } = await supabase
       .from('seo_scripts')
       .update({ active })
@@ -179,6 +184,7 @@ export async function toggleSeoScript(name: string, active: boolean): Promise<Se
  */
 export async function deleteSeoScript(name: string): Promise<void> {
   try {
+    const supabase = await createClient();
     const { error } = await supabase
       .from('seo_scripts')
       .delete()
