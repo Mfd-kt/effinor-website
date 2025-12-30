@@ -187,7 +187,7 @@ export default function CheckoutClient({ lang, dict }: CheckoutClientProps) {
                         id="name"
                         name="name"
                         required
-                        className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981]"
+                        className="w-full rounded-lg border-2 border-gray-400 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981]"
                       />
                     </div>
 
@@ -200,7 +200,7 @@ export default function CheckoutClient({ lang, dict }: CheckoutClientProps) {
                         id="email"
                         name="email"
                         required
-                        className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981]"
+                        className="w-full rounded-lg border-2 border-gray-400 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981]"
                       />
                     </div>
 
@@ -213,7 +213,7 @@ export default function CheckoutClient({ lang, dict }: CheckoutClientProps) {
                         id="phone"
                         name="phone"
                         required
-                        className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981]"
+                        className="w-full rounded-lg border-2 border-gray-400 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981]"
                       />
                     </div>
 
@@ -225,7 +225,7 @@ export default function CheckoutClient({ lang, dict }: CheckoutClientProps) {
                         type="text"
                         id="company"
                         name="company"
-                        className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981]"
+                        className="w-full rounded-lg border-2 border-gray-400 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981]"
                       />
                     </div>
                   </div>
@@ -246,7 +246,7 @@ export default function CheckoutClient({ lang, dict }: CheckoutClientProps) {
                         id="delivery_address"
                         name="delivery_address"
                         required
-                        className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981]"
+                        className="w-full rounded-lg border-2 border-gray-400 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981]"
                       />
                     </div>
 
@@ -258,7 +258,7 @@ export default function CheckoutClient({ lang, dict }: CheckoutClientProps) {
                         type="text"
                         id="delivery_address_2"
                         name="delivery_address_2"
-                        className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981]"
+                        className="w-full rounded-lg border-2 border-gray-400 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981]"
                       />
                     </div>
 
@@ -272,7 +272,7 @@ export default function CheckoutClient({ lang, dict }: CheckoutClientProps) {
                           id="delivery_postcode"
                           name="delivery_postcode"
                           required
-                          className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981]"
+                          className="w-full rounded-lg border-2 border-gray-400 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981]"
                         />
                       </div>
 
@@ -285,7 +285,7 @@ export default function CheckoutClient({ lang, dict }: CheckoutClientProps) {
                           id="delivery_city"
                           name="delivery_city"
                           required
-                          className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981]"
+                          className="w-full rounded-lg border-2 border-gray-400 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981]"
                         />
                       </div>
                     </div>
@@ -299,7 +299,7 @@ export default function CheckoutClient({ lang, dict }: CheckoutClientProps) {
                         name="delivery_country"
                         required
                         defaultValue="FR"
-                        className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981]"
+                        className="w-full rounded-lg border-2 border-gray-400 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-[#10B981]"
                       >
                         <option value="FR">France</option>
                         <option value="BE">Belgique</option>
