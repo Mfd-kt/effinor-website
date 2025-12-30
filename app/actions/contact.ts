@@ -125,56 +125,60 @@ export async function submitContactLead(formData: FormData) {
     }
 
     // Envoyer la notification webhook (ne bloque pas si échec)
+    // Note: Le webhook est dans le Dashboard qui est exclu du build, donc on l'appelle de manière optionnelle
     if (insertedData) {
       try {
-        const { notifyNewLead } = await import('@/Dashboard/lib/services/webhook');
+        // Import dynamique optionnel - le Dashboard peut ne pas être disponible
+        const webhookModule = await import('@/Dashboard/lib/services/webhook').catch(() => null);
         
-        // Récupérer le nom de la catégorie si category_id existe
-        let categoryName: string | undefined;
-        if (payload.category_id) {
-          const { data: category } = await supabase
-            .from('categories')
-            .select('name_fr, name_en, name_ar')
-            .eq('id', payload.category_id)
-            .single();
-          
-          if (category) {
-            categoryName = category.name_fr || category.name_en || category.name_ar;
+        if (webhookModule?.notifyNewLead) {
+          // Récupérer le nom de la catégorie si category_id existe
+          let categoryName: string | undefined;
+          if (payload.category_id) {
+            const { data: category } = await supabase
+              .from('categories')
+              .select('name_fr, name_en, name_ar')
+              .eq('id', payload.category_id)
+              .single();
+            
+            if (category) {
+              categoryName = category.name_fr || category.name_en || category.name_ar;
+            }
           }
+
+          // Extraire prénom et nom
+          const nameParts = payload.name.split(' ');
+          const firstName = nameParts[0] || '';
+          const lastName = nameParts.slice(1).join(' ') || '';
+
+          await webhookModule.notifyNewLead({
+            leadId: insertedData.id,
+            fullName: payload.name,
+            firstName: firstName,
+            lastName: lastName,
+            email: payload.email,
+            phone: payload.phone,
+            company: payload.company,
+            source: payload.origin || 'website',
+            status: 'new',
+            message: payload.message,
+            solution: payload.solution,
+            categoryId: payload.category_id,
+            categoryName: categoryName,
+            page: payload.page,
+            origin: payload.origin,
+            utmSource: payload.utm_source,
+            utmMedium: payload.utm_medium,
+            utmCampaign: payload.utm_campaign,
+            utmTerm: payload.utm_term,
+            utmContent: payload.utm_content,
+            gclid: payload.gclid,
+            fbclid: payload.fbclid,
+            lang: payload.lang,
+            createdAt: new Date(insertedData.created_at).toISOString(),
+            dashboardUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3001'}/admin/leads/${insertedData.id}`,
+          });
         }
-
-        // Extraire prénom et nom
-        const nameParts = payload.name.split(' ');
-        const firstName = nameParts[0] || '';
-        const lastName = nameParts.slice(1).join(' ') || '';
-
-        await notifyNewLead({
-          leadId: insertedData.id,
-          fullName: payload.name,
-          firstName: firstName,
-          lastName: lastName,
-          email: payload.email,
-          phone: payload.phone,
-          company: payload.company,
-          source: payload.origin || 'website',
-          status: 'new',
-          message: payload.message,
-          solution: payload.solution,
-          categoryId: payload.category_id,
-          categoryName: categoryName,
-          page: payload.page,
-          origin: payload.origin,
-          utmSource: payload.utm_source,
-          utmMedium: payload.utm_medium,
-          utmCampaign: payload.utm_campaign,
-          utmTerm: payload.utm_term,
-          utmContent: payload.utm_content,
-          gclid: payload.gclid,
-          fbclid: payload.fbclid,
-          lang: payload.lang,
-          createdAt: new Date(insertedData.created_at).toISOString(),
-          dashboardUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3001'}/admin/leads/${insertedData.id}`,
-        });
       } catch (webhookError) {
         // Erreur déjà loggée dans sendWebhookNotification, on continue
         console.warn('Webhook notification failed, but lead was created successfully');
