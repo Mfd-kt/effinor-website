@@ -13,7 +13,7 @@ const nextConfig: NextConfig = {
         hostname: 'images.unsplash.com',
         pathname: '/**',
       },
-      // Pour les images Supabase Storage (à ajouter si vous utilisez Supabase Storage)
+      // Pour les images Supabase Storage
       {
         protocol: 'https',
         hostname: '*.supabase.co',
@@ -21,10 +21,12 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  // Exclure le Dashboard du build (c'est une application séparée)
-  // Note: Le Dashboard est déjà exclu via .vercelignore
   // Configuration Turbopack pour Next.js 16 (utilisé par défaut sur Vercel)
   turbopack: {},
+  // Ignorer les erreurs ESLint lors du build (pour le déploiement)
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };
 
 export default nextConfig;

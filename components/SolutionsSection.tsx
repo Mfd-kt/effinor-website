@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Lang, Dictionary } from '@/types';
 import { SectionTitle } from '@/components/ui/SectionTitle';
-import { Card } from '@/components/ui/Card';
+import { Card } from '@/components/ui/card';
 
 interface SolutionsSectionProps {
   lang: Lang;

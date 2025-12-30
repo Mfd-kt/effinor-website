@@ -3,7 +3,7 @@ import { isValidLang, getDictionary } from '@/lib/i18n';
 import { Lang } from '@/types';
 import Link from 'next/link';
 import { getSeoContentBySlug } from '@/lib/services/seo-content';
-import { Button } from '@/components/ui/Button';
+import { Button } from '@/components/ui/button';
 import type { Metadata } from 'next';
 
 interface AboutPageProps {

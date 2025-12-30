@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import { isValidLang, getDictionary } from '@/lib/i18n';
 import { Lang } from '@/types';
 import ContactFormSection from '@/components/ContactFormSection';
-import { Card } from '@/components/ui/Card';
+import { Card } from '@/components/ui/card';
 import { SectionTitle } from '@/components/ui/SectionTitle';
 import { getSeoContentBySlug } from '@/lib/services/seo-content';
 import { extractContactInfo } from '@/lib/utils/contact';

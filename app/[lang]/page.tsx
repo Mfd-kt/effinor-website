@@ -6,8 +6,8 @@ import SolutionsSection from '@/components/SolutionsSection';
 import WhySection from '@/components/WhySection';
 import ProcessSection from '@/components/ProcessSection';
 import ContactFormSection from '@/components/ContactFormSection';
-import { Badge } from '@/components/ui/Badge';
-import { Button } from '@/components/ui/Button';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 
 interface HomePageProps {
   params: Promise<{ lang: string }>;

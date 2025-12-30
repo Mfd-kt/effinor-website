@@ -2,7 +2,7 @@
 
 import { Product, Lang } from '@/lib/products';
 import { getPriceLabel } from '@/lib/pricing';
-import { Card } from '@/components/ui/Card';
+import { Card } from '@/components/ui/card';
 import AddToCartButton, { type CartItemInput } from '@/components/cart/AddToCartButton';
 import Link from 'next/link';
 

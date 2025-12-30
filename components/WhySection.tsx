@@ -1,6 +1,6 @@
 import { Dictionary } from '@/types';
 import { SectionTitle } from '@/components/ui/SectionTitle';
-import { Card } from '@/components/ui/Card';
+import { Card } from '@/components/ui/card';
 
 interface WhySectionProps {
   dict: Dictionary;

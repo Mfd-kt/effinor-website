@@ -4,13 +4,19 @@ import { detectPreferredLang } from '@/lib/detectLang';
 import { isValidLang } from '@/lib/i18n';
 
 /**
- * Middleware pour la gestion du routing multilingue
+ * Middleware pour la gestion du routing multilingue et de l'authentification admin
  * 
- * Redirige les utilisateurs arrivant sur "/" vers leur langue préférée
- * basée sur le cookie 'lang' ou le header Accept-Language
+ * - Redirige les utilisateurs arrivant sur "/" vers leur langue préférée
+ * - Gère l'authentification pour les routes /admin/* (actuellement désactivée)
  */
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  // Routes admin : pour l'instant, laisser passer toutes les requêtes
+  // L'authentification sera réimplémentée proprement plus tard
+  if (pathname.startsWith('/admin')) {
+    return NextResponse.next();
+  }
 
   // Si on est déjà sur une route avec langue (/fr, /en, /ar), on laisse passer
   const langMatch = pathname.match(/^\/(fr|en|ar)(\/|$)/);

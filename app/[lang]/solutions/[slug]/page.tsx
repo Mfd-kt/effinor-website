@@ -2,8 +2,8 @@ import { notFound } from 'next/navigation';
 import { isValidLang, getDictionary } from '@/lib/i18n';
 import { Lang, Dictionary } from '@/types';
 import Link from 'next/link';
-import { Button } from '@/components/ui/Button';
-import { Card } from '@/components/ui/Card';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
 import ContactFormSection from '@/components/ContactFormSection';
 
 interface SolutionPageProps {

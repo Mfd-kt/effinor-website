@@ -1,8 +1,5 @@
 # Fichiers et dossiers à ignorer lors du déploiement sur Vercel
 
-# Dashboard (application séparée)
-Dashboard/
-
 # Fichiers de déploiement
 deploy/
 *.zip

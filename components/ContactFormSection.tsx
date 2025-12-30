@@ -6,7 +6,7 @@ import { submitContactLead, updateContactLead } from '@/app/actions/contact';
 import { createClient } from '@supabase/supabase-js';
 import { Lang, Dictionary } from '@/types';
 import { Zap, User, Phone, Mail, Building, Square, CheckCircle2 } from 'lucide-react';
-import { Card } from '@/components/ui/Card';
+import { Card } from '@/components/ui/card';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 

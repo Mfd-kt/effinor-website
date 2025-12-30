@@ -1,6 +1,6 @@
 'use client';
 
-import { Card } from '@/components/ui/Card';
+import { Card } from '@/components/ui/card';
 import { Trash2, Plus, Minus } from 'lucide-react';
 import { linePriceLabel } from '@/lib/cart-pricing';
 import type { CartItem } from '@/lib/cart-store';

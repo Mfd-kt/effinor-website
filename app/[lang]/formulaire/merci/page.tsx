@@ -1,8 +1,8 @@
 import { notFound } from 'next/navigation';
 import { isValidLang, getDictionary } from '@/lib/i18n';
 import { Lang } from '@/types';
-import { Card } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
+import { Card } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import { CheckCircle } from 'lucide-react';
 import Link from 'next/link';
 import type { Metadata } from 'next';

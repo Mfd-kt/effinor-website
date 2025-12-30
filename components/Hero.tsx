@@ -6,7 +6,7 @@ interface HeroProps {
   dict: Dictionary;
 }
 
-import { Button } from '@/components/ui/Button';
+import { Button } from '@/components/ui/button';
 
 export default function Hero({ lang, dict }: HeroProps) {
   return (

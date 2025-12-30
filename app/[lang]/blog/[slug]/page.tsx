@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import { isValidLang, getDictionary } from '@/lib/i18n';
 import { Lang } from '@/types';
 import Link from 'next/link';
-import { Button } from '@/components/ui/Button';
+import { Button } from '@/components/ui/button';
 import { getPublishedPosts, getPostBySlug } from '@/lib/services/blog';
 import Image from 'next/image';
 import { format } from 'date-fns';

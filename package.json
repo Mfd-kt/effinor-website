@@ -4,17 +4,14 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "dev:dashboard": "cd Dashboard && npm run dev",
-    "dev:all": "concurrently \"npm run dev\" \"npm run dev:dashboard\"",
     "build": "next build",
-    "build:dashboard": "cd Dashboard && npm run build",
-    "build:all": "npm run build && npm run build:dashboard",
     "start": "next start",
-    "start:dashboard": "cd Dashboard && npm run start",
     "lint": "eslint"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.1.0",
     "@supabase/supabase-js": "^2.87.1",
+    "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
     "lucide-react": "^0.560.0",
@@ -22,7 +19,9 @@
     "next": "^16.0.10",
     "react": "^19.2.1",
     "react-dom": "^19.2.1",
+    "recharts": "^3.6.0",
     "tailwind-merge": "^3.4.0",
+    "tailwindcss-animate": "^1.0.7",
     "zustand": "^5.0.9"
   },
   "devDependencies": {

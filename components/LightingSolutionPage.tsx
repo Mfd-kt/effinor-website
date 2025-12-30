@@ -1,8 +1,8 @@
 import { Lang, Dictionary } from '@/types';
 import { Product } from '@/lib/products';
 import Link from 'next/link';
-import { Button } from '@/components/ui/Button';
-import { Card } from '@/components/ui/Card';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
 import ContactFormSection from './ContactFormSection';
 import { Category } from '@/lib/categories';
 import ProductCard from './products/ProductCard';

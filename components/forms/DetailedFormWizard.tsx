@@ -11,8 +11,8 @@ import Step3EnergyExpensesComponent from './Step3EnergyExpenses';
 import Step4BuildingConfigComponent from './Step4BuildingConfig';
 import Step5BuildingDetailsComponent from './Step5BuildingDetails';
 import Step6SummaryComponent from './Step6Summary';
-import { Button } from '@/components/ui/Button';
-import { Card } from '@/components/ui/Card';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
 
 interface DetailedFormWizardProps {
   lang: Lang;

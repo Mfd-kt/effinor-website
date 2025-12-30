@@ -128,8 +128,8 @@ export async function submitContactLead(formData: FormData) {
     // Note: Le webhook est dans le Dashboard qui est exclu du build, donc on l'appelle de manière optionnelle
     if (insertedData) {
       try {
-        // Import dynamique optionnel - le Dashboard peut ne pas être disponible
-        const webhookModule = await import('@/Dashboard/lib/services/webhook').catch(() => null);
+        // Import dynamique optionnel - le webhook peut ne pas être disponible
+        const webhookModule = await import('@/lib/services/webhook').catch(() => null);
         
         if (webhookModule?.notifyNewLead) {
           // Récupérer le nom de la catégorie si category_id existe

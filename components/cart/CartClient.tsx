@@ -4,8 +4,8 @@ import { useRouter } from 'next/navigation';
 import { useCart } from '@/lib/cart-store';
 import { formatPrice } from '@/lib/cart-pricing';
 import { Lang, Dictionary } from '@/types';
-import { Card } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
+import { Card } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import CartLineItem from './CartLineItem';
 import Link from 'next/link';
 
