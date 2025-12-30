@@ -283,7 +283,7 @@ export default function ContactFormSection({ lang, dict, compact = false, catego
 
       {/* Nom complet */}
       <div>
-        <label htmlFor="name" className={`block text-sm font-medium ${labelTextColor} mb-1`}>
+        <label htmlFor="name" className={`block text-sm font-medium ${labelTextColor} mb-2`}>
           {dict.contact.form.name} *
         </label>
         <div className="flex items-center gap-2">
@@ -303,7 +303,7 @@ export default function ContactFormSection({ lang, dict, compact = false, catego
 
       {/* Téléphone */}
       <div>
-        <label htmlFor="phone" className={`block text-sm font-medium ${labelTextColor} mb-1`}>
+        <label htmlFor="phone" className={`block text-sm font-medium ${labelTextColor} mb-2`}>
           {dict.contact.form.phone} *
         </label>
         <div className="flex items-center gap-2">
@@ -323,7 +323,7 @@ export default function ContactFormSection({ lang, dict, compact = false, catego
 
       {/* Type de bâtiment */}
       <div>
-        <label htmlFor="building_type" className={`block text-sm font-medium ${labelTextColor} mb-1`}>
+        <label htmlFor="building_type" className={`block text-sm font-medium ${labelTextColor} mb-2`}>
           {dict.contact.form.buildingTypeLabel || dict.contact.form.needTypeLabel} *
         </label>
         <div className="flex items-center gap-2">
@@ -357,7 +357,7 @@ export default function ContactFormSection({ lang, dict, compact = false, catego
 
       {/* Surface (m²) */}
       <div>
-        <label htmlFor="surface_m2" className={`block text-sm font-medium ${labelTextColor} mb-1`}>
+        <label htmlFor="surface_m2" className={`block text-sm font-medium ${labelTextColor} mb-2`}>
           {dict.contact.form.surfaceLabel} *
         </label>
         <div className="flex items-center gap-2">
@@ -379,7 +379,7 @@ export default function ContactFormSection({ lang, dict, compact = false, catego
 
       {/* Email professionnel */}
       <div>
-        <label htmlFor="email" className={`block text-sm font-medium ${labelTextColor} mb-1`}>
+        <label htmlFor="email" className={`block text-sm font-medium ${labelTextColor} mb-2`}>
           {dict.contact.form.email} *
         </label>
         <div className="flex items-center gap-2">
@@ -502,16 +502,12 @@ export default function ContactFormSection({ lang, dict, compact = false, catego
   if (compact) {
     return (
       <Card className="max-w-md bg-white" padding="lg">
-        {/* Icône éclair en haut à gauche */}
-        <div className="flex items-start gap-3 mb-4">
-          <div className="w-8 h-8 rounded-full bg-[#10B981]/10 flex items-center justify-center flex-shrink-0">
-            <Zap className="w-4 h-4 text-[#10B981]" />
-          </div>
-        </div>
-
         {/* Titre et sous-titre centrés */}
-        <div className="text-center mb-6">
-          <h2 className="text-xl md:text-2xl font-semibold text-[#0F172A] mb-1">
+        <div className="text-center mb-8">
+          <div className="w-12 h-12 rounded-full bg-[#10B981]/10 flex items-center justify-center mx-auto mb-4">
+            <Zap className="w-6 h-6 text-[#10B981]" />
+          </div>
+          <h2 className="text-xl md:text-2xl font-semibold text-[#0F172A] mb-2">
             {formTitle}
           </h2>
           <p className="text-sm text-[#4B5563]">
@@ -531,16 +527,12 @@ export default function ContactFormSection({ lang, dict, compact = false, catego
       <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl mx-auto">
           <Card padding="lg">
-            {/* Icône éclair en haut à gauche */}
-            <div className="flex items-start gap-3 mb-4">
-              <div className="w-8 h-8 rounded-full bg-[#10B981]/10 flex items-center justify-center flex-shrink-0">
-                <Zap className="w-4 h-4 text-[#10B981]" />
-              </div>
-            </div>
-
             {/* Titre et sous-titre centrés */}
-            <div className="text-center mb-6">
-              <h2 className="text-xl md:text-2xl font-semibold text-[#0F172A] mb-1">
+            <div className="text-center mb-8">
+              <div className="w-12 h-12 rounded-full bg-[#10B981]/10 flex items-center justify-center mx-auto mb-4">
+                <Zap className="w-6 h-6 text-[#10B981]" />
+              </div>
+              <h2 className="text-xl md:text-2xl font-semibold text-[#0F172A] mb-2">
                 {formTitle}
               </h2>
               <p className="text-sm text-[#4B5563]">
