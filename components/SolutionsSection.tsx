@@ -49,7 +49,7 @@ export default function SolutionsSection({ lang, dict }: SolutionsSectionProps) 
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {solutions.map((solution, index) => (
-            <Card key={index} className="hover:shadow-xl transition-shadow duration-300">
+            <Card key={index} className="hover:shadow-xl transition-shadow duration-300" padding="lg">
               <div className="text-4xl mb-4">{solution.icon}</div>
               <h3 className="text-xl font-bold text-[#111827] mb-3">
                 {solution.title}

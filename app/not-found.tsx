@@ -5,7 +5,7 @@ import { Card } from '@/components/ui/card';
 export default function NotFound() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#F9FAFB]">
-      <Card className="text-center" padding="lg">
+      <Card className="text-center" padding="xl">
         <h1 className="text-4xl md:text-5xl font-extrabold text-[#111827] mb-4">404</h1>
         <p className="text-xl text-[#4B5563] mb-8">Page non trouvée</p>
         <Link href="/fr">

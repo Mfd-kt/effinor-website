@@ -68,7 +68,7 @@ export default async function SolutionPage({ params }: SolutionPageProps) {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Colonne principale */}
             <div className="lg:col-span-2 space-y-6">
-              <Card>
+              <Card padding="lg">
                 <h2 className="text-2xl font-bold text-[#111827] mb-4">
                   {lang === 'fr' && 'En savoir plus'}
                   {lang === 'en' && 'Learn more'}
@@ -88,7 +88,7 @@ export default async function SolutionPage({ params }: SolutionPageProps) {
                 </div>
               </Card>
 
-              <Card>
+              <Card padding="lg">
                 <h2 className="text-2xl font-bold text-[#111827] mb-4">
                   {lang === 'fr' && 'Avantages'}
                   {lang === 'en' && 'Benefits'}

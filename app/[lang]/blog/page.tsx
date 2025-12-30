@@ -71,7 +71,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
 
         {posts.length === 0 ? (
           <div className="max-w-2xl mx-auto">
-            <Card className="text-center" padding="lg">
+            <Card className="text-center" padding="xl">
               <p className="text-[#4B5563] mb-6">
                 {validLang === 'fr' && 'Le blog sera bientôt disponible. Revenez bientôt pour découvrir nos articles !'}
                 {validLang === 'en' && 'The blog will be available soon. Come back soon to discover our articles!'}

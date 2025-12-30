@@ -93,7 +93,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
 
           {/* Colonne droite : Zone d'achat (40%) */}
           <div className={`lg:col-span-2 ${isRTL ? 'lg:col-start-1 lg:row-start-1' : ''}`}>
-            <Card className="sticky top-24" padding="md">
+            <Card className="sticky top-24" padding="lg">
               {/* Badge catégorie */}
               <Badge variant="default" className="mb-4">
                 {product.categoryName}

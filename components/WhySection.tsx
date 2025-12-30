@@ -39,7 +39,7 @@ export default function WhySection({ dict }: WhySectionProps) {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {reasons.map((reason, index) => (
-            <Card key={index} className="text-center">
+            <Card key={index} className="text-center" padding="lg">
               <div className="text-5xl mb-4">{reason.icon}</div>
               <h3 className="text-xl font-bold text-[#111827] mb-3">
                 {reason.title}

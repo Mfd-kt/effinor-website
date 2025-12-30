@@ -27,7 +27,7 @@ export default function ProductCard({ product, lang }: ProductCardProps) {
   };
 
   return (
-    <Card className="hover:shadow-xl transition-shadow duration-300 flex flex-col">
+    <Card className="hover:shadow-xl transition-shadow duration-300 flex flex-col" padding="lg">
       {product.mainImageUrl && (
         <Link href={`/${lang}/products/${product.slug}`} className="hover:opacity-90 transition-opacity">
           <div className="w-full h-48 bg-gray-100 rounded-lg mb-4 overflow-hidden">

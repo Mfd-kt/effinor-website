@@ -34,7 +34,7 @@ export default function ProcessSection({ dict }: ProcessSectionProps) {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
           {steps.map((step, index) => (
-            <Card key={index} className="text-center">
+            <Card key={index} className="text-center" padding="lg">
               <div className="w-16 h-16 bg-[#10B981] text-white rounded-full flex items-center justify-center text-2xl font-extrabold mx-auto mb-4">
                 {step.number}
               </div>

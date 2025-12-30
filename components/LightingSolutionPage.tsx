@@ -127,7 +127,7 @@ export default function LightingSolutionPage({
             {detail.processTitle}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card>
+            <Card padding="lg">
               <div className="w-12 h-12 rounded-full bg-[#10B981] text-white flex items-center justify-center text-xl font-extrabold mb-4">
                 1
               </div>
@@ -139,7 +139,7 @@ export default function LightingSolutionPage({
               </p>
             </Card>
 
-            <Card>
+            <Card padding="lg">
               <div className="w-12 h-12 rounded-full bg-[#10B981] text-white flex items-center justify-center text-xl font-extrabold mb-4">
                 2
               </div>
@@ -151,7 +151,7 @@ export default function LightingSolutionPage({
               </p>
             </Card>
 
-            <Card>
+            <Card padding="lg">
               <div className="w-12 h-12 rounded-full bg-[#10B981] text-white flex items-center justify-center text-xl font-extrabold mb-4">
                 3
               </div>
@@ -163,7 +163,7 @@ export default function LightingSolutionPage({
               </p>
             </Card>
 
-            <Card>
+            <Card padding="lg">
               <div className="w-12 h-12 rounded-full bg-[#10B981] text-white flex items-center justify-center text-xl font-extrabold mb-4">
                 4
               </div>

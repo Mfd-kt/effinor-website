@@ -46,7 +46,7 @@ export default async function ThankYouPage({ params }: ThankYouPageProps) {
   return (
     <div className="min-h-screen bg-[#F9FAFB] py-16 md:py-24">
       <div className="container mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
-        <Card className="p-8 md:p-12 text-center" padding="lg">
+        <Card className="text-center" padding="xl">
           <div className="mb-6">
             <CheckCircle className="h-16 w-16 text-[#10B981] mx-auto" />
           </div>

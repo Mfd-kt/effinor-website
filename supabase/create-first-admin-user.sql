@@ -28,7 +28,7 @@ INSERT INTO public.utilisateurs (
   active
 ) 
 SELECT 
-  'VOTRE_AUTH_USER_ID_ICI'::UUID,  -- ⚠️ REMPLACEZ CETTE VALEUR ⚠️
+  '02510ead-a238-458c-96c0-f10985b43942'::UUID,  -- ⚠️ REMPLACEZ CETTE VALEUR ⚠️
   'admin@effinor.com',              -- Ajustez l'email si nécessaire
   'Admin',                          -- Ajustez le prénom si nécessaire
   'Effinor',                        -- Ajustez le nom si nécessaire

@@ -71,7 +71,7 @@ export default async function ContactPage({ params }: ContactPageProps) {
           <ContactFormSection lang={validLang} dict={dict} />
 
           {/* Informations de contact depuis la base de données */}
-          <Card className="mt-12" padding="lg">
+          <Card className="mt-12" padding="xl">
             <h2 className="text-2xl font-bold text-[#111827] mb-6">
               {validLang === 'fr' && 'Autres moyens de contact'}
               {validLang === 'en' && 'Other ways to reach us'}
