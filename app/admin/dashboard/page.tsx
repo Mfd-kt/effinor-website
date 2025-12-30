@@ -324,7 +324,7 @@ export default function DashboardPage() {
           </h2>
           <div className="grid gap-3 md:grid-cols-3">
             {alerts.map((alert) => (
-              <Card key={alert.id} className="border-l-4 border-l-effinor-emerald hover:shadow-md transition-shadow">
+              <Card key={alert.id} className="border-l-4 border-l-[#10B981] hover:shadow-md transition-shadow">
                 <CardContent className="p-4">
                   <div className="flex items-start gap-3">
                     <alert.icon className="h-5 w-5 text-[#10B981] mt-0.5 flex-shrink-0" />
