@@ -501,7 +501,7 @@ export default function ContactFormSection({ lang, dict, compact = false, catego
   // La Card a toujours un fond blanc, donc les textes sont toujours sombres
   if (compact) {
     return (
-      <Card className="max-w-md bg-white" padding="xl">
+      <Card className="max-w-md bg-white" padding="2xl">
         {/* Titre et sous-titre centrés */}
         <div className="text-center mb-8">
           <div className="w-12 h-12 rounded-full bg-[#10B981]/10 flex items-center justify-center mx-auto mb-4">
@@ -526,7 +526,7 @@ export default function ContactFormSection({ lang, dict, compact = false, catego
     <section className="py-16 md:py-24 bg-white">
       <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl mx-auto">
-          <Card padding="xl">
+          <Card padding="2xl">
             {/* Titre et sous-titre centrés */}
             <div className="text-center mb-8">
               <div className="w-12 h-12 rounded-full bg-[#10B981]/10 flex items-center justify-center mx-auto mb-4">
