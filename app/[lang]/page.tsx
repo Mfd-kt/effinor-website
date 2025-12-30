@@ -35,7 +35,7 @@ export default async function HomePage({ params }: HomePageProps) {
           {/* Colonne gauche : texte hero */}
           <div className="w-full md:w-1/2 flex flex-col justify-center">
             {dict.hero.badge && (
-              <Badge variant="amber" className="bg-[#F59E0B]/20 text-[#FBBF24] mb-6 w-fit">
+              <Badge variant="secondary" className="bg-[#F59E0B]/20 text-[#FBBF24] border-[#F59E0B]/30 mb-6 w-fit">
                 {dict.hero.badge}
               </Badge>
             )}
@@ -52,12 +52,12 @@ export default async function HomePage({ params }: HomePageProps) {
               className={`flex flex-col sm:flex-row gap-4 ${isRTL ? 'sm:flex-row-reverse' : ''}`}
             >
               <Link href={`/${lang}/contact`}>
-                <Button variant="primary" className="bg-[#10B981] hover:bg-[#059669]">
+                <Button variant="default" className="bg-[#10B981] hover:bg-[#059669] text-white">
                   {dict.hero.ctaPrimary}
                 </Button>
               </Link>
               <Link href={`/${lang}/solutions/luminaire`}>
-                <Button variant="secondary" className="bg-white/10 border-white/30 text-white hover:bg-white/20">
+                <Button variant="outline" className="bg-white/10 border-white/30 text-white hover:bg-white/20">
                   {dict.hero.ctaSecondary}
                 </Button>
               </Link>
